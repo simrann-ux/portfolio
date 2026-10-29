@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const moonIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
 
   function applyTheme(theme) {
-    const active = theme === 'light' ? 'light' : 'dark';
+    const active = theme === 'dark' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', active);
     try { localStorage.setItem('simran_theme', active); } catch (e) { /* storage unavailable */ }
     if (themeToggle) {
@@ -62,6 +62,36 @@ document.addEventListener('DOMContentLoaded', () => {
       const current = document.documentElement.getAttribute('data-theme');
       applyTheme(current === 'dark' ? 'light' : 'dark');
     });
+  }
+
+  /* =========================================================================
+     1b. Ambient Cubes Mouse Parallax
+     ========================================================================= */
+  const shapeWrappers = document.querySelectorAll('.shape-wrapper');
+
+  if (shapeWrappers.length > 0) {
+    let cubeMouseX = 0;
+    let cubeMouseY = 0;
+    let cubeTargetX = 0;
+    let cubeTargetY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      cubeMouseX = (e.clientX / window.innerWidth - 0.5) * 35;
+      cubeMouseY = (e.clientY / window.innerHeight - 0.5) * 35;
+    });
+
+    function updateCubeParallax() {
+      cubeTargetX += (cubeMouseX - cubeTargetX) * 0.08;
+      cubeTargetY += (cubeMouseY - cubeTargetY) * 0.08;
+
+      shapeWrappers.forEach(wrapper => {
+        const speed = parseFloat(wrapper.dataset.speed || 1);
+        wrapper.style.transform = `translate3d(${cubeTargetX * speed}px, ${cubeTargetY * speed}px, 0)`;
+      });
+
+      requestAnimationFrame(updateCubeParallax);
+    }
+    updateCubeParallax();
   }
 
   /* =========================================================================
