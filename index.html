@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="UTF-8">
@@ -8,634 +8,300 @@
   <meta name="description"
     content="Portfolio of Simran Kapoor, Computer Science student at Chitkara University and former Frontend Shopify Developer Intern at Dagar.io. Building LLM-powered tools, secure full-stack apps, and pixel-perfect storefronts.">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/jpeg" href="assets/avatar.jpg">
 
-  <!-- Fonts: Plus Jakarta Sans & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet">
 
-  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- Devicon CDN (Required for Wavy Tech Stack Glyphs) -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+  <link rel="stylesheet" href="style.css?v=3.0">
 
-  <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=2.6">
-
-  <!-- Immediate Theme Initialization (Prevents flash of wrong intro theme) -->
+  <!-- Apply saved theme before paint (dark is the default) -->
   <script>
     (function () {
-      const savedTheme = localStorage.getItem('simran_theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      document.addEventListener('DOMContentLoaded', function () {
-        if (document.body) {
-          document.body.setAttribute('data-theme', savedTheme);
-        }
-      });
+      var theme = 'dark';
+      try { theme = localStorage.getItem('simran_theme') || 'dark'; } catch (e) { }
+      document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>
 </head>
 
 <body>
 
-  <!-- Page-Load Transition Overlay -->
-  <aside id="introLoader" class="intro-loader" aria-label="Website loading intro" role="dialog" aria-modal="true">
-    <div class="intro-stage" id="introStage">
-      <!-- Centered Minimal Pill -->
-      <div class="intro-pill" id="introPill"></div>
-    </div>
-  </aside>
+  <a class="skip-link" href="#work">Skip to work</a>
 
-  <!-- Ambient Floating 3D Grey Squircles / Cubes (Continuous Dynamic Floating) -->
-  <div class="ambient-shapes-container" aria-hidden="true">
-    <div class="shape-wrapper shape-pos-1" data-speed="1.2">
-      <div class="ambient-cube cube-1"></div>
-    </div>
-    <div class="shape-wrapper shape-pos-2" data-speed="0.8">
-      <div class="ambient-cube cube-2"></div>
-    </div>
-    <div class="shape-wrapper shape-pos-3" data-speed="1.5">
-      <div class="ambient-cube cube-3"></div>
-    </div>
-    <div class="shape-wrapper shape-pos-4" data-speed="0.6">
-      <div class="ambient-cube cube-4"></div>
-    </div>
-    <div class="shape-wrapper shape-pos-5" data-speed="1.1">
-      <div class="ambient-cube cube-5"></div>
-    </div>
-    <div class="shape-wrapper shape-pos-6" data-speed="0.9">
-      <div class="ambient-cube cube-6"></div>
-    </div>
-    <div class="shape-wrapper shape-pos-7" data-speed="1.3">
-      <div class="ambient-cube cube-7"></div>
-    </div>
-  </div>
-
-  <!-- Floating Header / Navigation (Matching Reference Screenshot) -->
-  <header class="floating-header">
-    <div class="header-inner">
-      <!-- Left: Memoji Avatar Profile Badge -->
-      <a href="#hero" class="avatar-badge" title="Simran Kapoor">
-        <img src="assets/avatar.jpg" alt="Simran Kapoor Avatar" class="avatar-img">
-        <span class="status-indicator" title="Available for work"></span>
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="wrap header-inner">
+      <a href="#top" class="wordmark" aria-label="Simran Kapoor, back to top">
+        <span class="wordmark-avatar">
+          <img src="assets/avatar.jpg" alt="">
+          <span class="status-dot" title="Available for work"></span>
+        </span>
+        <span>Simran Kapoor</span>
       </a>
 
-      <!-- Center: Segmented Navigation Pill (Work / Play / About) -->
-      <nav class="nav-pill" role="tablist">
-        <button class="nav-tab active" data-tab="work" role="tab" aria-selected="true">
-          <span>Work</span>
-        </button>
-        <button class="nav-tab" data-tab="play" role="tab" aria-selected="false">
-          <span>Play</span>
-          <span class="tab-badge">Interactive</span>
-        </button>
-        <button class="nav-tab" data-tab="about" role="tab" aria-selected="false">
-          <span>About</span>
-        </button>
+      <nav class="site-nav" id="siteNav" aria-label="Primary">
+        <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#lab" class="nav-link">Lab</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
-      <!-- Right: Action Buttons (Theme Toggle & Contact Trigger) -->
       <div class="header-actions">
-        <button id="themeToggleBtn" class="circle-btn" aria-label="Toggle theme" title="Toggle theme">
-          <i class="fa-solid fa-moon"></i>
+        <button id="themeToggleBtn" class="icon-btn" aria-label="Switch to light mode">
+          <i class="fa-solid fa-sun"></i>
         </button>
-        <button id="openContactBtn" class="circle-btn menu-btn" aria-label="Get in touch" title="Contact Me">
-          <i class="fa-solid fa-paper-plane"></i>
+        <button class="btn btn-solid btn-sm resume-btn open-resume">Resume</button>
+        <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false"
+          aria-controls="mobileMenu">
+          <i class="fa-solid fa-bars"></i>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Main Content Wrapper -->
-  <main class="page-container">
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav aria-label="Mobile">
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#lab">Lab</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="mobile-menu-foot">
+      <button class="text-link open-resume">Resume</button>
+      <a class="text-link" href="https://linkedin.com/in/simran-kapoor-5996b737a" target="_blank"
+        rel="noopener noreferrer">LinkedIn</a>
+      <a class="text-link" href="https://github.com/simrann-kapoor" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </div>
 
-    <!-- Hero Section (Matching Image 1 Design with Typewriter Effect) -->
-    <section id="hero" class="hero-section">
-      <div class="hero-content">
+  <main id="top">
 
-        <!-- Typewriter Title with Clean Black Cursor -->
-        <h1 class="hero-title">
-          <span id="typewriterText"></span><span class="typewriter-cursor"></span>
-        </h1>
+    <!-- Hero -->
+    <section class="hero wrap">
+      <div class="hero-top">
+        <p>Full-stack developer and computer science student at Chitkara University</p>
+        <p>Panipat, India</p>
+      </div>
 
-        <!-- Subtitle with Bullets (Matching Image 1: Leader • Builder • Forever Student) -->
-        <p class="hero-subtitle">
-          Leader • Builder • Forever Student
+      <h1 class="hero-name" aria-label="Simran Kapoor">
+        <span class="line" aria-hidden="true"><span>Simran</span></span>
+        <span class="line" aria-hidden="true"><span>Kapoor</span></span>
+      </h1>
+
+      <div class="hero-bottom">
+        <p class="hero-intro">
+          I build <strong>LLM tools with real guardrails</strong>, secure full-stack apps and Shopify storefronts
+          that hold up in production. Most recently a frontend Shopify developer intern at Dagar.io.
         </p>
+        <div class="hero-actions">
+          <button class="btn btn-solid open-resume">View resume</button>
+          <button class="btn btn-line" data-email="simrannkapoor60@gmail.com">Copy email</button>
+          <a class="text-link" href="https://linkedin.com/in/simran-kapoor-5996b737a" target="_blank"
+            rel="noopener noreferrer">LinkedIn</a>
+          <a class="text-link" href="https://github.com/simrann-kapoor" target="_blank"
+            rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
 
-        <!-- Two Pill Buttons (Matching Image 1: Resume & Email) -->
-        <div class="hero-btn-row">
-          <button id="viewResumeBtn" class="hero-btn hero-btn-dark">
-            <span>Resume</span>
+      <p class="hero-status"><span class="pulse-dot"></span>Open to internships, full-time roles and Shopify
+        contracts</p>
+    </section>
+
+    <!-- Work -->
+    <section id="work" class="section wrap">
+      <div class="section-head">
+        <h2 class="section-title">Selected work</h2>
+        <p class="section-note">From a local-LLM reporting tool to a heart-rate monitor. Select a project to see how
+          it was built.</p>
+      </div>
+
+      <ol class="work-list" id="workList">
+        <li>
+          <button class="work-row open-case-study" data-project="nlsql" data-preview="nlsql">
+            <span class="work-num">01</span>
+            <span class="work-title">NL-to-SQL Reporting Assistant</span>
+            <span class="work-desc">Plain-English business questions in, validated T-SQL and a results table out —
+              on a locally hosted LLM.</span>
+            <span class="work-stack">React, Ollama, sqlglot, SQL Server, MongoDB</span>
           </button>
-          <button id="quickCopyEmailBtn" class="hero-btn hero-btn-light" data-email="simrannkapoor60@gmail.com">
-            <span>Email</span>
+        </li>
+        <li>
+          <button class="work-row open-case-study" data-project="aurelis" data-preview="aurelis">
+            <span class="work-num">02</span>
+            <span class="work-title">AURELIS Expense Anomaly Detector</span>
+            <span class="work-desc">Flags unusual spending with per-category z-scores against each user's own
+              history. Built in a team of three.</span>
+            <span class="work-stack">Node.js, Express, MongoDB Atlas, JWT, bcrypt</span>
           </button>
-        </div>
-
-      </div>
+        </li>
+        <li>
+          <button class="work-row open-case-study" data-project="iot" data-preview="iot">
+            <span class="work-num">03</span>
+            <span class="work-title">Smart IoT Heartbeat Monitor</span>
+            <span class="work-desc">Captures heart rate and SpO2 in real time and streams live vitals to the cloud
+              for remote monitoring.</span>
+            <span class="work-stack">Arduino UNO, MAX30102, ESP01, ThingSpeak</span>
+            <img class="work-thumb" src="assets/iot_mockup.jpg" alt="" loading="lazy">
+          </button>
+        </li>
+        <li>
+          <button class="work-row open-case-study" data-project="ezilang" data-preview="ezilang">
+            <span class="work-num">04</span>
+            <span class="work-title">EziLang Language Learning</span>
+            <span class="work-desc">A vocabulary trainer with 3D flip cards, phonetic guides and native
+              pronunciation, live on Netlify.</span>
+            <span class="work-stack">HTML5, CSS3, JavaScript, Web Speech API</span>
+            <img class="work-thumb" src="assets/ezilang_mockup.jpg" alt="" loading="lazy">
+          </button>
+        </li>
+      </ol>
     </section>
 
-    <!-- Section 2 (Matching Image 2: Statement, Socials, and Infinite Floating Language Logos) -->
-    <section id="statement" class="statement-section">
-      <div class="statement-inner">
-
-        <!-- Top Left: 4 Circular Social Icon Buttons (LinkedIn, GitHub, Code, Twitter/X) -->
-        <div class="statement-social-row">
-          <a href="https://linkedin.com/in/simran-kapoor-5996b737a" target="_blank" rel="noopener noreferrer"
-            class="social-circle-link" title="LinkedIn" aria-label="LinkedIn">
-            <i class="fa-brands fa-linkedin-in"></i>
-          </a>
-          <a href="https://github.com/simrann-kapoor" target="_blank" rel="noopener noreferrer"
-            class="social-circle-link" title="GitHub" aria-label="GitHub">
-            <i class="fa-brands fa-github"></i>
-          </a>
-          <a href="https://github.com/simrann-kapoor" target="_blank" rel="noopener noreferrer"
-            class="social-circle-link" title="Code Projects" aria-label="Code">
-            <i class="fa-solid fa-code"></i>
-          </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-circle-link"
-            title="Twitter / X" aria-label="Twitter">
-            <i class="fa-brands fa-x-twitter"></i>
-          </a>
-        </div>
-
-        <!-- Big Impactful Statement with Scroll Typewriter Effect -->
-        <h2 class="statement-heading">
-          <span id="statementTypewriterText"></span><span class="statement-cursor"></span>
-        </h2>
-
-      </div>
-
-      <!-- Wavy Floating Tech Stack Marquee (Language Symbols) -->
-      <div class="skills-marquee-wrapper" id="skillsMarqueeWrapper" aria-label="Languages & Frameworks">
-        <div class="marquee-track" id="marqueeTrack">
-          <!-- Badges dynamically injected via JavaScript -->
-        </div>
-      </div>
-    </section>
-
-    <!-- The Dark Glowing Container with Typewriter Text & Gradient Cursor -->
-    <section class="dark-container-wrapper section-padding">
-      <div class="dark-container">
-        <div class="dot-matrix"></div>
-        <h2 class="dark-inner-text typewriter">Building for production, not just for the demo.<span
-            class="gradient-cursor"></span></h2>
-      </div>
-    </section>
-
-    <!-- TAB 1: WORK (Default View) -->
-    <div id="workView" class="tab-view active">
-
-      <div class="section-intro">
-        <div class="section-tag">SELECTED WORK</div>
-        <h2 class="section-heading">Featured Projects</h2>
-        <p class="section-subtext">LLM-powered tools, secure full-stack apps, hardware-to-cloud systems, and interactive web apps —
-          built end to end.</p>
-        <div class="quick-stats-strip" style="margin-top: 24px;">
-          <div class="stat-item">
-            <span class="stat-number">9.03</span>
-            <span class="stat-label">CGPA</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-item">
-            <span class="stat-number">5</span>
-            <span class="stat-label">MS Certifications</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-item">
-            <span class="stat-number">4</span>
-            <span class="stat-label">Shipped Projects</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-item">
-            <span class="stat-number">1</span>
-            <span class="stat-label">Internship</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="projects-container">
-
-        <!-- Project 1: NL-to-SQL Reporting Assistant -->
-        <article class="featured-card">
-          <div class="card-left">
-            <span class="card-icon-badge badge-purple"><i class="fa-solid fa-database"></i></span>
-            <div class="card-meta">
-              <span>Full-Stack + LLM</span>
-              <span class="meta-dot">●</span>
-              <span>Local AI</span>
-            </div>
-            <h3 class="card-title">NL-to-SQL Reporting Assistant</h3>
-            <p class="card-blurb">
-              Ask a business question in plain English, get back safe T-SQL and a results table. A locally hosted
-              LLM sees only an approved catalog of reporting views, and every query is validated before it runs.
-            </p>
-            <div class="tech-tag-group">
-              <span class="tech-pill">React</span>
-              <span class="tech-pill">Ollama</span>
-              <span class="tech-pill">sqlglot</span>
-              <span class="tech-pill">SQL Server</span>
-              <span class="tech-pill">MongoDB</span>
-            </div>
-            <div class="card-actions">
-              <button class="btn-card-action open-case-study" data-project="nlsql">
-                <span>Read Case Study</span>
-                <i class="fa-solid fa-arrow-right"></i>
-              </button>
-              <a href="https://github.com/simrann-kapoor" target="_blank" rel="noopener noreferrer"
-                class="btn-card-link">
-                <i class="fa-brands fa-github"></i>
-                <span>GitHub</span>
-              </a>
-            </div>
-          </div>
-          <div class="card-right">
-            <div class="mockup-frame code-mockup" aria-hidden="true">
-              <div class="preview-browser-bar">
-                <div class="browser-dots"><span></span><span></span><span></span></div>
-                <div class="browser-url">localhost:5173 / ask</div>
-              </div>
-              <div class="cm-body">
-                <div class="cm-question"><i class="fa-regular fa-comment"></i> Top 3 regions by revenue last quarter?
-                </div>
-                <pre class="cm-sql"><span class="kw">SELECT TOP</span> 3 region, <span class="kw">SUM</span>(revenue) <span class="kw">AS</span> total
+    <!-- Cursor-following preview for the work list -->
+    <div class="work-preview" id="workPreview" aria-hidden="true">
+      <div class="work-preview-inner">
+        <div class="pv" data-key="nlsql">
+          <div class="mock">
+            <div class="mock-bar"><span></span><span></span><span></span></div>
+            <div class="mock-ask">Top 3 regions by revenue last quarter?</div>
+            <pre class="mock-sql"><span class="kw">SELECT TOP</span> 3 region, <span class="kw">SUM</span>(revenue) <span class="kw">AS</span> total
 <span class="kw">FROM</span> rpt.v_sales_by_region
 <span class="kw">WHERE</span> quarter = <span class="str">'2026-Q3'</span>
 <span class="kw">GROUP BY</span> region <span class="kw">ORDER BY</span> total <span class="kw">DESC</span>;</pre>
-                <table class="cm-table">
-                  <tr><th>region</th><th>total</th></tr>
-                  <tr><td>North</td><td>₹4.82M</td></tr>
-                  <tr><td>West</td><td>₹3.97M</td></tr>
-                  <tr><td>South</td><td>₹3.41M</td></tr>
-                </table>
-              </div>
-              <div class="floating-metric-badge right-side">
-                <span class="metric-icon" style="background: var(--accent-purple-light); color: var(--accent-purple);"><i
-                    class="fa-solid fa-shield-halved"></i></span>
-                <div>
-                  <div class="metric-val">Validated SELECT</div>
-                  <div class="metric-sub">View whitelist · read-only</div>
-                </div>
-              </div>
-            </div>
+            <table class="mock-table">
+              <tr><td>North</td><td>₹4.82M</td></tr>
+              <tr><td>West</td><td>₹3.97M</td></tr>
+              <tr><td>South</td><td>₹3.41M</td></tr>
+            </table>
           </div>
-        </article>
-
-        <!-- Project 2: AURELIS Expense Anomaly Detector -->
-        <article class="featured-card reverse">
-          <div class="card-left">
-            <span class="card-icon-badge badge-blue"><i class="fa-solid fa-chart-line"></i></span>
-            <div class="card-meta">
-              <span>Full-Stack</span>
-              <span class="meta-dot">●</span>
-              <span>Team of 3</span>
-            </div>
-            <h3 class="card-title">AURELIS — Expense Anomaly Detector</h3>
-            <p class="card-blurb">
-              An expense tracker that flags unusual spending with per-category z-scores, using each user's own
-              history as the baseline. Moved from localStorage to a secure REST API with JWT auth — without
-              redesigning the frontend.
-            </p>
-            <div class="tech-tag-group">
-              <span class="tech-pill">Node.js</span>
-              <span class="tech-pill">Express</span>
-              <span class="tech-pill">MongoDB Atlas</span>
-              <span class="tech-pill">JWT</span>
-              <span class="tech-pill">bcrypt</span>
-            </div>
-            <div class="card-actions">
-              <button class="btn-card-action open-case-study" data-project="aurelis">
-                <span>Read Case Study</span>
-                <i class="fa-solid fa-arrow-right"></i>
-              </button>
-              <a href="https://github.com/simrann-kapoor" target="_blank" rel="noopener noreferrer"
-                class="btn-card-link">
-                <i class="fa-brands fa-github"></i>
-                <span>GitHub</span>
-              </a>
-            </div>
+        </div>
+        <div class="pv" data-key="aurelis">
+          <div class="mock">
+            <div class="mock-bar"><span></span><span></span><span></span></div>
+            <div class="mock-row"><span>Food</span><b>₹420</b><em>z 0.4</em></div>
+            <div class="mock-row"><span>Transport</span><b>₹160</b><em>z −0.2</em></div>
+            <div class="mock-row is-flag"><span>Shopping · flagged</span><b>₹8,900</b><em>z 3.1</em></div>
+            <div class="mock-row"><span>Utilities</span><b>₹1,250</b><em>z 0.7</em></div>
+            <div class="mock-row"><span>Entertainment</span><b>₹599</b><em>z 1.1</em></div>
           </div>
-          <div class="card-right">
-            <div class="mockup-frame code-mockup" aria-hidden="true">
-              <div class="preview-browser-bar">
-                <div class="browser-dots"><span></span><span></span><span></span></div>
-                <div class="browser-url">aurelis.app / expenses</div>
-              </div>
-              <div class="cm-body">
-                <div class="exp-row"><span class="exp-cat"><i class="fa-solid fa-utensils"></i> Food</span><span
-                    class="exp-amt">₹420</span><span class="exp-z">z 0.4</span></div>
-                <div class="exp-row"><span class="exp-cat"><i class="fa-solid fa-bus"></i> Transport</span><span
-                    class="exp-amt">₹160</span><span class="exp-z">z -0.2</span></div>
-                <div class="exp-row is-anomaly"><span class="exp-cat"><i class="fa-solid fa-bag-shopping"></i>
-                    Shopping</span><span class="exp-amt">₹8,900</span><span class="exp-z">z 3.1</span></div>
-                <div class="exp-row"><span class="exp-cat"><i class="fa-solid fa-bolt"></i> Utilities</span><span
-                    class="exp-amt">₹1,250</span><span class="exp-z">z 0.7</span></div>
-                <div class="exp-row"><span class="exp-cat"><i class="fa-solid fa-film"></i> Entertainment</span><span
-                    class="exp-amt">₹599</span><span class="exp-z">z 1.1</span></div>
-              </div>
-              <div class="floating-metric-badge">
-                <span class="metric-icon" style="background: var(--accent-rose-light); color: var(--accent-rose);"><i
-                    class="fa-solid fa-triangle-exclamation"></i></span>
-                <div>
-                  <div class="metric-val">Anomaly flagged</div>
-                  <div class="metric-sub">Shopping · 3.1σ above your usual</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 3: IoT Heartbeat Monitor -->
-        <article class="featured-card">
-          <div class="card-left">
-            <span class="card-icon-badge badge-rose"><i class="fa-solid fa-heart-pulse"></i></span>
-            <div class="card-meta">
-              <span>Hardware + Cloud</span>
-              <span class="meta-dot">●</span>
-              <span>IoT</span>
-            </div>
-            <h3 class="card-title">Smart IoT Heartbeat Monitoring with Cloud Integration</h3>
-            <p class="card-blurb">
-              An Arduino UNO, MAX30102 sensor, and ESP01 Wi-Fi module capturing heart rate and SpO2 in real time,
-              streaming live vitals to ThingSpeak for remote monitoring.
-            </p>
-            <div class="tech-tag-group">
-              <span class="tech-pill">Arduino UNO</span>
-              <span class="tech-pill">MAX30102</span>
-              <span class="tech-pill">ESP01</span>
-              <span class="tech-pill">ThingSpeak</span>
-            </div>
-            <div class="card-actions">
-              <button class="btn-card-action open-case-study" data-project="iot">
-                <span>Read Case Study</span>
-                <i class="fa-solid fa-arrow-right"></i>
-              </button>
-              <button class="btn-card-link switch-to-play" data-demo="ecg">
-                <i class="fa-solid fa-wave-square"></i>
-                <span>Live Monitor</span>
-              </button>
-            </div>
-          </div>
-          <div class="card-right">
-            <div class="mockup-frame">
-              <img src="assets/iot_mockup.jpg" alt="IoT heartbeat monitor mockup" class="mockup-image" loading="lazy">
-              <div class="floating-metric-badge">
-                <span class="metric-icon heart-pulse-anim"><i class="fa-solid fa-heart"></i></span>
-                <div>
-                  <div class="metric-val">78 BPM · 98% SpO2</div>
-                  <div class="metric-sub">Streaming to ThingSpeak</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-
-        <!-- Project 4: EziLang -->
-        <article class="featured-card reverse">
-          <div class="card-left">
-            <span class="card-icon-badge badge-blue"><i class="fa-solid fa-language"></i></span>
-            <div class="card-meta">
-              <span>Web App</span>
-              <span class="meta-dot">●</span>
-              <span>Live on Netlify</span>
-            </div>
-            <h3 class="card-title">EziLang — Language Learning Platform</h3>
-            <p class="card-blurb">
-              A responsive vocabulary trainer with 3D flip cards, phonetic guides, and native pronunciation through
-              the Web Speech API — built from scratch in vanilla HTML, CSS, and JavaScript.
-            </p>
-            <div class="tech-tag-group">
-              <span class="tech-pill">HTML5</span>
-              <span class="tech-pill">CSS3 Animations</span>
-              <span class="tech-pill">JavaScript (ES6+)</span>
-              <span class="tech-pill">Netlify</span>
-            </div>
-            <div class="card-actions">
-              <button class="btn-card-action open-case-study" data-project="ezilang">
-                <span>Read Case Study</span>
-                <i class="fa-solid fa-arrow-right"></i>
-              </button>
-              <button class="btn-card-link switch-to-play" data-demo="flashcard">
-                <i class="fa-solid fa-clone"></i>
-                <span>Try Flashcards</span>
-              </button>
-            </div>
-          </div>
-          <div class="card-right">
-            <div class="mockup-frame">
-              <img src="assets/ezilang_mockup.jpg" alt="EziLang app mockup" class="mockup-image" loading="lazy">
-              <div class="floating-metric-badge right-side">
-                <span class="metric-icon" style="background: var(--accent-blue-light); color: var(--accent-blue);"><i
-                    class="fa-solid fa-volume-high"></i></span>
-                <div>
-                  <div class="metric-val">Native Audio</div>
-                  <div class="metric-sub">Web Speech API</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
+        </div>
+        <div class="pv" data-key="iot"><img src="assets/iot_mockup.jpg" alt=""></div>
+        <div class="pv" data-key="ezilang"><img src="assets/ezilang_mockup.jpg" alt=""></div>
       </div>
-
-      <!-- Experience -->
-      <section class="experience-section">
-        <div class="section-intro">
-          <div class="section-tag">EXPERIENCE</div>
-          <h2 class="section-heading">Where I've Worked</h2>
-        </div>
-
-        <div class="experience-card">
-          <div class="exp-header">
-            <div class="exp-role-company">
-              <div class="company-logo-placeholder">D</div>
-              <div>
-                <h3 class="exp-role">Frontend Shopify Developer Intern</h3>
-                <div class="exp-company">
-                  <span class="company-name">Dagar.io</span>
-                  <span class="badge-remote"><i class="fa-solid fa-globe"></i> Remote</span>
-                </div>
-              </div>
-            </div>
-            <div class="exp-period">
-              <span class="period-text">June 2026 – October 2026</span>
-              <span class="period-status">5 months</span>
-            </div>
-          </div>
-
-          <ul class="exp-bullets">
-            <li>
-              <i class="fa-solid fa-circle-check"></i>
-              <span>Developed and customized Shopify storefronts using <strong>Liquid, HTML, CSS, JavaScript, and
-                  JSON</strong>, converting Figma designs into pixel-perfect, responsive pages.</span>
-            </li>
-            <li>
-              <i class="fa-solid fa-circle-check"></i>
-              <span>Built <strong>reusable sections and page templates</strong> and customized navigation,
-                collections, and blogs to speed up future theme development.</span>
-            </li>
-            <li>
-              <i class="fa-solid fa-circle-check"></i>
-              <span>Performed <strong>QA testing</strong> across layouts, links, and responsiveness, and collaborated
-                with designers and developers to optimize storefront performance.</span>
-            </li>
-          </ul>
-
-          <div class="exp-tech-chips">
-            <span class="chip">Shopify Liquid</span>
-            <span class="chip">Online Store 2.0</span>
-            <span class="chip">Figma</span>
-            <span class="chip">JavaScript</span>
-            <span class="chip">Shopify CLI</span>
-            <span class="chip">Git</span>
-          </div>
-
-          <div class="card-actions" style="margin-top: 26px;">
-            <button class="btn-card-action open-case-study" data-project="shopify">
-              <span>Read Case Study</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-            <button class="btn-card-link switch-to-play" data-demo="shopify">
-              <i class="fa-solid fa-sliders"></i>
-              <span>Try Theme Customizer</span>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Certifications -->
-      <section class="certifications-section">
-        <div class="section-intro">
-          <div class="section-tag">CREDENTIALS</div>
-          <h2 class="section-heading">Microsoft Certifications</h2>
-        </div>
-
-        <div class="certs-grid">
-          <div class="cert-card">
-            <div>
-              <div class="cert-icon-wrap ms-azure"><i class="fa-solid fa-brain"></i></div>
-              <span class="cert-badge-code">AI-900</span>
-              <h4 class="cert-title">Azure AI Fundamentals</h4>
-              <div class="cert-issuer">Microsoft</div>
-              <p class="cert-topics">Machine learning concepts, computer vision, NLP, and responsible AI on Azure.</p>
-            </div>
-            <span class="cert-status-badge"><i class="fa-solid fa-circle-check"></i> Certified</span>
-          </div>
-
-          <div class="cert-card">
-            <div>
-              <div class="cert-icon-wrap ms-azure"><i class="fa-solid fa-cloud"></i></div>
-              <span class="cert-badge-code">AZ-900</span>
-              <h4 class="cert-title">Azure Fundamentals</h4>
-              <div class="cert-issuer">Microsoft</div>
-              <p class="cert-topics">Cloud concepts, core Azure services, security, pricing, and governance.</p>
-            </div>
-            <span class="cert-status-badge"><i class="fa-solid fa-circle-check"></i> Certified</span>
-          </div>
-
-          <div class="cert-card">
-            <div>
-              <div class="cert-icon-wrap ms-data"><i class="fa-solid fa-database"></i></div>
-              <span class="cert-badge-code">DP-900</span>
-              <h4 class="cert-title">Azure Data Fundamentals</h4>
-              <div class="cert-issuer">Microsoft</div>
-              <p class="cert-topics">Relational and non-relational data, analytics workloads, and Azure data services.
-              </p>
-            </div>
-            <span class="cert-status-badge"><i class="fa-solid fa-circle-check"></i> Certified</span>
-          </div>
-
-          <div class="cert-card">
-            <div>
-              <div class="cert-icon-wrap ms-powerbi"><i class="fa-solid fa-chart-column"></i></div>
-              <span class="cert-badge-code">PL-300</span>
-              <h4 class="cert-title">Power BI Data Analyst Associate</h4>
-              <div class="cert-issuer">Microsoft</div>
-              <p class="cert-topics">Data modeling, DAX, report design, and dashboard deployment in Power BI.</p>
-            </div>
-            <span class="cert-status-badge"><i class="fa-solid fa-circle-check"></i> Certified</span>
-          </div>
-
-          <div class="cert-card">
-            <div>
-              <div class="cert-icon-wrap ms-azure"><i class="fa-solid fa-robot"></i></div>
-              <span class="cert-badge-code">AI-103</span>
-              <h4 class="cert-title">Azure AI Apps and Agents Developer Associate</h4>
-              <div class="cert-issuer">Microsoft</div>
-              <p class="cert-topics">Building generative AI apps and agents with Azure AI services.</p>
-            </div>
-            <span class="cert-status-badge"><i class="fa-solid fa-circle-check"></i> Certified</span>
-          </div>
-        </div>
-      </section>
-
     </div>
 
-    <!-- TAB 2: PLAY (Interactive Playground Experience) -->
-    <div id="playView" class="tab-view">
-      <div class="section-intro">
-        <div class="section-tag">PLAY & INTERACTIVE LAB</div>
-        <h2 class="section-heading">Interactive Experiments</h2>
-        <p class="section-subtext">Hands-on micro-applications demonstrating Shopify theme controls, live IoT biometric
-          telemetry, and language learning flashcards.</p>
+    <!-- Experience -->
+    <section id="experience" class="section wrap">
+      <div class="section-head">
+        <h2 class="section-title">Experience</h2>
+        <p class="section-note">Where I've worked, studied and led.</p>
       </div>
 
-      <div class="play-grid">
-
-        <!-- INTERACTIVE LAB 1: Live Shopify Section Customizer -->
-        <div class="interactive-box">
-          <div class="box-header">
-            <div class="box-title-group">
-              <span class="box-icon"><i class="fa-brands fa-shopify"></i></span>
-              <div>
-                <h3 class="box-title">Shopify Theme Customizer Simulator</h3>
-                <span class="box-sub">Liquid Online Store 2.0 Dynamic Preview</span>
-              </div>
+      <ol class="timeline">
+        <li class="tl-row">
+          <p class="tl-when">Jun – Oct 2026</p>
+          <div class="tl-body">
+            <h3 class="tl-role">Frontend Shopify Developer Intern</h3>
+            <p class="tl-org">Dagar.io, remote</p>
+            <p>Turned Figma designs into pixel-perfect, responsive Shopify storefronts with Liquid, HTML, CSS,
+              JavaScript and JSON. Built reusable sections and page templates, customized navigation, collections and
+              blogs, and ran QA across layouts, links and breakpoints alongside designers and developers.</p>
+            <div class="tl-actions">
+              <button class="btn btn-line btn-sm open-case-study" data-project="shopify">Read the case
+                study</button>
+              <button class="btn btn-line btn-sm switch-to-play" data-demo="shopify">Try the theme
+                customizer</button>
             </div>
-            <span class="badge-live-pulse">LIVE REACTIVE</span>
+          </div>
+        </li>
+        <li class="tl-row">
+          <p class="tl-when">Student chapter</p>
+          <div class="tl-body">
+            <h3 class="tl-role">Events Team Executive</h3>
+            <p class="tl-org">GeeksforGeeks Student Chapter, Chitkara University</p>
+            <p>Coordinate technical and non-technical events, and organize coding workshops and competitions with
+              student teams to promote peer learning on campus.</p>
+          </div>
+        </li>
+        <li class="tl-row">
+          <p class="tl-when">Expected 2028</p>
+          <div class="tl-body">
+            <h3 class="tl-role">Bachelor in Computer Science</h3>
+            <p class="tl-org">Chitkara University, CGPA 9.03</p>
+            <p>Coursework in data structures and algorithms, operating systems, computer networks, DBMS,
+              object-oriented programming, machine learning and cloud computing.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Lab -->
+    <section id="lab" class="section">
+      <div class="wrap section-head">
+        <div>
+          <h2 class="section-title">Lab</h2>
+          <p class="section-note" style="margin-top: 16px;">Working demos pulled from my projects. Scroll sideways or
+            use the arrows.</p>
+        </div>
+        <div class="lab-nav">
+          <button class="icon-btn" id="labPrev" aria-label="Previous demo"><i
+              class="fa-solid fa-arrow-left"></i></button>
+          <button class="icon-btn" id="labNext" aria-label="Next demo"><i
+              class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <div class="lab-track" id="labTrack" tabindex="0" aria-label="Interactive demos">
+
+        <!-- Demo 1: Shopify section customizer -->
+        <article class="lab-panel" id="labShopify">
+          <div class="lab-panel-head">
+            <div>
+              <h3 class="lab-panel-title">Shopify section customizer</h3>
+              <p>Change the settings and the section re-renders, the same way the Shopify theme editor works.</p>
+            </div>
+            <span class="lab-chip"><i class="fa-brands fa-shopify"></i> Online Store 2.0</span>
           </div>
 
           <div class="customizer-split">
-            <!-- Left: Settings Control Form (Like Shopify Theme Editor) -->
             <div class="customizer-controls">
               <div class="control-group">
-                <label for="shopHeading">Section Heading</label>
+                <label for="shopHeading">Heading</label>
                 <input type="text" id="shopHeading" value="Curated Summer Drops" class="styled-input">
               </div>
-
               <div class="control-group">
-                <label for="shopSubtitle">Subtitle / Subtext</label>
+                <label for="shopSubtitle">Subtitle</label>
                 <input type="text" id="shopSubtitle" value="Handcrafted essentials designed with precision."
                   class="styled-input">
               </div>
-
               <div class="control-row">
-                <div class="control-group half">
-                  <label for="shopBtnText">Button Label</label>
+                <div class="control-group">
+                  <label for="shopBtnText">Button label</label>
                   <input type="text" id="shopBtnText" value="Shop The Drop" class="styled-input">
                 </div>
-                <div class="control-group half">
-                  <label for="shopBadge">Category Tag</label>
+                <div class="control-group">
+                  <label for="shopBadge">Tag</label>
                   <input type="text" id="shopBadge" value="NEW ARRIVAL" class="styled-input">
                 </div>
               </div>
-
               <div class="control-row">
-                <div class="control-group half">
-                  <label for="shopThemeColor">Accent Color</label>
+                <div class="control-group">
+                  <label for="shopThemeColor">Accent colour</label>
                   <div class="color-picker-row">
                     <input type="color" id="shopThemeColor" value="#059669">
                     <span class="color-val" id="colorValHex">#059669</span>
                   </div>
                 </div>
-                <div class="control-group half">
+                <div class="control-group">
                   <label for="shopLayoutAlign">Alignment</label>
                   <select id="shopLayoutAlign" class="styled-select">
                     <option value="center">Center</option>
@@ -644,466 +310,230 @@
                   </select>
                 </div>
               </div>
-
               <div class="control-group">
                 <label class="checkbox-label">
                   <input type="checkbox" id="shopShowPrice" checked>
-                  <span>Show Product Price Tag ($180.00)</span>
+                  <span>Show price</span>
                 </label>
               </div>
             </div>
 
-            <!-- Right: Live Rendered Shopify Section Preview -->
-            <div class="customizer-preview-container">
+            <div class="customizer-preview">
               <div class="preview-browser-bar">
-                <div class="browser-dots">
-                  <span></span><span></span><span></span>
-                </div>
+                <div class="browser-dots"><span></span><span></span><span></span></div>
                 <div class="browser-url">preview.myshopify.com/sections/featured-drop</div>
               </div>
-
               <div id="liveShopifySection" class="shopify-section-render align-center">
                 <span class="live-pill" id="renderBadge">NEW ARRIVAL</span>
                 <h4 class="live-heading" id="renderHeading">Curated Summer Drops</h4>
                 <p class="live-subtitle" id="renderSubtitle">Handcrafted essentials designed with precision.</p>
                 <div class="live-product-card">
-                  <img src="assets/shopify_mockup.jpg" alt="Preview item" class="live-thumb">
+                  <img src="assets/shopify_mockup.jpg" alt="" class="live-thumb">
                   <div class="live-product-info">
                     <span class="live-item-name">Aurelia Minimalist Trench</span>
                     <span class="live-item-price" id="renderPrice">$180.00</span>
                   </div>
                 </div>
-                <button class="live-btn" id="renderBtn">
+                <button class="live-btn" id="renderBtn" type="button">
                   <span id="renderBtnLabel">Shop The Drop</span>
-                  <i class="fa-solid fa-arrow-right"></i>
                 </button>
               </div>
             </div>
           </div>
-        </div>
+        </article>
 
-        <!-- INTERACTIVE LAB 2: Live IoT Telemetry & ECG Monitor -->
-        <div class="interactive-box">
-          <div class="box-header">
-            <div class="box-title-group">
-              <span class="box-icon icon-rose"><i class="fa-solid fa-heart-pulse"></i></span>
-              <div>
-                <h3 class="box-title">Smart IoT Telemetry Monitor (MAX30102 + ThingSpeak)</h3>
-                <span class="box-sub">Simulated Real-Time Heart Rate & SpO2 Waveform</span>
-              </div>
+        <!-- Demo 2: Heart-rate monitor -->
+        <article class="lab-panel" id="labEcg">
+          <div class="lab-panel-head">
+            <div>
+              <h3 class="lab-panel-title">Heart-rate monitor</h3>
+              <p>A simulated MAX30102 stream, like the one my IoT build sends to ThingSpeak. Drag the slider to change
+                the pulse.</p>
             </div>
-            <div class="iot-status-chip">
-              <span class="pulse-green"></span>
-              <span>ESP01 Connected</span>
+            <span class="lab-chip"><span class="pulse-dot"></span> ESP01 connected</span>
+          </div>
+
+          <div class="ecg-stats-bar">
+            <div class="ecg-stat-box">
+              <span class="ecg-stat-label">Heart rate</span>
+              <div class="ecg-stat-value"><span id="liveBpmDisplay">78</span><span class="ecg-unit">bpm</span></div>
+              <span class="ecg-stat-sub text-green">Normal sinus</span>
+            </div>
+            <div class="ecg-stat-box">
+              <span class="ecg-stat-label">Oxygen saturation</span>
+              <div class="ecg-stat-value"><span id="liveSpo2Display">98</span><span class="ecg-unit">%</span></div>
+              <span class="ecg-stat-sub">Optimal range</span>
+            </div>
+            <div class="ecg-stat-box">
+              <span class="ecg-stat-label">Packet interval</span>
+              <div class="ecg-stat-value"><span>1.0</span><span class="ecg-unit">sec</span></div>
+              <span class="ecg-stat-sub">ThingSpeak</span>
             </div>
           </div>
 
-          <div class="ecg-dashboard-wrap">
-            <div class="ecg-stats-bar">
-              <div class="ecg-stat-box">
-                <span class="ecg-stat-label">Heart Rate (BPM)</span>
-                <div class="ecg-stat-value">
-                  <span id="liveBpmDisplay">78</span>
-                  <span class="ecg-unit">bpm</span>
-                </div>
-                <span class="ecg-stat-sub text-green">● Normal Sinus</span>
-              </div>
-
-              <div class="ecg-stat-box">
-                <span class="ecg-stat-label">Oxygen Saturation</span>
-                <div class="ecg-stat-value">
-                  <span id="liveSpo2Display">98</span>
-                  <span class="ecg-unit">%</span>
-                </div>
-                <span class="ecg-stat-sub text-blue">● Optimal Range</span>
-              </div>
-
-              <div class="ecg-stat-box">
-                <span class="ecg-stat-label">Packet Interval</span>
-                <div class="ecg-stat-value">
-                  <span>1.0</span>
-                  <span class="ecg-unit">sec</span>
-                </div>
-                <span class="ecg-stat-sub">ThingSpeak MQTT</span>
-              </div>
-            </div>
-
-            <!-- Canvas for Realtime ECG Wave -->
-            <div class="canvas-wrapper">
-              <canvas id="ecgCanvas" width="700" height="180"></canvas>
-              <div class="canvas-overlay-grid"></div>
-            </div>
-
-            <div class="ecg-controls-row">
-              <div class="ecg-slider-control">
-                <label for="bpmSlider">Simulate Pulse Rate:</label>
-                <input type="range" id="bpmSlider" min="55" max="135" value="78">
-                <span id="bpmSliderVal">78 BPM</span>
-              </div>
-              <button id="togglePulseState" class="btn btn-sm btn-secondary">
-                <i class="fa-solid fa-pause"></i>
-                <span>Pause Stream</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- INTERACTIVE LAB 3: EziLang Interactive Flashcard Deck -->
-        <div class="interactive-box">
-          <div class="box-header">
-            <div class="box-title-group">
-              <span class="box-icon icon-blue"><i class="fa-solid fa-language"></i></span>
-              <div>
-                <h3 class="box-title">EziLang Interactive Vocabulary Deck</h3>
-                <span class="box-sub">Click the card to flip between Spanish & English</span>
-              </div>
-            </div>
-            <div class="deck-counter">Card <span id="currentCardIdx">1</span> of 4</div>
+          <div class="canvas-wrapper">
+            <canvas id="ecgCanvas" width="700" height="180"></canvas>
           </div>
 
-          <div class="flashcard-interactive-area">
-            <div class="flashcard-deck" id="flashcardElement" title="Click to flip card">
+          <div class="ecg-controls-row">
+            <div class="ecg-slider-control">
+              <label for="bpmSlider">Pulse</label>
+              <input type="range" id="bpmSlider" min="55" max="135" value="78">
+              <span id="bpmSliderVal">78 BPM</span>
+            </div>
+            <button id="togglePulseState" class="btn btn-line btn-sm">
+              <i class="fa-solid fa-pause"></i>
+              <span>Pause stream</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Demo 3: EziLang flashcards -->
+        <article class="lab-panel" id="labFlash">
+          <div class="lab-panel-head">
+            <div>
+              <h3 class="lab-panel-title">EziLang flashcards</h3>
+              <p>Click the card to flip it. Pronounce plays the word in Spanish.</p>
+            </div>
+            <span class="lab-chip">Card <span id="currentCardIdx">1</span> of 4</span>
+          </div>
+
+          <div class="flashcard-area">
+            <div class="flashcard-deck" id="flashcardElement" role="button" tabindex="0"
+              aria-label="Flashcard, press to flip">
               <div class="card-inner">
-                <!-- Front Side -->
                 <div class="card-face card-front">
-                  <div class="card-top-tag">SPANISH VOCABULARY</div>
+                  <div class="card-top-tag">Spanish</div>
                   <div class="card-main-word" id="fcSpanishWord">manzana</div>
                   <div class="card-pronounce" id="fcPhonetic">[manˈθana]</div>
-                  <div class="card-hint">
-                    <i class="fa-solid fa-arrow-rotate-right"></i>
-                    <span>Click anywhere to reveal translation</span>
-                  </div>
+                  <div class="card-hint">Click to reveal the translation</div>
                 </div>
-                <!-- Back Side -->
                 <div class="card-face card-back">
-                  <div class="card-top-tag">ENGLISH TRANSLATION</div>
-                  <div class="card-main-word text-accent" id="fcEnglishWord">Apple</div>
+                  <div class="card-top-tag">English</div>
+                  <div class="card-main-word" id="fcEnglishWord">Apple</div>
                   <div class="card-sentence" id="fcSentence">"Me gusta comer una manzana roja." (I like to eat a red
                     apple.)</div>
-                  <div class="card-hint">
-                    <i class="fa-solid fa-check-circle"></i>
-                    <span>Mastered! Click to flip back</span>
-                  </div>
+                  <div class="card-hint">Click to flip back</div>
                 </div>
               </div>
             </div>
 
             <div class="flashcard-nav-row">
-              <button id="prevCardBtn" class="btn btn-sm btn-secondary">
-                <i class="fa-solid fa-chevron-left"></i>
-                <span>Previous</span>
-              </button>
-              <button id="audioSpeakBtn" class="btn btn-sm btn-primary">
-                <i class="fa-solid fa-volume-high"></i>
-                <span>Pronounce</span>
-              </button>
-              <button id="nextCardBtn" class="btn btn-sm btn-secondary">
-                <span>Next Word</span>
-                <i class="fa-solid fa-chevron-right"></i>
-              </button>
+              <button id="prevCardBtn" class="btn btn-line btn-sm"><i class="fa-solid fa-arrow-left"></i>
+                Previous</button>
+              <button id="audioSpeakBtn" class="btn btn-solid btn-sm"><i class="fa-solid fa-volume-high"></i>
+                Pronounce</button>
+              <button id="nextCardBtn" class="btn btn-line btn-sm">Next <i
+                  class="fa-solid fa-arrow-right"></i></button>
             </div>
           </div>
-        </div>
+        </article>
 
       </div>
-    </div>
+    </section>
 
-    <!-- TAB 3: ABOUT (Deep Dive into Background, Education & Skills) -->
-    <div id="aboutView" class="tab-view">
+    <!-- About -->
+    <section id="about" class="section wrap">
+      <div class="about-grid">
+        <figure class="about-portrait">
+          <img src="assets/avatar.jpg" alt="Portrait of Simran Kapoor" loading="lazy">
+        </figure>
 
-      <div class="about-hero-grid">
-        <div class="about-bio-column">
-          <div class="section-tag">ABOUT ME</div>
-          <h2 class="section-heading">Engineer, Builder & CS Student</h2>
-
-          <div class="bio-prose">
-            <p>
-              I am a Computer Science undergraduate at <strong>Chitkara University (CGPA 9.03)</strong>
-              who builds across the stack — from pixel-perfect frontends to secure APIs and LLM-powered tools.
-            </p>
-            <p>
-              As a <strong>Frontend Shopify Developer Intern at Dagar.io</strong> (June – October 2026), I turned Figma
-              designs into responsive, production Liquid storefronts and ran QA alongside designers and developers.
-            </p>
-            <p>
-              Lately I've been building AI products with real guardrails — like an <strong>NL-to-SQL reporting
-                assistant</strong> on a local LLM — plus full-stack apps with Node.js and MongoDB, and IoT systems
-              with Arduino. I hold <strong>5 Microsoft Certifications</strong> across Azure AI, cloud, data, and
-              Power BI.
-            </p>
-          </div>
-
-          <div class="quick-contact-pills">
-            <a href="mailto:simrannkapoor60@gmail.com" class="contact-pill">
-              <i class="fa-solid fa-envelope"></i>
-              <span>simrannkapoor60@gmail.com</span>
-            </a>
-            <a href="tel:+917206089479" class="contact-pill">
-              <i class="fa-solid fa-phone"></i>
-              <span>+91 7206089479</span>
-            </a>
-            <div class="contact-pill">
-              <i class="fa-solid fa-location-pin"></i>
-              <span>Panipat, Haryana, India</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="about-portrait-card">
-          <div class="portrait-image-wrap">
-            <img src="assets/avatar.jpg" alt="Simran Kapoor" class="about-portrait-img">
-            <div class="portrait-caption">
-              <h4>Simran Kapoor</h4>
-              <p>Full-Stack Developer & CS Student</p>
-            </div>
-          </div>
-
-          <div class="portrait-footer-links">
-            <a href="https://linkedin.com/in/simran-kapoor-5996b737a" target="_blank" rel="noopener noreferrer"
-              class="social-btn">
-              <i class="fa-brands fa-linkedin-in"></i>
-              <span>LinkedIn</span>
-            </a>
-            <a href="https://github.com/simrann-kapoor" target="_blank" rel="noopener noreferrer" class="social-btn">
-              <i class="fa-brands fa-github"></i>
-              <span>GitHub</span>
-            </a>
-          </div>
+        <div class="about-copy">
+          <h2 class="section-title">About</h2>
+          <p class="about-lede">Building for production, not just for the demo.</p>
+          <p>I'm a computer science undergraduate at <strong>Chitkara University</strong> with a 9.03 CGPA,
+            graduating in 2028. I work across the stack, from pixel-perfect frontends to secure APIs.</p>
+          <p>At <strong>Dagar.io</strong> I spent five months turning Figma designs into production Shopify
+            storefronts. Lately I've been exploring how to build LLM-driven products with real commercial value —
+            like a reporting assistant that only ever runs validated, read-only SQL.</p>
+          <p>Away from the keyboard I'm on the events team of the GeeksforGeeks student chapter, running coding
+            workshops and competitions.</p>
         </div>
       </div>
 
-      <!-- Education & Leadership Grid -->
-      <div class="edu-leadership-grid">
-
-        <!-- Education Card -->
-        <div class="glass-card">
-          <div class="glass-card-header">
-            <span class="glass-card-icon"><i class="fa-solid fa-graduation-cap"></i></span>
-            <div>
-              <h3 class="glass-card-title">Education</h3>
-              <span class="glass-card-sub">Academic Foundation</span>
-            </div>
-          </div>
-
-          <div class="edu-body">
-            <div class="edu-institution-row">
-              <div>
-                <h4 class="edu-degree">Bachelor in Computer Science</h4>
-                <div class="edu-school">Chitkara University</div>
-              </div>
-              <div class="edu-badge-cgpa">
-                <span class="cgpa-num">9.03</span>
-                <span class="cgpa-lbl">CGPA</span>
-              </div>
-            </div>
-
-            <div class="edu-timeline-pill">
-              <i class="fa-regular fa-calendar"></i>
-              <span>Expected Graduation: 2028</span>
-            </div>
-
-            <div class="coursework-box">
-              <div class="cw-heading">Relevant Coursework:</div>
-              <div class="cw-tags">
-                <span>Data Structures & Algorithms</span>
-                <span>Operating Systems</span>
-                <span>Computer Networks</span>
-                <span>Database Management Systems</span>
-                <span>Object-Oriented Programming (OOPS)</span>
-                <span>Machine Learning</span>
-                <span>Cloud Computing</span>
-              </div>
-            </div>
-          </div>
+      <div class="about-lists">
+        <div>
+          <h3 class="list-title">Microsoft certifications</h3>
+          <ul class="cert-list">
+            <li><span class="cert-code">AI-103</span><span>Azure AI Apps and Agents Developer Associate</span></li>
+            <li><span class="cert-code">PL-300</span><span>Power BI Data Analyst Associate</span></li>
+            <li><span class="cert-code">AI-900</span><span>Azure AI Fundamentals</span></li>
+            <li><span class="cert-code">AZ-900</span><span>Azure Fundamentals</span></li>
+            <li><span class="cert-code">DP-900</span><span>Azure Data Fundamentals</span></li>
+          </ul>
         </div>
-
-        <!-- Leadership Card -->
-        <div class="glass-card">
-          <div class="glass-card-header">
-            <span class="glass-card-icon icon-green"><i class="fa-solid fa-users"></i></span>
-            <div>
-              <h3 class="glass-card-title">Leadership & Campus Impact</h3>
-              <span class="glass-card-sub">Community Building</span>
-            </div>
-          </div>
-
-          <div class="leadership-body">
-            <div class="lead-role-row">
-              <div>
-                <h4 class="lead-role">Events Team Executive</h4>
-                <div class="lead-org">GeeksforGeeks Student Chapter</div>
-              </div>
-              <span class="badge-active-chapter">Executive Member</span>
-            </div>
-
-            <p class="lead-desc">
-              Coordinated technical and non-technical flagship campus events, collaborating with cross-functional
-              student teams to organize competitive coding hackathons, technical workshops, and peer mentorship
-              initiatives.
-            </p>
-
-            <div class="lead-impact-chips">
-              <div class="impact-chip">
-                <i class="fa-solid fa-code"></i>
-                <span>Coding Competitions</span>
-              </div>
-              <div class="impact-chip">
-                <i class="fa-solid fa-chalkboard-user"></i>
-                <span>Peer Learning Workshops</span>
-              </div>
-              <div class="impact-chip">
-                <i class="fa-solid fa-handshake-angle"></i>
-                <span>Student Mentorship</span>
-              </div>
-            </div>
-          </div>
+        <div>
+          <h3 class="list-title">Toolkit</h3>
+          <dl class="toolkit">
+            <dt>Languages</dt>
+            <dd>C++, Python, Java, JavaScript, HTML5, CSS3, SQL</dd>
+            <dt>Frameworks</dt>
+            <dd>Node.js, Express.js, React, Django, Flask, FastAPI, Shopify Liquid</dd>
+            <dt>AI and backend</dt>
+            <dd>Local LLMs with Ollama, prompt design, SQL validation with sqlglot, REST APIs, JWT auth</dd>
+            <dt>Data and cloud</dt>
+            <dd>Microsoft Azure, SQL Server, MongoDB, Docker, Power BI</dd>
+            <dt>Hardware</dt>
+            <dd>Arduino UNO, ESP01, MAX30102, ThingSpeak</dd>
+            <dt>Tools</dt>
+            <dd>Git, GitHub, Postman, Jupyter Notebook, Shopify CLI, Figma</dd>
+          </dl>
         </div>
+      </div>
+    </section>
 
+    <!-- Contact -->
+    <section id="contact" class="section contact wrap">
+      <div class="section-head">
+        <h2 class="section-title">Get in touch</h2>
+        <p class="section-note">I'm open to internships, full-time roles and Shopify storefront contracts. Email is
+          the fastest way to reach me.</p>
       </div>
 
-      <!-- Comprehensive Technical Skills Matrix -->
-      <section class="skills-matrix-section">
-        <div class="section-intro">
-          <div class="section-tag">TOOLBOX</div>
-          <h2 class="section-heading">Skills & Technical Competencies</h2>
-        </div>
+      <button class="contact-email" data-email="simrannkapoor60@gmail.com">simrannkapoor60@gmail.com</button>
+      <p class="contact-hint">Click to copy</p>
 
-        <div class="skills-category-grid">
+      <div class="contact-grid">
+        <ul class="contact-links">
+          <li><span>Phone</span><a class="text-link" href="tel:+917206089479">+91 72060 89479</a></li>
+          <li><span>LinkedIn</span><a class="text-link" href="https://linkedin.com/in/simran-kapoor-5996b737a"
+              target="_blank" rel="noopener noreferrer">simran-kapoor</a></li>
+          <li><span>GitHub</span><a class="text-link" href="https://github.com/simrann-kapoor" target="_blank"
+              rel="noopener noreferrer">simrann-kapoor</a></li>
+          <li><span>Based in</span><span>Panipat, Haryana</span></li>
+        </ul>
 
-          <!-- Category 1: Frontend & Shopify -->
-          <div class="skill-category-card">
-            <div class="cat-header">
-              <i class="fa-brands fa-shopify cat-icon green-icon"></i>
-              <h4>Shopify & Frontend</h4>
+        <form id="contactForm" class="contact-form" onsubmit="event.preventDefault(); window.handleContactSubmit();">
+          <div class="field-row">
+            <div class="field">
+              <label for="contactName">Name</label>
+              <input type="text" id="contactName" required class="styled-input" autocomplete="name">
             </div>
-            <div class="skill-chips-list">
-              <span class="skill-pill">Shopify Liquid</span>
-              <span class="skill-pill">Shopify Theme Development</span>
-              <span class="skill-pill">JSON Schemas</span>
-              <span class="skill-pill">HTML5 & Semantics</span>
-              <span class="skill-pill">CSS3 & CSS Variables</span>
-              <span class="skill-pill">JavaScript (ES6+)</span>
-              <span class="skill-pill">Responsive Design</span>
-              <span class="skill-pill">Figma-to-Liquid</span>
+            <div class="field">
+              <label for="contactEmail">Email</label>
+              <input type="email" id="contactEmail" required class="styled-input" autocomplete="email">
             </div>
           </div>
-
-          <!-- Category 2: Languages & Backend -->
-          <div class="skill-category-card">
-            <div class="cat-header">
-              <i class="fa-solid fa-code cat-icon blue-icon"></i>
-              <h4>Languages & Frameworks</h4>
-            </div>
-            <div class="skill-chips-list">
-              <span class="skill-pill">C++</span>
-              <span class="skill-pill">Python</span>
-              <span class="skill-pill">Java</span>
-              <span class="skill-pill">JavaScript</span>
-              <span class="skill-pill">SQL / T-SQL</span>
-              <span class="skill-pill">Node.js</span>
-              <span class="skill-pill">Express.js</span>
-              <span class="skill-pill">React</span>
-              <span class="skill-pill">Django</span>
-              <span class="skill-pill">Flask</span>
-              <span class="skill-pill">FastAPI</span>
-            </div>
+          <div class="field">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" rows="4" required class="styled-input"></textarea>
           </div>
-
-          <!-- Category: AI & Backend Engineering -->
-          <div class="skill-category-card">
-            <div class="cat-header">
-              <i class="fa-solid fa-robot cat-icon purple-icon"></i>
-              <h4>AI & Backend Engineering</h4>
-            </div>
-            <div class="skill-chips-list">
-              <span class="skill-pill">LLM Apps (Ollama)</span>
-              <span class="skill-pill">Prompt Engineering</span>
-              <span class="skill-pill">SQL Validation (sqlglot)</span>
-              <span class="skill-pill">REST APIs & MVC</span>
-              <span class="skill-pill">JWT Auth & bcrypt</span>
-              <span class="skill-pill">Anomaly Detection</span>
-            </div>
-          </div>
-
-          <!-- Category 3: Core CS Fundamentals -->
-          <div class="skill-category-card">
-            <div class="cat-header">
-              <i class="fa-solid fa-microchip cat-icon purple-icon"></i>
-              <h4>Core CS Fundamentals</h4>
-            </div>
-            <div class="skill-chips-list">
-              <span class="skill-pill">Data Structures & Algorithms</span>
-              <span class="skill-pill">Operating Systems</span>
-              <span class="skill-pill">Computer Networks</span>
-              <span class="skill-pill">Database Management (DBMS)</span>
-              <span class="skill-pill">Object-Oriented Programming (OOPS)</span>
-            </div>
-          </div>
-
-          <!-- Category 4: Cloud, Data & IoT -->
-          <div class="skill-category-card">
-            <div class="cat-header">
-              <i class="fa-solid fa-cloud cat-icon cyan-icon"></i>
-              <h4>Cloud, Data & IoT</h4>
-            </div>
-            <div class="skill-chips-list">
-              <span class="skill-pill">Microsoft Azure</span>
-              <span class="skill-pill">SQL Server</span>
-              <span class="skill-pill">MongoDB</span>
-              <span class="skill-pill">Docker</span>
-              <span class="skill-pill">Power BI</span>
-              <span class="skill-pill">Data Analysis</span>
-              <span class="skill-pill">Arduino IoT</span>
-              <span class="skill-pill">ThingSpeak Cloud</span>
-              <span class="skill-pill">MAX30102 Telemetry</span>
-            </div>
-          </div>
-
-          <!-- Category 5: Developer Tools & Workflow -->
-          <div class="skill-category-card">
-            <div class="cat-header">
-              <i class="fa-solid fa-toolbox cat-icon orange-icon"></i>
-              <h4>Developer Tools</h4>
-            </div>
-            <div class="skill-chips-list">
-              <span class="skill-pill">Git</span>
-              <span class="skill-pill">GitHub</span>
-              <span class="skill-pill">Postman</span>
-              <span class="skill-pill">Jupyter Notebook</span>
-              <span class="skill-pill">Shopify CLI</span>
-              <span class="skill-pill">VS Code</span>
-              <span class="skill-pill">Figma</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-    </div>
+          <button type="submit" class="btn btn-solid">Send message</button>
+        </form>
+      </div>
+    </section>
 
   </main>
 
-  <!-- Floating Footer Quick Bar -->
-  <footer class="floating-footer">
-    <div class="footer-inner">
-      <div class="footer-left">
-        <span class="footer-avatar"><img src="assets/avatar.jpg" alt="Simran"></span>
-        <span class="footer-copy">© 2026 Simran Kapoor. Built with passion & precision.</span>
-      </div>
-      <div class="footer-right">
-        <a href="https://linkedin.com/in/simran-kapoor-5996b737a" target="_blank" rel="noopener noreferrer" class="footer-link">
-          <i class="fa-brands fa-linkedin"></i>
-          <span>LinkedIn</span>
-        </a>
-        <a href="https://github.com/simrann-kapoor" target="_blank" rel="noopener noreferrer" class="footer-link">
-          <i class="fa-brands fa-github"></i>
-          <span>GitHub</span>
-        </a>
-        <button id="footerEmailBtn" class="footer-link btn-ghost-link" data-email="simrannkapoor60@gmail.com">
-          <i class="fa-solid fa-envelope"></i>
-          <span>Email</span>
-        </button>
-      </div>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© 2026 Simran Kapoor</span>
+      <nav aria-label="Footer">
+        <a href="https://linkedin.com/in/simran-kapoor-5996b737a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/simrann-kapoor" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="#top">Back to top</a>
+      </nav>
     </div>
   </footer>
 
@@ -1277,83 +707,6 @@
     </div>
   </div>
 
-  <!-- Modal 2: Contact Modal -->
-  <div id="contactModal" class="modal-backdrop" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <div class="modal-title-wrap">
-          <i class="fa-solid fa-paper-plane"></i>
-          <h3>Let's Connect</h3>
-        </div>
-        <button class="modal-close-btn" data-close="contactModal" aria-label="Close modal">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <div class="modal-body">
-        <p class="modal-lead">
-          I'm currently open to full-time roles, engineering internships, and Shopify storefront contracts. Feel free to
-          reach out directly!
-        </p>
-
-        <div class="contact-methods-list">
-          <a href="mailto:simrannkapoor60@gmail.com" class="contact-method-card">
-            <div class="cm-icon"><i class="fa-solid fa-envelope"></i></div>
-            <div class="cm-details">
-              <span class="cm-title">Direct Email</span>
-              <span class="cm-value">simrannkapoor60@gmail.com</span>
-            </div>
-            <span class="cm-action"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-          </a>
-
-          <a href="tel:+917206089479" class="contact-method-card">
-            <div class="cm-icon"><i class="fa-solid fa-phone"></i></div>
-            <div class="cm-details">
-              <span class="cm-title">Phone / WhatsApp</span>
-              <span class="cm-value">(+91) 7206089479</span>
-            </div>
-            <span class="cm-action"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-          </a>
-
-          <a href="https://linkedin.com/in/simran-kapoor-5996b737a" target="_blank" rel="noopener noreferrer"
-            class="contact-method-card">
-            <div class="cm-icon"><i class="fa-brands fa-linkedin-in"></i></div>
-            <div class="cm-details">
-              <span class="cm-title">LinkedIn Profile</span>
-              <span class="cm-value">linkedin.com/in/simran-kapoor-5996b737a</span>
-            </div>
-            <span class="cm-action"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-          </a>
-
-          <a href="https://github.com/simrann-kapoor" target="_blank" rel="noopener noreferrer"
-            class="contact-method-card">
-            <div class="cm-icon"><i class="fa-brands fa-github"></i></div>
-            <div class="cm-details">
-              <span class="cm-title">GitHub Repositories</span>
-              <span class="cm-value">github.com/simrann-kapoor</span>
-            </div>
-            <span class="cm-action"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-          </a>
-        </div>
-
-        <form id="contactForm" class="contact-form-quick"
-          onsubmit="event.preventDefault(); window.handleContactSubmit();">
-          <div class="form-title">Send a Quick Note:</div>
-          <div class="input-row">
-            <input type="text" id="contactName" placeholder="Your Name" required class="styled-input">
-            <input type="email" id="contactEmail" placeholder="Your Email" required class="styled-input">
-          </div>
-          <textarea id="contactMessage" rows="3" placeholder="Hi Simran, I loved your work at Dagar.io..." required
-            class="styled-input"></textarea>
-          <button type="submit" class="btn btn-primary btn-block">
-            <span>Send Message</span>
-            <i class="fa-solid fa-paper-plane"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-
   <!-- Modal 3: Case Study Details Modal -->
   <div id="caseStudyModal" class="modal-backdrop" aria-hidden="true">
     <div class="modal-dialog case-study-dialog">
@@ -1373,14 +726,13 @@
     </div>
   </div>
 
-  <!-- Toast Notification -->
+  <!-- Toast -->
   <div id="toastNotification" class="toast-popup" role="status" aria-live="polite">
     <i class="fa-solid fa-circle-check toast-icon"></i>
     <span id="toastMessage">Copied to clipboard!</span>
   </div>
 
-  <!-- Main JavaScript File -->
-  <script src="script.js?v=2.6"></script>
+  <script src="script.js?v=3.0"></script>
 </body>
 
 </html>

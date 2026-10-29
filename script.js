@@ -1,491 +1,233 @@
 /**
  * SIMRAN KAPOOR — PORTFOLIO JAVASCRIPT
  * Interactive Systems:
- * 1. Pill Navigation & Tab State Management (Work / Play / About)
- * 2. Mouse Parallax for Ambient Floating 3D Shapes
- * 3. Theme Toggle (Light / Dark) with LocalStorage
- * 4. Shopify Section Customizer Simulator (Live Reactive Preview)
- * 5. IoT Biometric Telemetry & Real-Time ECG Waveform Canvas
- * 6. EziLang Interactive Flashcard Deck with Web Speech Synthesis
- * 7. Project Case Study Modal Data & Interactive Dialogs
- * 8. Clipboard Copy & Toast Feedback
+ * 0. Hero reveal
+ * 1. Header: scroll state, active-section indicator, mobile menu
+ * 2. Theme Toggle (Dark / Light) with LocalStorage
+ * 3. Work index cursor-following preview
+ * 4. Lab horizontal track & deep links into demos
+ * 5. Shopify Section Customizer Simulator (Live Reactive Preview)
+ * 6. IoT Biometric Telemetry & Real-Time ECG Waveform Canvas
+ * 7. EziLang Interactive Flashcard Deck with Web Speech Synthesis
+ * 8. Project Case Study Modal Data & Interactive Dialogs
+ * 9. Clipboard Copy & Toast Feedback
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ==========================================================
-     0. AWWWARDS-INSPIRED OPENING INTRO & SITE REVEAL
+     0. HERO REVEAL (single orchestrated load moment)
      ========================================================== */
-  const introLoader = document.getElementById('introLoader');
-  const typewriterElement = document.getElementById('typewriterText');
-  const greetingText = "Hi, I'm Simran Kapoor";
-  let typewriterTimeout = null;
-  let introDismissed = false;
-  let isTypewriterActive = false;
-
-  function runHeroTypewriter() {
-    if (!typewriterElement) return;
-
-    if (typewriterTimeout) {
-      clearTimeout(typewriterTimeout);
-      typewriterTimeout = null;
-    }
-    typewriterElement.textContent = '';
-    isTypewriterActive = true;
-
-    let charIndex = 0;
-    function typeStep() {
-      if (charIndex < greetingText.length) {
-        typewriterElement.textContent += greetingText.charAt(charIndex);
-        const currentChar = greetingText.charAt(charIndex);
-        charIndex++;
-
-        // Natural typing cadence: pause slightly on comma or apostrophe
-        let delay = 75 + Math.random() * 25;
-        if (currentChar === ',') delay = 260;
-        if (currentChar === "'") delay = 120;
-        if (currentChar === ' ') delay = 80;
-
-        typewriterTimeout = setTimeout(typeStep, delay);
-      } else {
-        isTypewriterActive = false;
-      }
-    }
-    typeStep();
-  }
-
-  function dismissIntro() {
-    if (introDismissed) return;
-    introDismissed = true;
-    if (introLoader) {
-      introLoader.classList.add('completed');
-    }
-    // Start hero typewriter right as curtain lifts if not already typing
-    if (!isTypewriterActive && (!typewriterElement || !typewriterElement.textContent)) {
-      runHeroTypewriter();
-    }
-  }
-
-  if (introLoader) {
-    // Make sure hero title text is blank while intro is showing
-    if (typewriterElement) typewriterElement.textContent = '';
-
-    // As the curtain begins sliding up at ~850ms, start typing!
-    setTimeout(() => {
-      runHeroTypewriter();
-    }, 850);
-
-    // Auto dismiss and remove transition overlay at 1400ms
-    setTimeout(dismissIntro, 1400);
-
-    // Click anywhere to fast-forward/skip immediately
-    introLoader.addEventListener('click', () => {
-      dismissIntro();
-      runHeroTypewriter();
-    });
-  } else {
-    setTimeout(runHeroTypewriter, 300);
-  }
-
-  // Replay intro when clicking Memoji avatar
-  const avatarBadge = document.querySelector('.avatar-badge');
-  if (avatarBadge && introLoader) {
-    avatarBadge.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      // Reset typewriter
-      if (typewriterTimeout) clearTimeout(typewriterTimeout);
-      if (typewriterElement) typewriterElement.textContent = '';
-      isTypewriterActive = false;
-
-      introLoader.classList.remove('completed');
-      introDismissed = false;
-
-      // Trigger animation restart
-      introLoader.style.animation = 'none';
-      const pill = introLoader.querySelector('.intro-pill');
-      if (pill) pill.style.animation = 'none';
-
-      void introLoader.offsetWidth; // trigger reflow
-
-      introLoader.style.animation = '';
-      if (pill) pill.style.animation = '';
-
-      setTimeout(() => {
-        runHeroTypewriter();
-      }, 850);
-
-      setTimeout(dismissIntro, 1400);
-    });
-  }
+  requestAnimationFrame(() => document.body.classList.add('is-loaded'));
 
   /* ==========================================================
-     0.1 STATEMENT SCROLL-TRIGGERED TYPEWRITER EFFECT
-     (Matching User Request: "when we are scrolling down this also must come in typing form")
+     1. HEADER
      ========================================================== */
-  const statementTextEl = document.getElementById('statementTypewriterText');
-  const statementTarget = document.getElementById('statement');
-  const statementPhrase = "Currently exploring how to build LLM-driven products with real commercial value.";
-  let statementCharIndex = 0;
-  let isStatementTyping = false;
-  let statementCompleted = false;
-  let statementTimer = null;
+  const siteHeader = document.getElementById('siteHeader');
+  const navIndicator = document.getElementById('navIndicator');
+  const navLinks = document.querySelectorAll('.nav-link');
 
-  function typeStatement() {
-    if (!statementTextEl) return;
-
-    if (statementCharIndex < statementPhrase.length) {
-      statementTextEl.textContent += statementPhrase.charAt(statementCharIndex);
-      const curChar = statementPhrase.charAt(statementCharIndex);
-      statementCharIndex++;
-
-      // Responsive, fluid typing speed with slight natural micro-pauses
-      let delay = 32 + Math.random() * 20;
-      if (curChar === '-') delay = 65;
-      if (curChar === ' ') delay = 40;
-      if (curChar === '.') delay = 220;
-
-      statementTimer = setTimeout(typeStatement, delay);
-    } else {
-      isStatementTyping = false;
-      statementCompleted = true;
-    }
-  }
-
-  function startStatementTypewriter() {
-    if (!statementTextEl || isStatementTyping || statementCompleted) return;
-    isStatementTyping = true;
-    statementTextEl.textContent = '';
-    statementCharIndex = 0;
-    setTimeout(typeStatement, 120);
-  }
-
-  if (statementTarget && statementTextEl) {
-    // IntersectionObserver triggers typing once when scrolling down into view after page load/refresh
-    const statementObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !statementCompleted && !isStatementTyping) {
-          statementObserver.unobserve(statementTarget);
-          startStatementTypewriter();
-        }
-      });
-    }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -30px 0px'
-    });
-
-    statementObserver.observe(statementTarget);
-  }
-
-  /* =========================================================================
-     0.2 WAVY FLOATING TECH STACK MARQUEE (Bobbing Sine Wave + Horizontal Motion)
-     ========================================================================= */
-  const marqueeTrack = document.getElementById('marqueeTrack');
-
-  const SKILLS_DATA = [
-    { class: 'devicon-mongodb-plain colored', title: 'MongoDB', url: 'https://www.mongodb.com/' },
-    { class: 'devicon-postgresql-plain colored', title: 'PostgreSQL', url: 'https://www.postgresql.org/' },
-    { class: 'devicon-python-plain colored', title: 'Python', url: 'https://www.python.org/' },
-    { class: 'devicon-html5-plain colored', title: 'HTML5', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
-    { class: 'devicon-java-plain colored', title: 'Java', url: 'https://www.java.com/', featured: true },
-    { class: 'devicon-react-original colored', title: 'React', url: 'https://react.dev/' },
-    { class: 'devicon-cplusplus-plain colored', title: 'C++', url: 'https://isocpp.org/' },
-    { class: 'devicon-docker-plain colored', title: 'Docker', url: 'https://www.docker.com/' },
-    { class: 'devicon-mysql-plain colored', title: 'MySQL', url: 'https://www.mysql.com/' },
-    { class: 'devicon-javascript-plain colored', title: 'JavaScript', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
-    { class: 'devicon-django-plain colored', title: 'Django', url: 'https://www.djangoproject.com/' },
-    { class: 'devicon-fastapi-plain colored', title: 'FastAPI', url: 'https://fastapi.tiangolo.com/' },
-    { class: 'devicon-azure-plain colored', title: 'Azure', url: 'https://azure.microsoft.com/' },
-    { class: 'devicon-jupyter-plain colored', title: 'Jupyter', url: 'https://jupyter.org/' },
-    { class: 'devicon-css3-plain colored', title: 'CSS3', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS' },
-    { class: 'devicon-git-plain colored', title: 'Git', url: 'https://git-scm.com/' },
-    { class: 'devicon-linux-plain colored', title: 'Linux', url: 'https://www.linux.org/' },
-    { class: 'devicon-bash-plain colored', title: 'Bash', url: 'https://www.gnu.org/software/bash/' },
-    { class: 'devicon-ubuntu-plain colored', title: 'Ubuntu', url: 'https://ubuntu.com/' },
-    { class: 'devicon-github-original colored', title: 'GitHub', url: 'https://github.com/' },
-    { class: 'devicon-vscode-plain colored', title: 'VS Code', url: 'https://code.visualstudio.com/' },
-    { class: 'devicon-markdown-original colored', title: 'Markdown', url: 'https://www.markdownguide.org/' },
-    { class: 'devicon-sqlite-plain colored', title: 'SQLite', url: 'https://www.sqlite.org/' },
-    { class: 'devicon-firebase-plain colored', title: 'Firebase', url: 'https://firebase.google.com/' },
-    { class: 'devicon-nodejs-plain colored', title: 'Node.js', url: 'https://nodejs.org/' },
-    { class: 'devicon-express-original', title: 'Express.js', url: 'https://expressjs.com/' },
-    { class: 'devicon-postman-plain colored', title: 'Postman', url: 'https://www.postman.com/' },
-    { class: 'devicon-microsoftsqlserver-plain colored', title: 'SQL Server', url: 'https://www.microsoft.com/sql-server' }
-  ];
-
-  if (marqueeTrack) {
-    // Duplicate array to enable seamless infinite scroll
-    const FULL_SKILLS = [...SKILLS_DATA, ...SKILLS_DATA];
-
-    FULL_SKILLS.forEach((skill) => {
-      const icon = document.createElement('a');
-      icon.className = 'marquee-icon' + (skill.featured ? ' java-featured' : '');
-      icon.href = skill.url;
-      icon.target = '_blank';
-      icon.rel = 'noopener noreferrer';
-      icon.title = skill.title;
-      icon.setAttribute('aria-label', skill.title);
-      icon.innerHTML = `<i class="${skill.class}"></i>`;
-      marqueeTrack.appendChild(icon);
-    });
-
-    const icons = marqueeTrack.querySelectorAll('.marquee-icon');
-    let scrollPos = window.scrollY;
-
-    window.addEventListener('scroll', () => {
-      scrollPos = window.scrollY;
-    }, { passive: true });
-
-    let isMarqueeHovered = false;
-    marqueeTrack.addEventListener('mouseenter', () => { isMarqueeHovered = true; });
-    marqueeTrack.addEventListener('mouseleave', () => { isMarqueeHovered = false; });
-
-    let autoOffset = 0;
-    let lastTime = 0;
-
-    function animateMarquee(time) {
-      if (!lastTime) lastTime = time;
-      const delta = Math.min(time - lastTime, 40);
-      lastTime = time;
-
-      // Smooth horizontal auto-movement
-      if (!isMarqueeHovered) {
-        autoOffset += delta * 0.045;
-      }
-
-      const halfWidth = marqueeTrack.scrollWidth / 2;
-      if (halfWidth > 0 && autoOffset >= halfWidth) {
-        autoOffset %= halfWidth;
-      }
-
-      // Horizontal movement = auto movement + user scroll parallax
-      const scrollX = -(autoOffset + (scrollPos * 0.35));
-      marqueeTrack.style.transform = `translateX(${scrollX}px)`;
-
-      // Continuous animated sine wave bobbing for each badge
-      icons.forEach((icon, i) => {
-        const y = Math.sin(time * 0.0015 + i * 0.55) * 32;
-        icon.style.transform = `translateY(${y}px)`;
-      });
-
-      requestAnimationFrame(animateMarquee);
-    }
-
-    requestAnimationFrame(animateMarquee);
-  }
-
-  /* ==========================================================
-     0.3 GLOWING DARK CONTAINER (Scroll-Driven Scaling & Glow Expansion)
-     ========================================================== */
-  const darkContainer = document.querySelector('.dark-container');
-  if (darkContainer) {
-    let ticking = false;
-    const updateDarkContainer = () => {
-      const rect = darkContainer.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      // Progress calculation based on viewport scroll position
-      let progress = (windowHeight - rect.top) / (windowHeight * 0.75);
-      progress = Math.max(0, Math.min(1, progress));
-
-      // Scale smoothly from 0.85 to 1.02 and opacity from 0.5 to 1
-      const scale = 0.85 + (0.17 * progress);
-      const opacity = 0.5 + (0.5 * progress);
-
-      darkContainer.style.transform = `scale(${scale})`;
-      darkContainer.style.opacity = opacity;
-
-      if (progress > 0.5) {
-        darkContainer.classList.add('in-view');
-      } else {
-        darkContainer.classList.remove('in-view');
-      }
-      ticking = false;
-    };
-
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateDarkContainer);
-        ticking = true;
-      }
-    }, { passive: true });
-    updateDarkContainer();
-  }
-
-  /* ==========================================================
-     0.4 TYPEWRITER EFFECT FOR GLOWING DARK CARD
-     ========================================================== */
-  const darkTypewriterElements = document.querySelectorAll('.typewriter');
-
-  darkTypewriterElements.forEach(el => {
-    const textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
-    if (!textNode) return;
-
-    const fullText = textNode.textContent.trim();
-    textNode.textContent = '';
-    el.dataset.fullText = fullText;
-  });
-
-  const darkTypewriterObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const textToType = el.dataset.fullText;
-        if (!textToType) return;
-
-        const cursor = el.querySelector('.gradient-cursor');
-        if (cursor) cursor.classList.add('active');
-
-        let textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
-        if (!textNode) {
-          textNode = document.createTextNode('');
-          el.insertBefore(textNode, el.firstChild);
-        }
-
-        let i = 0;
-        function typeChar() {
-          if (i < textToType.length) {
-            textNode.textContent += textToType.charAt(i);
-            i++;
-            setTimeout(typeChar, 30 + Math.random() * 30);
-          }
-        }
-
-        typeChar();
-        observer.unobserve(el);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  darkTypewriterElements.forEach(el => darkTypewriterObserver.observe(el));
-
-  /* ==========================================================
-     1. TAB SWITCHING (Work / Play / About)
-     ========================================================== */
-  const navTabs = document.querySelectorAll('.nav-tab');
-  const tabViews = {
-    work: document.getElementById('workView'),
-    play: document.getElementById('playView'),
-    about: document.getElementById('aboutView')
+  const updateHeaderState = () => {
+    if (siteHeader) siteHeader.classList.toggle('is-scrolled', window.scrollY > 24);
   };
+  window.addEventListener('scroll', updateHeaderState, { passive: true });
+  updateHeaderState();
 
-  function switchTab(targetTabName) {
-    navTabs.forEach(tab => {
-      const isMatch = tab.dataset.tab === targetTabName;
-      tab.classList.toggle('active', isMatch);
-      tab.setAttribute('aria-selected', isMatch ? 'true' : 'false');
-    });
-
-    Object.keys(tabViews).forEach(tabKey => {
-      if (tabViews[tabKey]) {
-        if (tabKey === targetTabName) {
-          tabViews[tabKey].classList.add('active');
-        } else {
-          tabViews[tabKey].classList.remove('active');
-        }
-      }
-    });
-
-    // Special trigger when Play tab becomes active: start ECG canvas if needed
-    if (targetTabName === 'play') {
-      initEcgCanvas();
+  function moveIndicatorTo(link) {
+    if (!navIndicator) return;
+    if (!link) {
+      navIndicator.style.opacity = '0';
+      return;
     }
+    navIndicator.style.width = `${link.offsetWidth}px`;
+    navIndicator.style.transform = `translateX(${link.offsetLeft}px)`;
+    navIndicator.style.opacity = '1';
   }
 
-  navTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const tabName = tab.dataset.tab;
-      switchTab(tabName);
+  function setActiveLink(id) {
+    let activeLink = null;
+    navLinks.forEach(link => {
+      const isMatch = link.getAttribute('href') === `#${id}`;
+      link.classList.toggle('is-active', isMatch);
+      if (isMatch) activeLink = link;
     });
-  });
-
-  // Buttons inside cards that switch to Play tab with a specific demo
-  document.querySelectorAll('.switch-to-play').forEach(btn => {
-    btn.addEventListener('click', () => {
-      switchTab('play');
-      const demoTarget = btn.dataset.demo;
-      setTimeout(() => {
-        if (demoTarget === 'ecg') {
-          const ecgEl = document.getElementById('ecgCanvas');
-          if (ecgEl) ecgEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else if (demoTarget === 'flashcard') {
-          const fcEl = document.getElementById('flashcardElement');
-          if (fcEl) fcEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else if (demoTarget === 'shopify') {
-          const shopEl = document.getElementById('liveShopifySection');
-          if (shopEl) shopEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }, 100);
-    });
-  });
-
-  /* ==========================================================
-     2. AMBIENT 3D SHAPES MOUSE PARALLAX
-     ========================================================== */
-  const shapeWrappers = document.querySelectorAll('.shape-wrapper');
-  let mouseX = 0;
-  let mouseY = 0;
-  let targetX = 0;
-  let targetY = 0;
-
-  window.addEventListener('mousemove', (e) => {
-    mouseX = (e.clientX / window.innerWidth - 0.5) * 35;
-    mouseY = (e.clientY / window.innerHeight - 0.5) * 35;
-  });
-
-  function updateParallax() {
-    targetX += (mouseX - targetX) * 0.08;
-    targetY += (mouseY - targetY) * 0.08;
-
-    shapeWrappers.forEach(wrapper => {
-      const speed = parseFloat(wrapper.dataset.speed || 1);
-      const moveX = targetX * speed;
-      const moveY = targetY * speed;
-      wrapper.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
-    });
-
-    requestAnimationFrame(updateParallax);
+    moveIndicatorTo(activeLink);
   }
-  updateParallax();
+
+  // Highlight whichever section crosses the upper third of the viewport
+  const trackedSections = ['work', 'experience', 'lab', 'about', 'contact']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) setActiveLink(entry.target.id);
+    });
+  }, { rootMargin: '-35% 0px -60% 0px' });
+
+  trackedSections.forEach(section => sectionObserver.observe(section));
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY < window.innerHeight * 0.5) setActiveLink(null);
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    moveIndicatorTo(document.querySelector('.nav-link.is-active'));
+  });
+
+  // Mobile menu
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  function setMenuOpen(isOpen) {
+    if (!mobileMenu || !menuToggle) return;
+    mobileMenu.classList.toggle('is-open', isOpen);
+    mobileMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    const icon = menuToggle.querySelector('i');
+    if (icon) icon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      setMenuOpen(!mobileMenu.classList.contains('is-open'));
+    });
+  }
+
+  if (mobileMenu) {
+    mobileMenu.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('click', () => setMenuOpen(false));
+    });
+  }
 
   /* ==========================================================
-     3. THEME TOGGLE (Light / Dark)
+     2. THEME TOGGLE (Dark / Light)
      ========================================================== */
   const themeToggleBtn = document.getElementById('themeToggleBtn');
-  const body = document.body;
   const themeIcon = themeToggleBtn ? themeToggleBtn.querySelector('i') : null;
 
-  const savedTheme = localStorage.getItem('simran_theme') || 'light';
-  applyTheme(savedTheme);
+  function applyTheme(theme) {
+    const activeTheme = theme === 'light' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', activeTheme);
+    try { localStorage.setItem('simran_theme', activeTheme); } catch (e) { /* storage unavailable */ }
+    if (themeIcon) themeIcon.className = activeTheme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    if (themeToggleBtn) {
+      themeToggleBtn.setAttribute('aria-label', activeTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+  }
+
+  applyTheme(document.documentElement.getAttribute('data-theme'));
 
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || body.getAttribute('data-theme') || 'light';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      applyTheme(newTheme);
-      showToast(`Switched to ${newTheme} mode`);
+      const current = document.documentElement.getAttribute('data-theme');
+      applyTheme(current === 'dark' ? 'light' : 'dark');
     });
   }
 
-  function applyTheme(theme) {
-    const activeTheme = theme === 'dark' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', activeTheme);
-    body.setAttribute('data-theme', activeTheme);
-    localStorage.setItem('simran_theme', activeTheme);
-    if (themeIcon) {
-      if (activeTheme === 'dark') {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-      } else {
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-      }
-    }
+  /* ==========================================================
+     3. WORK INDEX — CURSOR-FOLLOWING PREVIEW
+     ========================================================== */
+  const workList = document.getElementById('workList');
+  const workPreview = document.getElementById('workPreview');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  if (workList && workPreview && finePointer) {
+    const previews = workPreview.querySelectorAll('.pv');
+    let pointerX = 0;
+    let pointerY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let followId = null;
+
+    const follow = () => {
+      currentX += (pointerX - currentX) * 0.16;
+      currentY += (pointerY - currentY) * 0.16;
+      workPreview.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+      followId = requestAnimationFrame(follow);
+    };
+
+    workList.querySelectorAll('.work-row').forEach(row => {
+      row.addEventListener('mouseenter', (e) => {
+        previews.forEach(pv => pv.classList.toggle('is-active', pv.dataset.key === row.dataset.preview));
+        if (!workPreview.classList.contains('is-visible')) {
+          currentX = pointerX = e.clientX;
+          currentY = pointerY = e.clientY;
+        }
+        workPreview.classList.add('is-visible');
+        if (!followId) follow();
+      });
+      row.addEventListener('mousemove', (e) => {
+        pointerX = e.clientX;
+        pointerY = e.clientY;
+      });
+    });
+
+    workList.addEventListener('mouseleave', () => {
+      workPreview.classList.remove('is-visible');
+      cancelAnimationFrame(followId);
+      followId = null;
+    });
   }
 
   /* ==========================================================
-     4. SHOPIFY SECTION CUSTOMIZER SIMULATOR (Live Reactive)
+     4. LAB — HORIZONTAL TRACK
+     ========================================================== */
+  const labTrack = document.getElementById('labTrack');
+  const labPrev = document.getElementById('labPrev');
+  const labNext = document.getElementById('labNext');
+
+  function labStep() {
+    const panel = labTrack ? labTrack.querySelector('.lab-panel') : null;
+    return panel ? panel.offsetWidth + 20 : 600;
+  }
+
+  function updateLabButtons() {
+    if (!labTrack) return;
+    const maxScroll = labTrack.scrollWidth - labTrack.clientWidth - 4;
+    if (labPrev) labPrev.disabled = labTrack.scrollLeft <= 4;
+    if (labNext) labNext.disabled = labTrack.scrollLeft >= maxScroll;
+  }
+
+  if (labTrack) {
+    if (labPrev) labPrev.addEventListener('click', () => labTrack.scrollBy({ left: -labStep(), behavior: 'smooth' }));
+    if (labNext) labNext.addEventListener('click', () => labTrack.scrollBy({ left: labStep(), behavior: 'smooth' }));
+    labTrack.addEventListener('scroll', updateLabButtons, { passive: true });
+    window.addEventListener('resize', updateLabButtons);
+    updateLabButtons();
+  }
+
+  // Buttons elsewhere on the page that jump straight to a demo
+  const demoPanels = { shopify: 'labShopify', ecg: 'labEcg', flashcard: 'labFlash' };
+
+  document.querySelectorAll('.switch-to-play').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const panel = document.getElementById(demoPanels[btn.dataset.demo]);
+      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
+    });
+  });
+
+  // Start the ECG canvas once the lab scrolls into view
+  const ecgCanvasEl = document.getElementById('ecgCanvas');
+  if (ecgCanvasEl) {
+    const ecgObserver = new IntersectionObserver((entries) => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        ecgObserver.disconnect();
+        initEcgCanvas();
+      }
+    }, { threshold: 0.1 });
+    ecgObserver.observe(ecgCanvasEl);
+  }
+
+  // Resume buttons (header, hero, mobile menu)
+  document.querySelectorAll('.open-resume').forEach(btn => {
+    btn.addEventListener('click', () => openModal(document.getElementById('resumeModal')));
+  });
+
+  /* ==========================================================
+     5. SHOPIFY SECTION CUSTOMIZER SIMULATOR (Live Reactive)
      ========================================================== */
   const shopHeading = document.getElementById('shopHeading');
   const shopSubtitle = document.getElementById('shopSubtitle');
@@ -556,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateShopifyPreview();
 
   /* ==========================================================
-     5. REAL-TIME ECG MONITOR & TELEMETRY SIMULATOR
+     6. REAL-TIME ECG MONITOR & TELEMETRY SIMULATOR
      ========================================================== */
   const ecgCanvas = document.getElementById('ecgCanvas');
   const liveBpmDisplay = document.getElementById('liveBpmDisplay');
@@ -717,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================
-     6. EZILANG INTERACTIVE FLASHCARD DECK
+     7. EZILANG INTERACTIVE FLASHCARD DECK
      ========================================================== */
   const flashcardElement = document.getElementById('flashcardElement');
   const fcSpanishWord = document.getElementById('fcSpanishWord');
@@ -761,6 +503,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (flashcardElement) {
     flashcardElement.addEventListener('click', () => {
       flashcardElement.classList.toggle('is-flipped');
+    });
+    flashcardElement.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        flashcardElement.classList.toggle('is-flipped');
+      }
     });
   }
 
@@ -809,7 +557,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================
-     7. MODALS SYSTEM (Resume, Contact & Case Study)
+     8. MODALS SYSTEM (Resume, Contact & Case Study)
      ========================================================== */
   const resumeModal = document.getElementById('resumeModal');
   const contactModal = document.getElementById('contactModal');
@@ -1039,7 +787,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================================
-     8. CLIPBOARD COPY & TOAST NOTIFICATIONS
+     9. CLIPBOARD COPY & TOAST NOTIFICATIONS
      ========================================================== */
   const toastNotification = document.getElementById('toastNotification');
   const toastMessage = document.getElementById('toastMessage');
