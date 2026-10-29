@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopify Storefronts | Simran Kapoor</title>
+  <meta name="description"
+    content="Shopify storefront development at Dagar.io — Figma designs to production Liquid themes, reusable sections and QA.">
+  <link rel="icon" type="image/jpeg" href="assets/avatar.jpg">
+  <link rel="stylesheet" href="style.css?v=4.0">
+  <script>
+    (function () {
+      var theme = 'dark';
+      try { theme = localStorage.getItem('simran_theme') || 'dark'; } catch (e) { }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+
+<body>
+  <canvas id="particleCanvas"></canvas>
+
+  <nav class="sticky-nav">
+    <div class="nav-inner is-split">
+      <a href="index.html#projects" class="nav-link nav-back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        Back
+      </a>
+      <div class="nav-links">
+        <a href="#overview" class="nav-link">Overview</a>
+        <a href="#what-i-did" class="nav-link">What I Did</a>
+        <a href="#customizer" class="nav-link">Customizer Demo</a>
+      </div>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="cp-hero container animate-up">
+      <span class="cp-trophy-badge">Dagar.io · June – October 2026 · Remote</span>
+      <h1 class="huge-title cp-title">Shopify Storefronts<span class="gradient-cursor active"></span></h1>
+      <p class="subtitle cp-tagline">Figma designs to production Liquid.</p>
+
+      <div class="cp-hero-mockup animate-up">
+        <div class="cp-browser-bar">
+          <div class="cp-traffic-lights">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="cp-address-bar">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            client-store.myshopify.com
+          </div>
+          <div style="width: 60px;"></div>
+        </div>
+        <div class="cp-img-wrapper" style="min-height: 300px;">
+          <img src="assets/shopify_mockup.jpg" alt="Shopify storefront built at Dagar.io">
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section id="overview" class="container section-padding animate-up">
+      <div class="cp-overview">
+        <h2 class="section-heading cp-question">Five months turning client designs into storefronts merchants can run
+          themselves.</h2>
+        <p class="cp-lead">
+          As a <strong>Frontend Shopify Developer Intern at Dagar.io</strong>, I developed and customized Shopify
+          storefronts using <strong>Liquid, HTML, CSS, JavaScript and JSON</strong> — converting Figma designs into
+          pixel-perfect, responsive pages, and collaborating with designers and developers to optimize storefront
+          performance.
+        </p>
+      </div>
+
+      <div class="cp-tech-stack">
+        <span class="cp-tech-pill">Shopify Liquid</span>
+        <span class="cp-tech-pill">Online Store 2.0</span>
+        <span class="cp-tech-pill">JSON schemas</span>
+        <span class="cp-tech-pill">Figma</span>
+        <span class="cp-tech-pill">Shopify CLI</span>
+        <span class="cp-tech-pill">Git</span>
+      </div>
+    </section>
+
+    <!-- WHAT I DID -->
+    <section id="what-i-did" class="container section-padding">
+      <div class="cp-section-head">
+        <h2 class="section-heading">What I Did</h2>
+        <p class="subtitle">The three threads that ran through the whole internship.</p>
+      </div>
+
+      <div class="cp-pillars-grid">
+        <div class="cp-pillar-card animate-up">
+          <div class="cp-pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 19l7-7 3 3-7 7-3-3z" />
+              <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+              <circle cx="11" cy="11" r="2" />
+            </svg>
+          </div>
+          <h3>Figma to pixel-perfect pages</h3>
+          <p>Converted client Figma designs into responsive Shopify pages with Liquid, HTML, CSS, JavaScript and JSON
+            — matching the design at every breakpoint.</p>
+        </div>
+
+        <div class="cp-pillar-card animate-up">
+          <div class="cp-pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+          </div>
+          <h3>Reusable sections &amp; templates</h3>
+          <p>Built reusable sections and page templates, and customized navigation, collections and blogs — so future
+            themes start from building blocks instead of blank files.</p>
+        </div>
+
+        <div class="cp-pillar-card animate-up">
+          <div class="cp-pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <path d="M22 4L12 14.01l-3-3" />
+            </svg>
+          </div>
+          <h3>QA across every layout</h3>
+          <p>Tested layouts, links and responsiveness across devices, and worked with designers and developers to
+            optimize storefront performance before launch.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOMIZER DEMO -->
+    <section id="customizer" class="container section-padding" style="margin-bottom: 4rem;">
+      <div class="cp-section-head">
+        <h2 class="section-heading">Customizer Demo</h2>
+        <p class="subtitle">The kind of section I built: change the settings and it re-renders live, the way the
+          Shopify theme editor works for merchants.</p>
+      </div>
+
+      <div class="cp-demo-shell animate-up">
+        <div class="customizer-split">
+          <div class="customizer-controls">
+            <div class="control-group">
+              <label for="shopHeading">Heading</label>
+              <input type="text" id="shopHeading" value="Curated Summer Drops" class="styled-input">
+            </div>
+            <div class="control-group">
+              <label for="shopSubtitle">Subtitle</label>
+              <input type="text" id="shopSubtitle" value="Handcrafted essentials designed with precision."
+                class="styled-input">
+            </div>
+            <div class="control-row">
+              <div class="control-group">
+                <label for="shopBtnText">Button label</label>
+                <input type="text" id="shopBtnText" value="Shop The Drop" class="styled-input">
+              </div>
+              <div class="control-group">
+                <label for="shopBadge">Tag</label>
+                <input type="text" id="shopBadge" value="NEW ARRIVAL" class="styled-input">
+              </div>
+            </div>
+            <div class="control-row">
+              <div class="control-group">
+                <label for="shopThemeColor">Accent colour</label>
+                <div class="color-picker-row">
+                  <input type="color" id="shopThemeColor" value="#059669">
+                  <span class="color-val" id="colorValHex">#059669</span>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="shopLayoutAlign">Alignment</label>
+                <select id="shopLayoutAlign" class="styled-select">
+                  <option value="center">Center</option>
+                  <option value="left">Left</option>
+                  <option value="right">Right</option>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="shopShowPrice" checked>
+                <span>Show price</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="customizer-preview">
+            <div class="preview-browser-bar">
+              <div class="browser-dots"><span></span><span></span><span></span></div>
+              <div class="browser-url">preview.myshopify.com/sections/featured-drop</div>
+            </div>
+            <div id="liveShopifySection" class="shopify-section-render align-center">
+              <span class="live-pill" id="renderBadge">NEW ARRIVAL</span>
+              <h4 class="live-heading" id="renderHeading">Curated Summer Drops</h4>
+              <p class="live-subtitle" id="renderSubtitle">Handcrafted essentials designed with precision.</p>
+              <div class="live-product-card">
+                <img src="assets/shopify_mockup.jpg" alt="" class="live-thumb">
+                <div class="live-product-info">
+                  <span class="live-item-name">Aurelia Minimalist Trench</span>
+                  <span class="live-item-price" id="renderPrice">$180.00</span>
+                </div>
+              </div>
+              <button class="live-btn" id="renderBtn" type="button">
+                <span id="renderBtnLabel">Shop The Drop</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Designed &amp; built by Simran Kapoor © 2026</p>
+  </footer>
+
+  <div id="imageModal" class="image-modal">
+    <button class="close-modal" aria-label="Close image">&times;</button>
+    <img class="modal-content" id="modalImage" alt="Zoomed view">
+  </div>
+
+  <script src="script.js?v=4.0"></script>
+</body>
+
+</html>

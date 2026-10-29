@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NL-to-SQL Assistant | Simran Kapoor</title>
+  <meta name="description"
+    content="NL-to-SQL Reporting Assistant — plain-English business questions to validated T-SQL on a locally hosted LLM, with guardrails and auditing.">
+  <link rel="icon" type="image/jpeg" href="assets/avatar.jpg">
+  <link rel="stylesheet" href="style.css?v=4.0">
+  <script>
+    (function () {
+      var theme = 'dark';
+      try { theme = localStorage.getItem('simran_theme') || 'dark'; } catch (e) { }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+
+<body>
+  <canvas id="particleCanvas"></canvas>
+
+  <nav class="sticky-nav">
+    <div class="nav-inner is-split">
+      <a href="index.html#projects" class="nav-link nav-back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        Back
+      </a>
+      <div class="nav-links">
+        <a href="#overview" class="nav-link">Overview</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#guardrails" class="nav-link">Guardrails</a>
+      </div>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="cp-hero container animate-up">
+      <span class="cp-trophy-badge">Full-stack · Locally hosted LLM</span>
+      <h1 class="huge-title cp-title">NL-to-SQL Assistant<span class="gradient-cursor active"></span></h1>
+      <p class="subtitle cp-tagline">Ask in English. Get safe T-SQL.</p>
+
+      <div class="cp-hero-mockup animate-up">
+        <div class="cp-browser-bar">
+          <div class="cp-traffic-lights">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="cp-address-bar">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            localhost:5173/ask
+          </div>
+          <div style="width: 60px;"></div>
+        </div>
+        <div class="mock">
+          <div class="mock-ask">Top 3 regions by revenue last quarter?</div>
+          <pre class="mock-sql"><span class="kw">SELECT TOP</span> 3 region, <span class="kw">SUM</span>(revenue) <span class="kw">AS</span> total
+<span class="kw">FROM</span> rpt.v_sales_by_region
+<span class="kw">WHERE</span> quarter = <span class="str">'2026-Q3'</span>
+<span class="kw">GROUP BY</span> region
+<span class="kw">ORDER BY</span> total <span class="kw">DESC</span>;</pre>
+          <table class="mock-table">
+            <tr>
+              <th>region</th>
+              <th>total</th>
+            </tr>
+            <tr>
+              <td>North</td>
+              <td>₹4.82M</td>
+            </tr>
+            <tr>
+              <td>West</td>
+              <td>₹3.97M</td>
+            </tr>
+            <tr>
+              <td>South</td>
+              <td>₹3.41M</td>
+            </tr>
+          </table>
+          <div class="mock-foot">
+            <span>✓ single SELECT</span>
+            <span>✓ view whitelist</span>
+            <span>✓ read-only login</span>
+            <span>✓ logged to MongoDB</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section id="overview" class="container section-padding animate-up">
+      <div class="cp-overview">
+        <h2 class="section-heading cp-question">What if anyone could query the database, without being able to break
+          it?</h2>
+        <p class="cp-lead">
+          <strong>NL-to-SQL Assistant</strong> is a full-stack app that converts plain-English business questions into
+          T-SQL using a <strong>locally hosted LLM (Ollama)</strong>. A React UI shows the results table next to the
+          generated SQL, so every answer is transparent and checkable — and a validation layer makes sure the model
+          can only ever read approved data.
+        </p>
+      </div>
+
+      <div class="cp-tech-stack" style="margin-bottom: 2rem;">
+        <span class="cp-tech-pill">React</span>
+        <span class="cp-tech-pill">Ollama (local LLM)</span>
+        <span class="cp-tech-pill">sqlglot</span>
+        <span class="cp-tech-pill">SQL Server / T-SQL</span>
+        <span class="cp-tech-pill">MongoDB</span>
+        <span class="cp-tech-pill">Prompt engineering</span>
+      </div>
+
+      <div class="cp-pitch-grid">
+        <div class="cp-pitch-card is-old">
+          <h3>The Old Way</h3>
+          <p>
+            Every report means a ticket to whoever knows SQL. Ad-hoc questions wait in a queue, and when answers do
+            come back, nobody can see the query behind the number.
+          </p>
+        </div>
+        <div class="cp-pitch-card is-new">
+          <h3>The Assistant Way</h3>
+          <p>
+            Type the question in plain English. The model drafts the SQL, the validator checks it, the database runs
+            it read-only, and you see the result and the query side by side.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="container section-padding">
+      <div class="cp-section-head">
+        <h2 class="section-heading">How It Works</h2>
+        <p class="subtitle">From question to result, every step is constrained.</p>
+      </div>
+
+      <div class="cp-timeline">
+        <div class="cp-step animate-up">
+          <div class="cp-step-number">01</div>
+          <div class="cp-step-content">
+            <h3>Schema-aware prompting</h3>
+            <p>
+              The model never sees the raw database. It gets a curated catalog of reporting views, column
+              descriptions, join rules and few-shot examples — so it can only reason about approved data.
+            </p>
+          </div>
+        </div>
+
+        <div class="cp-step animate-up">
+          <div class="cp-step-number">02</div>
+          <div class="cp-step-content">
+            <h3>Local generation</h3>
+            <p>
+              A locally hosted LLM on Ollama drafts the T-SQL. Nothing leaves the machine — no business question or
+              schema detail is sent to a third-party API.
+            </p>
+          </div>
+        </div>
+
+        <div class="cp-step animate-up">
+          <div class="cp-step-number">03</div>
+          <div class="cp-step-content">
+            <h3>Validation before execution</h3>
+            <p>
+              sqlglot parses the generated SQL and enforces the rules: a single SELECT statement, views from the
+              whitelist only. Input guardrails, query timeouts and row limits bound what any one request can do, and a
+              read-only SQL Server login means even a bad query can't write.
+            </p>
+          </div>
+        </div>
+
+        <div class="cp-step animate-up">
+          <div class="cp-step-number">04</div>
+          <div class="cp-step-content">
+            <h3>Audit and evaluate</h3>
+            <p>
+              Every request is logged to MongoDB for auditing. Accuracy and latency are measured on a golden question
+              set, and the prompts are tuned against it.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GUARDRAILS -->
+    <section id="guardrails" class="container section-padding" style="margin-bottom: 4rem;">
+      <div class="cp-section-head">
+        <h2 class="section-heading">Built-In Guardrails</h2>
+        <p class="subtitle">The interesting part isn't the SQL generation — it's what the system refuses to do.</p>
+      </div>
+
+      <div class="cp-pillars-grid">
+        <div class="cp-pillar-card animate-up">
+          <div class="cp-pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <h3>Safe execution</h3>
+          <p>Single SELECT only, view whitelist, read-only login, query timeouts and row limits — enforced in code,
+            not in the prompt.</p>
+        </div>
+
+        <div class="cp-pillar-card animate-up">
+          <div class="cp-pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 6v6l4 2" />
+            </svg>
+          </div>
+          <h3>Full audit trail</h3>
+          <p>Every question, query and result is logged to MongoDB, so any number in a report can be traced back to
+            the exact SQL that produced it.</p>
+        </div>
+
+        <div class="cp-pillar-card animate-up">
+          <div class="cp-pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 20V10M12 20V4M6 20v-6" />
+            </svg>
+          </div>
+          <h3>Measured, not vibes</h3>
+          <p>A golden question set benchmarks accuracy and latency after every prompt change, so improvements are
+            verified instead of assumed.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Designed &amp; built by Simran Kapoor © 2026</p>
+  </footer>
+
+  <div id="imageModal" class="image-modal">
+    <button class="close-modal" aria-label="Close image">&times;</button>
+    <img class="modal-content" id="modalImage" alt="Zoomed view">
+  </div>
+
+  <script src="script.js?v=4.0"></script>
+</body>
+
+</html>

@@ -1,234 +1,525 @@
 /**
- * SIMRAN KAPOOR — PORTFOLIO JAVASCRIPT
- * Interactive Systems:
- * 0. Hero reveal
- * 1. Header: scroll state, active-section indicator, mobile menu
- * 2. Theme Toggle (Dark / Light) with LocalStorage
- * 3. Work index cursor-following preview
- * 4. Lab horizontal track & deep links into demos
- * 5. Shopify Section Customizer Simulator (Live Reactive Preview)
- * 6. IoT Biometric Telemetry & Real-Time ECG Waveform Canvas
- * 7. EziLang Interactive Flashcard Deck with Web Speech Synthesis
- * 8. Project Case Study Modal Data & Interactive Dialogs
- * 9. Clipboard Copy & Toast Feedback
+ * SIMRAN KAPOOR — PORTFOLIO JAVASCRIPT (shared by all pages)
+ * 0. Hamburger menu
+ * 1. Theme toggle (dark / light) with localStorage
+ * 2. Scroll reveal animations
+ * 3. Dark container scroll scaling
+ * 4. Typewriter effect
+ * 5. Wavy skills marquee
+ * 6. Ambient gradient orbs canvas
+ * 7. Projects canvas particles + arrow navigation
+ * 8. Image lightbox
+ * 9. Project-page timeline step highlighting
+ * 10. Demos: Shopify customizer, ECG monitor, EziLang flashcards
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ==========================================================
-     0. HERO REVEAL (single orchestrated load moment)
-     ========================================================== */
-  requestAnimationFrame(() => document.body.classList.add('is-loaded'));
+  /* =========================================================================
+     0. Hamburger Menu Toggle
+     ========================================================================= */
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
 
-  /* ==========================================================
-     1. HEADER
-     ========================================================== */
-  const siteHeader = document.getElementById('siteHeader');
-  const navIndicator = document.getElementById('navIndicator');
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  const updateHeaderState = () => {
-    if (siteHeader) siteHeader.classList.toggle('is-scrolled', window.scrollY > 24);
-  };
-  window.addEventListener('scroll', updateHeaderState, { passive: true });
-  updateHeaderState();
-
-  function moveIndicatorTo(link) {
-    if (!navIndicator) return;
-    if (!link) {
-      navIndicator.style.opacity = '0';
-      return;
-    }
-    navIndicator.style.width = `${link.offsetWidth}px`;
-    navIndicator.style.transform = `translateX(${link.offsetLeft}px)`;
-    navIndicator.style.opacity = '1';
-  }
-
-  function setActiveLink(id) {
-    let activeLink = null;
-    navLinks.forEach(link => {
-      const isMatch = link.getAttribute('href') === `#${id}`;
-      link.classList.toggle('is-active', isMatch);
-      if (isMatch) activeLink = link;
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+      document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
     });
-    moveIndicatorTo(activeLink);
-  }
 
-  // Highlight whichever section crosses the upper third of the viewport
-  const trackedSections = ['work', 'experience', 'lab', 'about', 'contact']
-    .map(id => document.getElementById(id))
-    .filter(Boolean);
-
-  const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) setActiveLink(entry.target.id);
-    });
-  }, { rootMargin: '-35% 0px -60% 0px' });
-
-  trackedSections.forEach(section => sectionObserver.observe(section));
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY < window.innerHeight * 0.5) setActiveLink(null);
-  }, { passive: true });
-
-  window.addEventListener('resize', () => {
-    moveIndicatorTo(document.querySelector('.nav-link.is-active'));
-  });
-
-  // Mobile menu
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-
-  function setMenuOpen(isOpen) {
-    if (!mobileMenu || !menuToggle) return;
-    mobileMenu.classList.toggle('is-open', isOpen);
-    mobileMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-    const icon = menuToggle.querySelector('i');
-    if (icon) icon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  }
-
-  if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-      setMenuOpen(!mobileMenu.classList.contains('is-open'));
+    navLinks.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('open');
+        document.body.style.overflow = '';
+      });
     });
   }
 
-  if (mobileMenu) {
-    mobileMenu.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('click', () => setMenuOpen(false));
-    });
-  }
-
-  /* ==========================================================
-     2. THEME TOGGLE (Dark / Light)
-     ========================================================== */
-  const themeToggleBtn = document.getElementById('themeToggleBtn');
-  const themeIcon = themeToggleBtn ? themeToggleBtn.querySelector('i') : null;
+  /* =========================================================================
+     1. Theme Toggle (dark default)
+     ========================================================================= */
+  const themeToggle = document.getElementById('themeToggle');
+  const sunIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+  const moonIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
 
   function applyTheme(theme) {
-    const activeTheme = theme === 'light' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', activeTheme);
-    try { localStorage.setItem('simran_theme', activeTheme); } catch (e) { /* storage unavailable */ }
-    if (themeIcon) themeIcon.className = activeTheme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-    if (themeToggleBtn) {
-      themeToggleBtn.setAttribute('aria-label', activeTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    const active = theme === 'light' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', active);
+    try { localStorage.setItem('simran_theme', active); } catch (e) { /* storage unavailable */ }
+    if (themeToggle) {
+      themeToggle.innerHTML = active === 'dark' ? sunIcon : moonIcon;
+      themeToggle.setAttribute('aria-label', active === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
     }
+    document.dispatchEvent(new CustomEvent('themechange'));
   }
 
   applyTheme(document.documentElement.getAttribute('data-theme'));
 
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme');
       applyTheme(current === 'dark' ? 'light' : 'dark');
     });
   }
 
-  /* ==========================================================
-     3. WORK INDEX — CURSOR-FOLLOWING PREVIEW
-     ========================================================== */
-  const workList = document.getElementById('workList');
-  const workPreview = document.getElementById('workPreview');
-  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  /* =========================================================================
+     2. Scroll Reveal Animations
+     ========================================================================= */
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
 
-  if (workList && workPreview && finePointer) {
-    const previews = workPreview.querySelectorAll('.pv');
-    let pointerX = 0;
-    let pointerY = 0;
-    let currentX = 0;
-    let currentY = 0;
-    let followId = null;
+  document.querySelectorAll('.animate-up').forEach(el => revealObserver.observe(el));
 
-    const follow = () => {
-      currentX += (pointerX - currentX) * 0.16;
-      currentY += (pointerY - currentY) * 0.16;
-      workPreview.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-      followId = requestAnimationFrame(follow);
+  /* =========================================================================
+     3. Dark Container Scroll Scaling
+     ========================================================================= */
+  const darkContainer = document.querySelector('.dark-container');
+  if (darkContainer) {
+    let ticking = false;
+    const updateDarkContainer = () => {
+      const rect = darkContainer.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      let progress = (windowHeight - rect.top) / (windowHeight * 0.7);
+      progress = Math.max(0, Math.min(1, progress));
+
+      const scale = 0.7 + (0.35 * progress);
+      const opacity = 0.3 + (0.7 * progress);
+
+      darkContainer.style.transform = `scale(${scale})`;
+      darkContainer.style.opacity = opacity;
+
+      if (progress > 0.5) {
+        darkContainer.style.boxShadow = '0 0 0 1px rgba(255,255,255,0.1), 0 40px 80px rgba(0,0,0,0.2), 0 0 120px rgba(16, 185, 129, 0.15)';
+      } else {
+        darkContainer.style.boxShadow = '0 0 0 1px rgba(255,255,255,0.06), 0 30px 60px rgba(0,0,0,0.1), 0 0 100px rgba(16, 185, 129, 0.1)';
+      }
+      ticking = false;
     };
 
-    workList.querySelectorAll('.work-row').forEach(row => {
-      row.addEventListener('mouseenter', (e) => {
-        previews.forEach(pv => pv.classList.toggle('is-active', pv.dataset.key === row.dataset.preview));
-        if (!workPreview.classList.contains('is-visible')) {
-          currentX = pointerX = e.clientX;
-          currentY = pointerY = e.clientY;
-        }
-        workPreview.classList.add('is-visible');
-        if (!followId) follow();
-      });
-      row.addEventListener('mousemove', (e) => {
-        pointerX = e.clientX;
-        pointerY = e.clientY;
-      });
-    });
-
-    workList.addEventListener('mouseleave', () => {
-      workPreview.classList.remove('is-visible');
-      cancelAnimationFrame(followId);
-      followId = null;
-    });
-  }
-
-  /* ==========================================================
-     4. LAB — HORIZONTAL TRACK
-     ========================================================== */
-  const labTrack = document.getElementById('labTrack');
-  const labPrev = document.getElementById('labPrev');
-  const labNext = document.getElementById('labNext');
-
-  function labStep() {
-    const panel = labTrack ? labTrack.querySelector('.lab-panel') : null;
-    return panel ? panel.offsetWidth + 20 : 600;
-  }
-
-  function updateLabButtons() {
-    if (!labTrack) return;
-    const maxScroll = labTrack.scrollWidth - labTrack.clientWidth - 4;
-    if (labPrev) labPrev.disabled = labTrack.scrollLeft <= 4;
-    if (labNext) labNext.disabled = labTrack.scrollLeft >= maxScroll;
-  }
-
-  if (labTrack) {
-    if (labPrev) labPrev.addEventListener('click', () => labTrack.scrollBy({ left: -labStep(), behavior: 'smooth' }));
-    if (labNext) labNext.addEventListener('click', () => labTrack.scrollBy({ left: labStep(), behavior: 'smooth' }));
-    labTrack.addEventListener('scroll', updateLabButtons, { passive: true });
-    window.addEventListener('resize', updateLabButtons);
-    updateLabButtons();
-  }
-
-  // Buttons elsewhere on the page that jump straight to a demo
-  const demoPanels = { shopify: 'labShopify', ecg: 'labEcg', flashcard: 'labFlash' };
-
-  document.querySelectorAll('.switch-to-play').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const panel = document.getElementById(demoPanels[btn.dataset.demo]);
-      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
-    });
-  });
-
-  // Start the ECG canvas once the lab scrolls into view
-  const ecgCanvasEl = document.getElementById('ecgCanvas');
-  if (ecgCanvasEl) {
-    const ecgObserver = new IntersectionObserver((entries) => {
-      if (entries.some(entry => entry.isIntersecting)) {
-        ecgObserver.disconnect();
-        initEcgCanvas();
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateDarkContainer);
+        ticking = true;
       }
-    }, { threshold: 0.1 });
-    ecgObserver.observe(ecgCanvasEl);
+    }, { passive: true });
+
+    updateDarkContainer();
   }
 
-  // Resume buttons (header, hero, mobile menu)
-  document.querySelectorAll('.open-resume').forEach(btn => {
-    btn.addEventListener('click', () => openModal(document.getElementById('resumeModal')));
+  /* =========================================================================
+     4. Typewriter Effect
+     ========================================================================= */
+  const typewriterElements = document.querySelectorAll('.typewriter');
+
+  typewriterElements.forEach(el => {
+    const textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
+    if (!textNode) return;
+
+    const fullText = textNode.textContent.trim();
+    textNode.textContent = '';
+    el.dataset.fullText = fullText;
   });
 
-  /* ==========================================================
-     5. SHOPIFY SECTION CUSTOMIZER SIMULATOR (Live Reactive)
-     ========================================================== */
+  const typewriterObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const textToType = el.dataset.fullText;
+        if (!textToType) return;
+
+        const cursor = el.querySelector('.gradient-cursor');
+        if (cursor) cursor.classList.add('active');
+
+        let textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
+        if (!textNode) {
+          textNode = document.createTextNode('');
+          el.insertBefore(textNode, el.firstChild);
+        }
+
+        let i = 0;
+        function typeChar() {
+          if (i < textToType.length) {
+            textNode.textContent += textToType.charAt(i);
+            i++;
+            setTimeout(typeChar, 30 + Math.random() * 30);
+          }
+        }
+
+        typeChar();
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  typewriterElements.forEach(el => typewriterObserver.observe(el));
+
+  /* =========================================================================
+     5. Wavy Skills Marquee
+     ========================================================================= */
+  const marqueeTrack = document.getElementById('marqueeTrack');
+  const SKILLS_DATA = [
+    { class: 'devicon-python-plain colored', url: 'https://www.python.org/', name: 'Python' },
+    { class: 'devicon-cplusplus-plain colored', url: 'https://isocpp.org/', name: 'C++' },
+    { class: 'devicon-javascript-plain colored', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript', name: 'JavaScript' },
+    { class: 'devicon-java-plain colored', url: 'https://www.java.com/', name: 'Java' },
+    { class: 'devicon-react-original colored', url: 'https://react.dev/', name: 'React' },
+    { class: 'devicon-nodejs-plain colored', url: 'https://nodejs.org/', name: 'Node.js' },
+    { class: 'devicon-express-original', url: 'https://expressjs.com/', name: 'Express.js' },
+    { class: 'devicon-django-plain colored', url: 'https://www.djangoproject.com/', name: 'Django' },
+    { class: 'devicon-fastapi-plain colored', url: 'https://fastapi.tiangolo.com/', name: 'FastAPI' },
+    { class: 'devicon-html5-plain colored', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML', name: 'HTML5' },
+    { class: 'devicon-css3-plain colored', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS', name: 'CSS3' },
+    { class: 'devicon-mongodb-plain colored', url: 'https://www.mongodb.com/', name: 'MongoDB' },
+    { class: 'devicon-microsoftsqlserver-plain colored', url: 'https://www.microsoft.com/sql-server', name: 'SQL Server' },
+    { class: 'devicon-mysql-plain colored', url: 'https://www.mysql.com/', name: 'MySQL' },
+    { class: 'devicon-azure-plain colored', url: 'https://azure.microsoft.com/', name: 'Azure' },
+    { class: 'devicon-docker-plain colored', url: 'https://www.docker.com/', name: 'Docker' },
+    { class: 'devicon-git-plain colored', url: 'https://git-scm.com/', name: 'Git' },
+    { class: 'devicon-github-original colored', url: 'https://github.com/', name: 'GitHub' },
+    { class: 'devicon-postman-plain colored', url: 'https://www.postman.com/', name: 'Postman' },
+    { class: 'devicon-jupyter-plain colored', url: 'https://jupyter.org/', name: 'Jupyter' },
+    { class: 'devicon-vscode-plain colored', url: 'https://code.visualstudio.com/', name: 'VS Code' },
+    { class: 'devicon-figma-plain colored', url: 'https://www.figma.com/', name: 'Figma' },
+    { class: 'devicon-arduino-plain colored', url: 'https://www.arduino.cc/', name: 'Arduino' },
+    { class: 'devicon-firebase-plain colored', url: 'https://firebase.google.com/', name: 'Firebase' }
+  ];
+
+  if (marqueeTrack) {
+    const FULL_SKILLS = [...SKILLS_DATA, ...SKILLS_DATA];
+
+    FULL_SKILLS.forEach(skill => {
+      const icon = document.createElement('a');
+      icon.className = 'marquee-icon';
+      icon.href = skill.url;
+      icon.target = '_blank';
+      icon.rel = 'noopener noreferrer';
+      icon.innerHTML = `<i class="${skill.class}"></i>`;
+      icon.title = skill.name;
+      icon.setAttribute('aria-label', skill.name);
+      marqueeTrack.appendChild(icon);
+    });
+
+    const icons = document.querySelectorAll('.marquee-icon');
+
+    function animateMarquee(time) {
+      icons.forEach((icon, index) => {
+        const y = Math.sin(time * 0.0012 + index * 0.5) * 35;
+        icon.style.transform = `translateY(${y}px)`;
+      });
+      requestAnimationFrame(animateMarquee);
+    }
+    requestAnimationFrame(animateMarquee);
+  }
+
+  /* =========================================================================
+     6. Ambient Gradient Orbs Canvas
+     ========================================================================= */
+  const mainCanvas = document.getElementById('particleCanvas');
+  let targetMouseX = 0, targetMouseY = 0;
+  let currentMouseX = 0, currentMouseY = 0;
+
+  window.addEventListener('mousemove', (e) => {
+    targetMouseX = (e.clientX - window.innerWidth / 2) * 0.15;
+    targetMouseY = (e.clientY - window.innerHeight / 2) * 0.15;
+  });
+
+  if (mainCanvas) {
+    const ctx = mainCanvas.getContext('2d');
+    let width, height;
+
+    function resizeMain() {
+      width = mainCanvas.width = window.innerWidth;
+      height = mainCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeMain);
+    resizeMain();
+
+    mainCanvas.style.filter = 'blur(100px)';
+    mainCanvas.style.transform = 'scale(1.2)';
+
+    const setOrbOpacity = () => {
+      const styles = getComputedStyle(document.documentElement);
+      mainCanvas.style.opacity = styles.getPropertyValue('--orb-opacity').trim() || '0.15';
+    };
+    setOrbOpacity();
+    document.addEventListener('themechange', setOrbOpacity);
+
+    const orbs = [
+      { x: width * 0.2, y: height * 0.3, vx: 0.5, vy: 0.3, size: 400, color: '#10b981' },
+      { x: width * 0.8, y: height * 0.7, vx: -0.4, vy: 0.5, size: 500, color: '#2563eb' },
+      { x: width * 0.5, y: height * 0.5, vx: 0.6, vy: -0.4, size: 350, color: '#34d399' },
+      { x: width * 0.2, y: height * 0.8, vx: 0.3, vy: -0.6, size: 450, color: '#7c3aed' }
+    ];
+
+    function drawMainCanvas() {
+      ctx.clearRect(0, 0, width, height);
+      currentMouseX += (targetMouseX - currentMouseX) * 0.05;
+      currentMouseY += (targetMouseY - currentMouseY) * 0.05;
+
+      for (let i = 0; i < orbs.length; i++) {
+        const orb = orbs[i];
+
+        orb.x += orb.vx;
+        orb.y += orb.vy;
+
+        if (orb.x < -orb.size || orb.x > width + orb.size) orb.vx *= -1;
+        if (orb.y < -orb.size || orb.y > height + orb.size) orb.vy *= -1;
+
+        const drawX = orb.x - currentMouseX * (i * 0.5 + 1);
+        const drawY = orb.y - currentMouseY * (i * 0.5 + 1);
+
+        ctx.fillStyle = orb.color;
+        ctx.beginPath();
+        ctx.arc(drawX, drawY, orb.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame(drawMainCanvas);
+    }
+    drawMainCanvas();
+  }
+
+  /* =========================================================================
+     7. Projects Canvas Particles + Arrow Navigation
+     ========================================================================= */
+  const pCanvas = document.getElementById('projectsCanvas');
+  const scrollContainer = document.querySelector('.projects-scroll-container');
+
+  if (pCanvas && scrollContainer) {
+    const pCtx = pCanvas.getContext('2d');
+    let cw, ch;
+    let particles = [];
+
+    let pTargetX = 0, pTargetY = 0;
+    let pCurrentX = 0, pCurrentY = 0;
+
+    const section = pCanvas.parentElement;
+    section.addEventListener('mousemove', (e) => {
+      const rect = section.getBoundingClientRect();
+      pTargetX = ((e.clientX - rect.left) / section.offsetWidth - 0.5) * 2;
+      pTargetY = ((e.clientY - rect.top) / section.offsetHeight - 0.5) * 2;
+    });
+    section.addEventListener('mouseleave', () => {
+      pTargetX = 0;
+      pTargetY = 0;
+    });
+
+    function initProjectsCanvas() {
+      cw = window.innerWidth;
+      ch = scrollContainer.offsetHeight;
+      pCanvas.width = cw;
+      pCanvas.height = ch;
+
+      const virtualWidth = scrollContainer.scrollWidth || cw * 5;
+
+      particles = [];
+      for (let i = 0; i < 250; i++) {
+        particles.push({
+          x: Math.random() * virtualWidth,
+          y: Math.random() * ch,
+          speed: Math.random() * 0.015 + 0.005,
+          size: Math.random() * 2 + 1,
+          baseY: Math.random() * ch,
+          wobbleSpeed: Math.random() * 0.0005 + 0.0001,
+          wobbleDistance: Math.random() * 80 + 20,
+          parallaxDepth: Math.random() * 40 + 10
+        });
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      clearTimeout(window.pResizeTimer);
+      window.pResizeTimer = setTimeout(initProjectsCanvas, 200);
+    });
+
+    initProjectsCanvas();
+    setTimeout(initProjectsCanvas, 500);
+
+    function lerpColor(a, b, amount) {
+      const ah = parseInt(a.replace(/#/g, ''), 16),
+        ar = ah >> 16, ag = ah >> 8 & 0xff, ab = ah & 0xff,
+        bh = parseInt(b.replace(/#/g, ''), 16),
+        br = bh >> 16, bg = bh >> 8 & 0xff, bb = bh & 0xff,
+        rr = ar + amount * (br - ar),
+        rg = ag + amount * (bg - ag),
+        rb = ab + amount * (bb - ab);
+      return '#' + ((1 << 24) + (rr << 16) + (rg << 8) + rb | 0).toString(16).slice(1);
+    }
+
+    const hexToRgba = (hex, alpha) => {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    };
+
+    function drawProjects() {
+      pCtx.clearRect(0, 0, cw, ch);
+
+      pCurrentX += (pTargetX - pCurrentX) * 0.05;
+      pCurrentY += (pTargetY - pCurrentY) * 0.05;
+
+      const virtualWidth = scrollContainer.scrollWidth || cw * 5;
+      const scrollOffset = scrollContainer.scrollLeft;
+
+      pCtx.globalAlpha = 0.5;
+
+      for (let p of particles) {
+        p.x += p.speed;
+        if (p.x > virtualWidth + 50) {
+          p.x = -50;
+          p.baseY = Math.random() * ch;
+        }
+
+        p.y = p.baseY + Math.sin(Date.now() * p.wobbleSpeed + p.x) * p.wobbleDistance;
+
+        const parallaxX = pCurrentX * p.parallaxDepth;
+        const parallaxY = pCurrentY * p.parallaxDepth;
+
+        const screenX = (p.x - scrollOffset) - parallaxX;
+        const screenY = p.y - parallaxY;
+
+        if (screenX > -20 && screenX < cw + 20 && screenY > -20 && screenY < ch + 20) {
+          const progress = p.x / virtualWidth;
+          let color;
+
+          if (progress < 0.25) color = lerpColor('#10b981', '#2563eb', progress / 0.25);
+          else if (progress < 0.5) color = lerpColor('#2563eb', '#7c3aed', (progress - 0.25) / 0.25);
+          else if (progress < 0.75) color = lerpColor('#7c3aed', '#34d399', (progress - 0.5) / 0.25);
+          else color = lerpColor('#34d399', '#10b981', (progress - 0.75) / 0.25);
+
+          const grad = pCtx.createRadialGradient(screenX, screenY, 0, screenX, screenY, p.size * 2);
+          grad.addColorStop(0, hexToRgba(color, 1));
+          grad.addColorStop(1, hexToRgba(color, 0));
+
+          pCtx.beginPath();
+          pCtx.arc(screenX, screenY, p.size * 2, 0, Math.PI * 2);
+          pCtx.fillStyle = grad;
+          pCtx.fill();
+        }
+      }
+      requestAnimationFrame(drawProjects);
+    }
+    drawProjects();
+  }
+
+  // Projects arrow navigation
+  const projPrevBtn = document.getElementById('projPrevBtn');
+  const projNextBtn = document.getElementById('projNextBtn');
+
+  if (projPrevBtn && projNextBtn && scrollContainer) {
+    const cardStep = () => {
+      const card = scrollContainer.querySelector('.project-card');
+      return card ? card.offsetWidth + 32 : 600;
+    };
+    projPrevBtn.addEventListener('click', () => scrollContainer.scrollBy({ left: -cardStep(), behavior: 'smooth' }));
+    projNextBtn.addEventListener('click', () => scrollContainer.scrollBy({ left: cardStep(), behavior: 'smooth' }));
+  }
+
+  /* =========================================================================
+     8. Image Lightbox
+     ========================================================================= */
+  const imageModal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+  const closeImageModalBtn = document.querySelector('.close-modal');
+  const zoomImages = document.querySelectorAll('.cp-img-wrapper img');
+
+  if (imageModal && modalImage) {
+    zoomImages.forEach(img => {
+      img.parentElement.addEventListener('click', function () {
+        imageModal.style.display = 'flex';
+        setTimeout(() => imageModal.classList.add('show'), 10);
+        modalImage.src = img.src;
+        modalImage.alt = img.alt || 'Zoomed view';
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    const closeImageModal = () => {
+      imageModal.classList.remove('show');
+      setTimeout(() => {
+        imageModal.style.display = 'none';
+        document.body.style.overflow = '';
+      }, 300);
+    };
+
+    if (closeImageModalBtn) closeImageModalBtn.addEventListener('click', closeImageModal);
+
+    imageModal.addEventListener('click', (e) => {
+      if (e.target !== modalImage) closeImageModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && imageModal.style.display === 'flex') closeImageModal();
+    });
+  }
+
+  /* =========================================================================
+     9. Timeline Step Highlighting (project pages)
+     ========================================================================= */
+  const stepNumbers = document.querySelectorAll('.cp-step-number');
+
+  if (stepNumbers.length > 0) {
+    const updateTimelineScroll = () => {
+      const triggerPoint = window.innerHeight * 0.45;
+
+      let activeIndex = -1;
+      let minDistance = Infinity;
+
+      stepNumbers.forEach((num, index) => {
+        const stepCard = num.closest('.cp-step');
+        if (!stepCard) return;
+        const rect = stepCard.getBoundingClientRect();
+        if (rect.top <= triggerPoint && rect.bottom >= triggerPoint) {
+          activeIndex = index;
+        } else {
+          const distance = Math.abs((rect.top + rect.height / 2) - triggerPoint);
+          if (activeIndex === -1 && distance < minDistance) {
+            minDistance = distance;
+            activeIndex = index;
+          }
+        }
+      });
+
+      stepNumbers.forEach((num, index) => {
+        num.classList.toggle('active', index === activeIndex);
+      });
+    };
+
+    window.addEventListener('scroll', () => {
+      requestAnimationFrame(updateTimelineScroll);
+    }, { passive: true });
+
+    updateTimelineScroll();
+  }
+
+  /* =========================================================================
+     10a. Toast (used by demos)
+     ========================================================================= */
+  const toastNotification = document.getElementById('toastNotification');
+  const toastMessage = document.getElementById('toastMessage');
+  let toastTimer = null;
+
+  function showToast(message) {
+    if (!toastNotification || !toastMessage) return;
+    toastMessage.textContent = message;
+    toastNotification.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastNotification.classList.remove('show'), 2800);
+  }
+
+  /* =========================================================================
+     10b. Shopify Section Customizer (shopify.html)
+     ========================================================================= */
   const shopHeading = document.getElementById('shopHeading');
   const shopSubtitle = document.getElementById('shopSubtitle');
   const shopBtnText = document.getElementById('shopBtnText');
@@ -246,6 +537,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const renderBadge = document.getElementById('renderBadge');
   const renderPrice = document.getElementById('renderPrice');
 
+  function hexToRgbaColor(hex, alpha = 1) {
+    let c;
+    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+      c = hex.substring(1).split('');
+      if (c.length === 3) {
+        c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+      }
+      c = '0x' + c.join('');
+      return `rgba(${[(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',')},${alpha})`;
+    }
+    return hex;
+  }
+
   function updateShopifyPreview() {
     if (!liveShopifySection) return;
 
@@ -260,7 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (renderBtn) renderBtn.style.backgroundColor = selectedColor;
       if (renderBadge) {
         renderBadge.style.color = selectedColor;
-        renderBadge.style.backgroundColor = hexToRgba(selectedColor, 0.12);
+        renderBadge.style.backgroundColor = hexToRgbaColor(selectedColor, 0.12);
       }
       if (renderPrice) renderPrice.style.color = selectedColor;
     }
@@ -275,19 +579,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function hexToRgba(hex, alpha = 1) {
-    let c;
-    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
-      c = hex.substring(1).split('');
-      if (c.length === 3) {
-        c = [c[0], c[0], c[1], c[1], c[2], c[2]];
-      }
-      c = '0x' + c.join('');
-      return `rgba(${[(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',')},${alpha})`;
-    }
-    return hex;
-  }
-
   [shopHeading, shopSubtitle, shopBtnText, shopBadge, shopThemeColor, shopLayoutAlign, shopShowPrice].forEach(input => {
     if (input) {
       input.addEventListener('input', updateShopifyPreview);
@@ -297,9 +588,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateShopifyPreview();
 
-  /* ==========================================================
-     6. REAL-TIME ECG MONITOR & TELEMETRY SIMULATOR
-     ========================================================== */
+  /* =========================================================================
+     10c. Real-Time ECG Monitor (iot.html)
+     ========================================================================= */
   const ecgCanvas = document.getElementById('ecgCanvas');
   const liveBpmDisplay = document.getElementById('liveBpmDisplay');
   const liveSpo2Display = document.getElementById('liveSpo2Display');
@@ -318,7 +609,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!ecgCanvas) return;
     ecgCtx = ecgCanvas.getContext('2d');
 
-    // Make canvas sharp on Retina displays
     const dpr = window.devicePixelRatio || 1;
     const rect = ecgCanvas.getBoundingClientRect();
     const targetWidth = rect.width || 700;
@@ -338,8 +628,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentBpm = parseInt(e.target.value, 10);
       if (bpmSliderVal) bpmSliderVal.textContent = `${currentBpm} BPM`;
       if (liveBpmDisplay) liveBpmDisplay.textContent = currentBpm;
-      
-      // Dynamic simulated SpO2 calculation
+
       if (liveSpo2Display) {
         const spo2 = currentBpm > 115 ? 96 : (currentBpm < 60 ? 99 : 98);
         liveSpo2Display.textContent = spo2;
@@ -350,55 +639,36 @@ document.addEventListener('DOMContentLoaded', () => {
   if (togglePulseStateBtn) {
     togglePulseStateBtn.addEventListener('click', () => {
       isEcgPaused = !isEcgPaused;
-      const icon = togglePulseStateBtn.querySelector('i');
       const text = togglePulseStateBtn.querySelector('span');
-      if (isEcgPaused) {
-        if (icon) { icon.classList.remove('fa-pause'); icon.classList.add('fa-play'); }
-        if (text) text.textContent = 'Resume Stream';
-      } else {
-        if (icon) { icon.classList.remove('fa-play'); icon.classList.add('fa-pause'); }
-        if (text) text.textContent = 'Pause Stream';
-      }
+      if (text) text.textContent = isEcgPaused ? 'Resume stream' : 'Pause stream';
     });
   }
 
-  // Generate realistic P-Q-R-S-T wave point
+  // Realistic P-Q-R-S-T waveform
   function getEcgY(t, bpm) {
-    const period = 60 / bpm; // seconds per beat
-    const phase = (t % period) / period; // 0.0 to 1.0
+    const period = 60 / bpm;
+    const phase = (t % period) / period;
 
-    // baseline
     let y = 0;
 
-    // P-wave (at 0.1 to 0.2)
     if (phase >= 0.12 && phase <= 0.20) {
       const p = (phase - 0.12) / 0.08;
       y = Math.sin(p * Math.PI) * 12;
-    }
-    // Q-wave (dip at 0.24)
-    else if (phase > 0.20 && phase <= 0.24) {
+    } else if (phase > 0.20 && phase <= 0.24) {
       const q = (phase - 0.20) / 0.04;
       y = -Math.sin(q * Math.PI) * 10;
-    }
-    // R-wave (huge spike at 0.24 to 0.30)
-    else if (phase > 0.24 && phase <= 0.30) {
+    } else if (phase > 0.24 && phase <= 0.30) {
       const r = (phase - 0.24) / 0.06;
       y = Math.sin(r * Math.PI) * 70;
-    }
-    // S-wave (sharp dip at 0.30 to 0.34)
-    else if (phase > 0.30 && phase <= 0.34) {
+    } else if (phase > 0.30 && phase <= 0.34) {
       const s = (phase - 0.30) / 0.04;
       y = -Math.sin(s * Math.PI) * 22;
-    }
-    // T-wave (at 0.44 to 0.58)
-    else if (phase >= 0.44 && phase <= 0.58) {
+    } else if (phase >= 0.44 && phase <= 0.58) {
       const tw = (phase - 0.44) / 0.14;
       y = Math.sin(tw * Math.PI) * 18;
     }
 
-    // Add tiny realistic sensor noise
     y += (Math.random() - 0.5) * 1.5;
-
     return y;
   }
 
@@ -410,21 +680,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const midY = height / 2;
 
     if (!isEcgPaused) {
-      ecgTime += 0.016; // approx 60fps delta
+      ecgTime += 0.016;
       const waveY = midY - getEcgY(ecgTime, currentBpm);
       ecgDataPoints.push(waveY);
 
-      // Keep width number of points
       if (ecgDataPoints.length > width) {
         ecgDataPoints.shift();
       }
     }
 
-    // Clear canvas
     ecgCtx.fillStyle = '#090a0f';
     ecgCtx.fillRect(0, 0, width, height);
 
-    // Draw ECG glowing trace
     if (ecgDataPoints.length > 1) {
       ecgCtx.beginPath();
       ecgCtx.strokeStyle = '#10b981';
@@ -444,7 +711,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       ecgCtx.stroke();
 
-      // Leading pulse dot
       const lastX = ecgDataPoints.length - 1;
       const lastY = ecgDataPoints[lastX];
       ecgCtx.beginPath();
@@ -458,9 +724,19 @@ document.addEventListener('DOMContentLoaded', () => {
     ecgAnimationId = requestAnimationFrame(renderEcg);
   }
 
-  /* ==========================================================
-     7. EZILANG INTERACTIVE FLASHCARD DECK
-     ========================================================== */
+  if (ecgCanvas) {
+    const ecgObserver = new IntersectionObserver((entries) => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        ecgObserver.disconnect();
+        initEcgCanvas();
+      }
+    }, { threshold: 0.1 });
+    ecgObserver.observe(ecgCanvas);
+  }
+
+  /* =========================================================================
+     10d. EziLang Flashcards (ezilang.html)
+     ========================================================================= */
   const flashcardElement = document.getElementById('flashcardElement');
   const fcSpanishWord = document.getElementById('fcSpanishWord');
   const fcPhonetic = document.getElementById('fcPhonetic');
@@ -551,308 +827,9 @@ document.addEventListener('DOMContentLoaded', () => {
         window.speechSynthesis.speak(utterance);
         showToast(`Pronouncing "${word}"...`);
       } else {
-        showToast(`Speech synthesis not supported in this browser.`);
+        showToast('Speech synthesis is not supported in this browser.');
       }
     });
   }
-
-  /* ==========================================================
-     8. MODALS SYSTEM (Resume, Contact & Case Study)
-     ========================================================== */
-  const resumeModal = document.getElementById('resumeModal');
-  const contactModal = document.getElementById('contactModal');
-  const caseStudyModal = document.getElementById('caseStudyModal');
-
-  // Trigger buttons
-  const viewResumeBtn = document.getElementById('viewResumeBtn');
-  const openContactBtn = document.getElementById('openContactBtn');
-  const printResumeBtn = document.getElementById('printResumeBtn');
-
-  if (viewResumeBtn) {
-    viewResumeBtn.addEventListener('click', () => openModal(resumeModal));
-  }
-
-  if (openContactBtn) {
-    openContactBtn.addEventListener('click', () => openModal(contactModal));
-  }
-
-  if (printResumeBtn) {
-    printResumeBtn.addEventListener('click', () => {
-      window.print();
-    });
-  }
-
-  // Close buttons
-  document.querySelectorAll('.modal-close-btn, .modal-backdrop').forEach(element => {
-    element.addEventListener('click', (e) => {
-      if (e.target === element || element.classList.contains('modal-close-btn')) {
-        const modalId = element.dataset.close || element.id;
-        const targetModal = document.getElementById(modalId) || element.closest('.modal-backdrop');
-        if (targetModal) closeModal(targetModal);
-      }
-    });
-  });
-
-  document.querySelectorAll('.modal-dialog').forEach(dialog => {
-    dialog.addEventListener('click', e => e.stopPropagation());
-  });
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      [resumeModal, contactModal, caseStudyModal].forEach(m => {
-        if (m && m.classList.contains('is-open')) closeModal(m);
-      });
-    }
-  });
-
-  function openModal(modal) {
-    if (!modal) return;
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal(modal) {
-    if (!modal) return;
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-
-  // Case Study Details Data & Loader
-  const caseStudies = {
-    shopify: {
-      title: 'Production Shopify Storefronts & Theme Architecture',
-      content: `
-        <div style="line-height: 1.7; color: var(--text-secondary);">
-          <div style="margin-bottom: 24px;">
-            <img src="assets/shopify_mockup.jpg" style="border-radius: var(--radius-lg); width: 100%; max-height: 320px; object-fit: cover;" alt="Shopify Architecture">
-          </div>
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Role & Overview</h4>
-          <p style="margin-bottom: 16px;">
-            As a <strong>Frontend Shopify Developer Intern at Dagar.io</strong> (June – October 2026), I translated Figma designs into pixel-perfect, responsive Shopify storefronts using Liquid, HTML, CSS, JavaScript, and JSON.
-          </p>
-
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Technical Contributions</h4>
-          <ul style="padding-left: 20px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px;">
-            <li>Built reusable Online Store 2.0 sections and page templates with configurable {% schema %} settings, so merchants can rearrange layouts without code.</li>
-            <li>Customized navigation, collections, and blog templates to speed up future theme development.</li>
-            <li>Performed QA testing across layouts, links, and responsiveness on desktop and mobile.</li>
-            <li>Collaborated with designers and developers to optimize storefront performance, using Shopify CLI for local development.</li>
-          </ul>
-
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Key Technologies</h4>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;">
-            <span class="tech-pill">Shopify Liquid</span>
-            <span class="tech-pill">Online Store 2.0</span>
-            <span class="tech-pill">Figma-to-Liquid</span>
-            <span class="tech-pill">JSON Schemas</span>
-            <span class="tech-pill">Shopify CLI</span>
-            <span class="tech-pill">Responsive CSS</span>
-          </div>
-        </div>
-      `
-    },
-    nlsql: {
-      title: 'NL-to-SQL Reporting Assistant',
-      content: `
-        <div style="line-height: 1.7; color: var(--text-secondary);">
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Overview</h4>
-          <p style="margin-bottom: 16px;">
-            A full-stack app that turns plain-English business questions into <strong>T-SQL</strong> using a <strong>locally hosted LLM (Ollama)</strong>. The React UI shows the results table alongside the generated SQL, so every answer is transparent and checkable.
-          </p>
-
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">How It Works</h4>
-          <ul style="padding-left: 20px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px;">
-            <li><strong>Schema-aware prompting:</strong> a curated catalog of reporting views, column descriptions, join rules and few-shot examples, so the model only ever sees approved data.</li>
-            <li><strong>Safe execution:</strong> sqlglot-based validation (single SELECT only, view whitelist), input guardrails, a read-only SQL Server login, query timeouts and row limits.</li>
-            <li><strong>Auditing:</strong> every request is logged to MongoDB.</li>
-            <li><strong>Evaluation:</strong> accuracy and latency measured on a golden question set to tune prompts.</li>
-          </ul>
-
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Stack</h4>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;">
-            <span class="tech-pill">React</span>
-            <span class="tech-pill">Ollama (Local LLM)</span>
-            <span class="tech-pill">sqlglot</span>
-            <span class="tech-pill">SQL Server / T-SQL</span>
-            <span class="tech-pill">MongoDB</span>
-            <span class="tech-pill">Prompt Engineering</span>
-          </div>
-        </div>
-      `
-    },
-    aurelis: {
-      title: 'AURELIS — Expense Anomaly Detector',
-      content: `
-        <div style="line-height: 1.7; color: var(--text-secondary);">
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Overview</h4>
-          <p style="margin-bottom: 16px;">
-            A full-stack expense tracker, built in a <strong>team of 3</strong>, that flags unusual spending using <strong>per-category z-score analysis</strong> — each user's own past spending is the baseline, so "unusual" means unusual for <em>you</em>.
-          </p>
-
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Engineering Highlights</h4>
-          <ul style="padding-left: 20px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px;">
-            <li>Migrated the app from browser localStorage to a <strong>REST API (Node.js, Express, MongoDB Atlas)</strong> with an MVC structure.</li>
-            <li>Kept the existing frontend working throughout — no redesign needed.</li>
-            <li>Added secure accounts with <strong>bcrypt-hashed passwords</strong> and <strong>JWT login</strong>, with authorization so users can only see or change their own data.</li>
-          </ul>
-
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Stack</h4>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;">
-            <span class="tech-pill">Node.js</span>
-            <span class="tech-pill">Express.js</span>
-            <span class="tech-pill">MongoDB Atlas</span>
-            <span class="tech-pill">JWT</span>
-            <span class="tech-pill">bcrypt</span>
-            <span class="tech-pill">REST / MVC</span>
-          </div>
-        </div>
-      `
-    },
-    ezilang: {
-      title: 'EziLang — Responsive Language Learning Web Platform',
-      content: `
-        <div style="line-height: 1.7; color: var(--text-secondary);">
-          <div style="margin-bottom: 24px;">
-            <img src="assets/ezilang_mockup.jpg" style="border-radius: var(--radius-lg); width: 100%; max-height: 320px; object-fit: cover;" alt="EziLang App">
-          </div>
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Project Overview</h4>
-          <p style="margin-bottom: 16px;">
-            EziLang is a responsive language learning platform built to make daily vocabulary practice engaging, fast, and accessible. Deployed live with continuous deployment on Netlify.
-          </p>
-
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Key Capabilities</h4>
-          <ul style="padding-left: 20px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px;">
-            <li>3D CSS perspective card flips with phonetic guides and example sentences.</li>
-            <li>Browser Web Speech synthesis for native pronunciation playback.</li>
-            <li>Interactive UI components built with clean, semantic HTML5 and vanilla JavaScript.</li>
-            <li>Fully responsive layout engineered from scratch.</li>
-          </ul>
-
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Stack & Deployment</h4>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;">
-            <span class="tech-pill">HTML5</span>
-            <span class="tech-pill">CSS3 Animations</span>
-            <span class="tech-pill">Modern JavaScript (ES6+)</span>
-            <span class="tech-pill">Web Speech API</span>
-            <span class="tech-pill">Netlify</span>
-          </div>
-        </div>
-      `
-    },
-    iot: {
-      title: 'Smart IoT Heartbeat Monitoring with Cloud Integration',
-      content: `
-        <div style="line-height: 1.7; color: var(--text-secondary);">
-          <div style="margin-bottom: 24px;">
-            <img src="assets/iot_mockup.jpg" style="border-radius: var(--radius-lg); width: 100%; max-height: 320px; object-fit: cover;" alt="IoT Health Telemetry">
-          </div>
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Hardware & Cloud Architecture</h4>
-          <p style="margin-bottom: 16px;">
-            Engineered a complete biometric acquisition and cloud streaming solution using an <strong>Arduino UNO</strong> microcontroller paired with a <strong>MAX30102</strong> optical pulse oximetry sensor and an <strong>ESP01 Wi-Fi</strong> transceiving module.
-          </p>
-
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">System Highlights</h4>
-          <ul style="padding-left: 20px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px;">
-            <li>Concurrent acquisition of red and infrared photoplethysmogram (PPG) signals to calculate real-time beats per minute (BPM) and blood oxygen saturation (SpO2).</li>
-            <li>Programmed AT commands and HTTP/MQTT telemetry packets to stream real-time sensor payloads to <strong>ThingSpeak Cloud</strong>.</li>
-            <li>Constructed responsive remote visualization charts allowing clinical or caregiver telemetry monitoring from any browser.</li>
-          </ul>
-
-          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Engineering Toolbox</h4>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;">
-            <span class="tech-pill">Arduino UNO</span>
-            <span class="tech-pill">MAX30102 Optical Sensor</span>
-            <span class="tech-pill">ESP01 Wi-Fi Module</span>
-            <span class="tech-pill">ThingSpeak Cloud API</span>
-            <span class="tech-pill">Embedded C++</span>
-            <span class="tech-pill">Biometric Telemetry</span>
-          </div>
-        </div>
-      `
-    }
-  };
-
-  document.querySelectorAll('.open-case-study').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const projKey = btn.dataset.project;
-      const data = caseStudies[projKey];
-      if (data && caseStudyModal) {
-        document.getElementById('csModalTitle').textContent = data.title;
-        document.getElementById('csModalBody').innerHTML = data.content;
-        openModal(caseStudyModal);
-      }
-    });
-  });
-
-  /* ==========================================================
-     9. CLIPBOARD COPY & TOAST NOTIFICATIONS
-     ========================================================== */
-  const toastNotification = document.getElementById('toastNotification');
-  const toastMessage = document.getElementById('toastMessage');
-  let toastTimer = null;
-
-  function showToast(message) {
-    if (!toastNotification || !toastMessage) return;
-    toastMessage.textContent = message;
-    toastNotification.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => {
-      toastNotification.classList.remove('show');
-    }, 2800);
-  }
-
-  function copyToClipboard(text, successMsg) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => {
-        showToast(successMsg);
-      }).catch(() => {
-        fallbackCopy(text, successMsg);
-      });
-    } else {
-      fallbackCopy(text, successMsg);
-    }
-  }
-
-  function fallbackCopy(text, successMsg) {
-    const tempInput = document.createElement('input');
-    tempInput.value = text;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    try {
-      document.execCommand('copy');
-      showToast(successMsg);
-    } catch (err) {
-      showToast('Could not copy text.');
-    }
-    document.body.removeChild(tempInput);
-  }
-
-  // Copy email buttons
-  document.querySelectorAll('[data-email]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const email = btn.dataset.email || 'simrannkapoor60@gmail.com';
-      copyToClipboard(email, `Copied ${email} to clipboard!`);
-    });
-  });
-
-  // Contact form quick submit handler
-  window.handleContactSubmit = function() {
-    const name = document.getElementById('contactName').value;
-    const email = document.getElementById('contactEmail').value;
-    const message = document.getElementById('contactMessage').value;
-
-    // Hand off to the visitor's mail client so the note actually reaches the inbox
-    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
-    const bodyText = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-    window.location.href = `mailto:simrannkapoor60@gmail.com?subject=${subject}&body=${bodyText}`;
-
-    showToast(`Thank you, ${name}! Opening your email app...`);
-    setTimeout(() => {
-      closeModal(contactModal);
-      document.getElementById('contactForm').reset();
-    }, 1200);
-  };
 
 });

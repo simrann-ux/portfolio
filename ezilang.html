@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EziLang | Simran Kapoor</title>
+  <meta name="description"
+    content="EziLang — a responsive language learning platform with interactive flashcards and native pronunciation, deployed on Netlify.">
+  <link rel="icon" type="image/jpeg" href="assets/avatar.jpg">
+  <link rel="stylesheet" href="style.css?v=4.0">
+  <script>
+    (function () {
+      var theme = 'dark';
+      try { theme = localStorage.getItem('simran_theme') || 'dark'; } catch (e) { }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+
+<body>
+  <canvas id="particleCanvas"></canvas>
+
+  <nav class="sticky-nav">
+    <div class="nav-inner is-split">
+      <a href="index.html#projects" class="nav-link nav-back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        Back
+      </a>
+      <div class="nav-links">
+        <a href="#overview" class="nav-link">Overview</a>
+        <a href="#try-it" class="nav-link">Try It</a>
+        <a href="#features" class="nav-link">Features</a>
+      </div>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="cp-hero container animate-up">
+      <span class="cp-trophy-badge">Web app · Live on Netlify</span>
+      <h1 class="huge-title cp-title">EziLang<span class="gradient-cursor active"></span></h1>
+      <p class="subtitle cp-tagline">Vocabulary that sticks.</p>
+
+      <div class="cp-hero-mockup animate-up">
+        <div class="cp-browser-bar">
+          <div class="cp-traffic-lights">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="cp-address-bar">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            ezilang.netlify.app
+          </div>
+          <div style="width: 60px;"></div>
+        </div>
+        <div class="cp-img-wrapper" style="min-height: 300px;">
+          <img src="assets/ezilang_mockup.jpg" alt="EziLang vocabulary deck interface">
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section id="overview" class="container section-padding animate-up">
+      <div class="cp-overview">
+        <h2 class="section-heading cp-question">What makes daily vocabulary practice something you come back to?</h2>
+        <p class="cp-lead">
+          <strong>EziLang</strong> is a responsive language learning platform built from scratch with HTML, CSS and
+          JavaScript, featuring interactive UI components and continuous deployment on <strong>Netlify</strong>. No
+          frameworks, no build step — just clean, semantic code and careful interaction design.
+        </p>
+      </div>
+
+      <div class="cp-tech-stack">
+        <span class="cp-tech-pill">HTML5</span>
+        <span class="cp-tech-pill">CSS3 animations</span>
+        <span class="cp-tech-pill">JavaScript (ES6+)</span>
+        <span class="cp-tech-pill">Web Speech API</span>
+        <span class="cp-tech-pill">Netlify CI/CD</span>
+      </div>
+    </section>
+
+    <!-- TRY IT -->
+    <section id="try-it" class="container section-padding">
+      <div class="cp-section-head">
+        <h2 class="section-heading">Try It</h2>
+        <p class="subtitle">A real deck from the app. Click the card to flip it — Pronounce speaks the word in
+          Spanish.</p>
+      </div>
+
+      <div class="cp-demo-shell animate-up" style="max-width: 760px;">
+        <div class="cp-demo-head">
+          <span class="cp-demo-chip">Card <span id="currentCardIdx">1</span> of 4</span>
+          <span class="cp-demo-chip">Spanish → English</span>
+        </div>
+
+        <div class="flashcard-area">
+          <div class="flashcard-deck" id="flashcardElement" role="button" tabindex="0"
+            aria-label="Flashcard, press to flip">
+            <div class="card-inner">
+              <div class="card-face card-front">
+                <div class="card-top-tag">Spanish</div>
+                <div class="card-main-word" id="fcSpanishWord">manzana</div>
+                <div class="card-pronounce" id="fcPhonetic">[manˈθana]</div>
+                <div class="card-hint">Click to reveal the translation</div>
+              </div>
+              <div class="card-face card-back">
+                <div class="card-top-tag">English</div>
+                <div class="card-main-word" id="fcEnglishWord">Apple</div>
+                <div class="card-sentence" id="fcSentence">"Me gusta comer una manzana roja." (I like to eat a red
+                  apple.)</div>
+                <div class="card-hint">Click to flip back</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flashcard-nav-row">
+            <button id="prevCardBtn" class="btn-outline btn-sm">← Previous</button>
+            <button id="audioSpeakBtn" class="btn-solid btn-sm">Pronounce</button>
+            <button id="nextCardBtn" class="btn-outline btn-sm">Next →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="container section-padding" style="margin-bottom: 4rem;">
+      <div class="cp-section-head">
+        <h2 class="section-heading">Key Capabilities</h2>
+        <p class="subtitle">Small details that make practice feel effortless.</p>
+      </div>
+
+      <div class="cp-pillars-grid">
+        <div class="cp-pillar-card animate-up">
+          <div class="cp-pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="M12 4v16" />
+            </svg>
+          </div>
+          <h3>3D flip cards</h3>
+          <p>CSS perspective card flips with phonetic guides and situational example sentences on the back, so every
+            word comes with context.</p>
+        </div>
+
+        <div class="cp-pillar-card animate-up">
+          <div class="cp-pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" />
+            </svg>
+          </div>
+          <h3>Native pronunciation</h3>
+          <p>The browser's Web Speech synthesis reads each word aloud in Spanish, so learners hear the pronunciation
+            instead of guessing from the phonetics.</p>
+        </div>
+
+        <div class="cp-pillar-card animate-up">
+          <div class="cp-pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+            </svg>
+          </div>
+          <h3>Continuous deployment</h3>
+          <p>Every push goes live through Netlify's CI/CD pipeline, and the fully responsive layout works the same on
+            a phone in a queue as on a laptop at a desk.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Designed &amp; built by Simran Kapoor © 2026</p>
+  </footer>
+
+  <div id="imageModal" class="image-modal">
+    <button class="close-modal" aria-label="Close image">&times;</button>
+    <img class="modal-content" id="modalImage" alt="Zoomed view">
+  </div>
+
+  <!-- Toast -->
+  <div id="toastNotification" class="toast-popup" role="status" aria-live="polite">
+    <span class="toast-icon">✓</span>
+    <span id="toastMessage">Done</span>
+  </div>
+
+  <script src="script.js?v=4.0"></script>
+</body>
+
+</html>

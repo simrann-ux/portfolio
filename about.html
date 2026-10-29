@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get to know me | Simran Kapoor</title>
+  <meta name="description"
+    content="Get to know Simran Kapoor: skills, Microsoft certifications, leadership and education.">
+  <link rel="icon" type="image/jpeg" href="assets/avatar.jpg">
+  <link rel="stylesheet" href="style.css?v=4.0">
+  <script>
+    (function () {
+      var theme = 'dark';
+      try { theme = localStorage.getItem('simran_theme') || 'dark'; } catch (e) { }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+
+<body>
+  <canvas id="particleCanvas"></canvas>
+
+  <nav class="sticky-nav">
+    <div class="nav-inner is-split">
+      <a href="index.html" class="nav-link nav-back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        Back
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#certifications" class="nav-link">Certifications</a>
+        <a href="#highlights" class="nav-link">Highlights</a>
+        <a href="resume.html" target="_blank" rel="noopener noreferrer" class="nav-link nav-resume">Resume ↗</a>
+      </div>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="cp-hero container animate-up">
+      <span class="cp-trophy-badge">Panipat, India · CS @ Chitkara University · Class of 2028</span>
+      <h1 class="huge-title typewriter cp-title">Get to know me.<span class="gradient-cursor"></span></h1>
+      <p class="subtitle gk-hero-sub">I'm Simran — I build across the stack: LLM tools with real guardrails, secure
+        full-stack apps, IoT systems, and Shopify storefronts that made it to production during my internship at
+        Dagar.io.</p>
+
+      <div class="btn-group" style="margin-top: 2rem;">
+        <a href="https://linkedin.com/in/simran-kapoor-5996b737a" target="_blank" rel="noopener noreferrer"
+          class="btn-solid">LinkedIn</a>
+        <a href="https://github.com/simrann-kapoor" target="_blank" rel="noopener noreferrer"
+          class="btn-outline">GitHub</a>
+        <a href="mailto:simrannkapoor60@gmail.com" class="btn-outline">Email</a>
+      </div>
+
+      <div class="gk-stats animate-up">
+        <div class="gk-stat">
+          <span class="gk-stat-num">9.03</span>
+          <span class="gk-stat-label">CGPA</span>
+        </div>
+        <div class="gk-stat">
+          <span class="gk-stat-num">5</span>
+          <span class="gk-stat-label">Microsoft certifications</span>
+        </div>
+        <div class="gk-stat">
+          <span class="gk-stat-num">4</span>
+          <span class="gk-stat-label">Shipped projects</span>
+        </div>
+        <div class="gk-stat">
+          <span class="gk-stat-num">5</span>
+          <span class="gk-stat-label">Months as a Shopify developer intern</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="container section-padding">
+      <div class="gk-section-head animate-up">
+        <h2 class="section-heading typewriter">What I work with.<span class="gradient-cursor"></span></h2>
+        <p class="subtitle">The tools behind the projects, grouped the way I actually use them.</p>
+      </div>
+
+      <div class="gk-skill-grid">
+        <div class="gk-skill-group animate-up gk-skill-featured">
+          <h3>AI &amp; backend engineering</h3>
+          <p class="gk-skill-note">Where I spend most of my time lately.</p>
+          <div class="cp-tech-stack">
+            <span class="cp-tech-pill">Local LLMs (Ollama)</span>
+            <span class="cp-tech-pill">Schema-aware prompting</span>
+            <span class="cp-tech-pill">SQL validation (sqlglot)</span>
+            <span class="cp-tech-pill">Guardrails &amp; read-only execution</span>
+            <span class="cp-tech-pill">REST APIs &amp; MVC</span>
+            <span class="cp-tech-pill">JWT auth &amp; bcrypt</span>
+            <span class="cp-tech-pill">Anomaly detection (z-scores)</span>
+          </div>
+        </div>
+
+        <div class="gk-skill-group animate-up">
+          <h3>Languages</h3>
+          <div class="cp-tech-stack">
+            <span class="cp-tech-pill">C++</span>
+            <span class="cp-tech-pill">Python</span>
+            <span class="cp-tech-pill">Java</span>
+            <span class="cp-tech-pill">JavaScript</span>
+            <span class="cp-tech-pill">SQL</span>
+            <span class="cp-tech-pill">HTML5</span>
+            <span class="cp-tech-pill">CSS3</span>
+          </div>
+        </div>
+
+        <div class="gk-skill-group animate-up">
+          <h3>Frameworks &amp; technologies</h3>
+          <div class="cp-tech-stack">
+            <span class="cp-tech-pill">Node.js</span>
+            <span class="cp-tech-pill">Express.js</span>
+            <span class="cp-tech-pill">React</span>
+            <span class="cp-tech-pill">Django</span>
+            <span class="cp-tech-pill">Flask</span>
+            <span class="cp-tech-pill">FastAPI</span>
+            <span class="cp-tech-pill">Shopify Liquid</span>
+          </div>
+        </div>
+
+        <div class="gk-skill-group animate-up">
+          <h3>Cloud &amp; data</h3>
+          <div class="cp-tech-stack">
+            <span class="cp-tech-pill">Microsoft Azure</span>
+            <span class="cp-tech-pill">SQL Server</span>
+            <span class="cp-tech-pill">MongoDB</span>
+            <span class="cp-tech-pill">Docker</span>
+            <span class="cp-tech-pill">Power BI</span>
+            <span class="cp-tech-pill">Data analysis</span>
+          </div>
+        </div>
+
+        <div class="gk-skill-group animate-up">
+          <h3>Hardware &amp; IoT</h3>
+          <div class="cp-tech-stack">
+            <span class="cp-tech-pill">Arduino UNO</span>
+            <span class="cp-tech-pill">MAX30102 sensor</span>
+            <span class="cp-tech-pill">ESP01 WiFi</span>
+            <span class="cp-tech-pill">ThingSpeak Cloud</span>
+          </div>
+        </div>
+
+        <div class="gk-skill-group animate-up">
+          <h3>Tools</h3>
+          <div class="cp-tech-stack">
+            <span class="cp-tech-pill">Git &amp; GitHub</span>
+            <span class="cp-tech-pill">Shopify CLI</span>
+            <span class="cp-tech-pill">Postman</span>
+            <span class="cp-tech-pill">Jupyter Notebook</span>
+            <span class="cp-tech-pill">VS Code</span>
+            <span class="cp-tech-pill">Figma</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="container section-padding">
+      <div class="gk-section-head animate-up">
+        <h2 class="section-heading typewriter">Certifications.<span class="gradient-cursor"></span></h2>
+        <p class="subtitle">Five Microsoft certifications, from Fundamentals to Associate, earned alongside a full-time
+          degree.</p>
+      </div>
+
+      <div class="gk-cert-grid">
+        <article class="gk-cert-card animate-up">
+          <div class="gk-cert-tile">
+            <small>Microsoft Certified</small>
+            <strong>Azure AI Apps and Agents Developer Associate</strong>
+            <span>AI-103</span>
+          </div>
+          <div class="gk-cert-body">
+            <span class="project-badge gk-level gk-level-associate">Associate</span>
+            <h3 class="hackathon-title">Microsoft Certified: Azure AI Apps and Agents Developer Associate</h3>
+            <p class="hackathon-meta">AI-103</p>
+          </div>
+        </article>
+
+        <article class="gk-cert-card animate-up">
+          <div class="gk-cert-tile">
+            <small>Microsoft Certified</small>
+            <strong>Power BI Data Analyst Associate</strong>
+            <span>PL-300</span>
+          </div>
+          <div class="gk-cert-body">
+            <span class="project-badge gk-level gk-level-associate">Associate</span>
+            <h3 class="hackathon-title">Microsoft Certified: Power BI Data Analyst Associate</h3>
+            <p class="hackathon-meta">PL-300</p>
+          </div>
+        </article>
+
+        <article class="gk-cert-card animate-up">
+          <div class="gk-cert-tile is-fundamentals">
+            <small>Microsoft Certified</small>
+            <strong>Azure AI Fundamentals</strong>
+            <span>AI-900</span>
+          </div>
+          <div class="gk-cert-body">
+            <span class="project-badge gk-level">Fundamentals</span>
+            <h3 class="hackathon-title">Microsoft Certified: Azure AI Fundamentals</h3>
+            <p class="hackathon-meta">AI-900</p>
+          </div>
+        </article>
+
+        <article class="gk-cert-card animate-up">
+          <div class="gk-cert-tile is-fundamentals">
+            <small>Microsoft Certified</small>
+            <strong>Azure Fundamentals</strong>
+            <span>AZ-900</span>
+          </div>
+          <div class="gk-cert-body">
+            <span class="project-badge gk-level">Fundamentals</span>
+            <h3 class="hackathon-title">Microsoft Certified: Azure Fundamentals</h3>
+            <p class="hackathon-meta">AZ-900</p>
+          </div>
+        </article>
+
+        <article class="gk-cert-card animate-up">
+          <div class="gk-cert-tile is-fundamentals">
+            <small>Microsoft Certified</small>
+            <strong>Azure Data Fundamentals</strong>
+            <span>DP-900</span>
+          </div>
+          <div class="gk-cert-body">
+            <span class="project-badge gk-level">Fundamentals</span>
+            <h3 class="hackathon-title">Microsoft Certified: Azure Data Fundamentals</h3>
+            <p class="hackathon-meta">DP-900</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- HIGHLIGHTS -->
+    <section id="highlights" class="container section-padding">
+      <div class="gk-section-head animate-up">
+        <h2 class="section-heading typewriter">Beyond the code.<span class="gradient-cursor"></span></h2>
+        <p class="subtitle">Work, leadership, and where I'm studying.</p>
+      </div>
+
+      <div class="cp-pillars-grid" style="margin-top: 3rem;">
+        <div class="cp-pillar-card animate-up">
+          <div class="cp-pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2" />
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+            </svg>
+          </div>
+          <span class="project-badge gk-level">Internship</span>
+          <h3>Frontend Shopify Developer Intern, Dagar.io</h3>
+          <p>June – October 2026, remote. Turned Figma designs into pixel-perfect, responsive Shopify storefronts and
+            ran QA across layouts, links and breakpoints. <a href="shopify.html" class="hackathon-link">See the
+              project</a></p>
+        </div>
+
+        <div class="cp-pillar-card animate-up">
+          <div class="cp-pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <span class="project-badge gk-level">Leadership</span>
+          <h3>Events Team Executive, GeeksforGeeks Student Chapter</h3>
+          <p>Coordinate technical and non-technical events, and organize coding workshops and competitions with student
+            teams to promote peer learning on campus.</p>
+        </div>
+
+        <div class="cp-pillar-card animate-up">
+          <div class="cp-pillar-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 10L12 5 2 10l10 5 10-5z" />
+              <path d="M6 12v5c3 3 9 3 12 0v-5" />
+            </svg>
+          </div>
+          <span class="project-badge gk-level">Education</span>
+          <h3>Bachelor in Computer Science</h3>
+          <p>Chitkara University, expected 2028 · CGPA 9.03. Coursework: Data Structures &amp; Algorithms, Operating
+            Systems, Computer Networks, DBMS, OOPS, Machine Learning, Cloud Computing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="dark-container-wrapper section-padding" style="padding-bottom: 8rem;">
+      <div class="dark-container" style="min-height: 44vh;">
+        <div class="dot-matrix"></div>
+        <div style="position: relative; z-index: 2; text-align: center;">
+          <h2 class="dark-inner-text" style="margin: 0 auto;">Hiring for frontend, full-stack or AI? Let's talk.</h2>
+          <p class="dark-inner-sub">Open to internships, full-time roles and Shopify storefront contracts.</p>
+          <div class="btn-group" style="margin-top: 0;">
+            <a href="mailto:simrannkapoor60@gmail.com" class="btn-solid btn-on-dark">Email me</a>
+            <a href="resume.html" target="_blank" rel="noopener noreferrer"
+              class="btn-outline btn-ghost-dark">Resume</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Designed &amp; built by Simran Kapoor © 2026</p>
+  </footer>
+
+  <div id="imageModal" class="image-modal">
+    <button class="close-modal" aria-label="Close image">&times;</button>
+    <img class="modal-content" id="modalImage" alt="Zoomed view">
+  </div>
+
+  <script src="script.js?v=4.0"></script>
+</body>
+
+</html>
