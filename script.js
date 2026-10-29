@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const moonIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
 
   function applyTheme(theme) {
-    const active = theme === 'dark' ? 'dark' : 'light';
+    const active = theme === 'light' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', active);
     try { localStorage.setItem('simran_theme', active); } catch (e) { /* storage unavailable */ }
     if (themeToggle) {
