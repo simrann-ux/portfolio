@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wavy Tech Symbols Marquee Demo</title>
+  <!-- Devicon Library -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #fbfbfd;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 200vh; /* Added height so you can test scroll interaction */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 15vh;
+    }
+    .demo-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 0.5rem;
+    }
+    .demo-subtitle {
+      font-size: 1rem;
+      color: #86868b;
+      margin-bottom: 4rem;
+    }
+    .skills-marquee-wrapper {
+      overflow: hidden;
+      width: 100vw;
+      position: relative;
+      padding: 6rem 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .skills-marquee-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -10%;
+      width: 120%;
+      height: 180px;
+      background: linear-gradient(90deg, rgba(66, 133, 244, 0) 0%, rgba(66, 133, 244, 0.08) 30%, rgba(168, 85, 247, 0.08) 70%, rgba(66, 133, 244, 0) 100%);
+      transform: translateY(-50%);
+      z-index: 0;
+      pointer-events: none;
+      filter: blur(25px);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 2rem;
+      width: max-content;
+      align-items: center;
+      flex-wrap: nowrap;
+      z-index: 1;
+    }
+    .marquee-icon {
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 3.2rem;
+      text-decoration: none;
+      transition: box-shadow 0.3s ease;
+    }
+    .marquee-icon:hover {
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    }
+    .marquee-icon i {
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      filter: grayscale(100%) opacity(0.55);
+    }
+    .marquee-icon:hover i {
+      filter: grayscale(0%) opacity(1);
+      transform: scale(1.12);
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="demo-title">Technologies & Tools</h1>
+  <p class="demo-subtitle">Scroll down or hover to interact with the wave</p>
+
+  <div class="skills-marquee-wrapper">
+    <div class="marquee-track" id="marqueeTrack"></div>
+  </div>
+
+  <script>
+    const marqueeTrack = document.getElementById('marqueeTrack');
+    const SKILLS_DATA = [
+      { class: 'devicon-mongodb-plain colored', url: 'https://www.mongodb.com/' },
+      { class: 'devicon-postgresql-plain colored', url: 'https://www.postgresql.org/' },
+      { class: 'devicon-python-plain colored', url: 'https://www.python.org/' },
+      { class: 'devicon-html5-plain colored', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
+      { class: 'devicon-java-plain colored', url: 'https://www.java.com/' },
+      { class: 'devicon-react-original colored', url: 'https://react.dev/' },
+      { class: 'devicon-cplusplus-plain colored', url: 'https://isocpp.org/' },
+      { class: 'devicon-docker-plain colored', url: 'https://www.docker.com/' },
+      { class: 'devicon-mysql-plain colored', url: 'https://www.mysql.com/' },
+      { class: 'devicon-javascript-plain colored', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
+      { class: 'devicon-django-plain colored', url: 'https://www.djangoproject.com/' },
+      { class: 'devicon-fastapi-plain colored', url: 'https://fastapi.tiangolo.com/' },
+      { class: 'devicon-azure-plain colored', url: 'https://azure.microsoft.com/' },
+      { class: 'devicon-git-plain colored', url: 'https://git-scm.com/' }
+    ];
+
+    const FULL_SKILLS = [...SKILLS_DATA, ...SKILLS_DATA];
+    FULL_SKILLS.forEach(skill => {
+      const a = document.createElement('a');
+      a.className = 'marquee-icon';
+      a.href = skill.url;
+      a.target = '_blank';
+      a.innerHTML = `<i class="${skill.class}"></i>`;
+      marqueeTrack.appendChild(a);
+    });
+
+    const icons = document.querySelectorAll('.marquee-icon');
+    let scrollPos = 0;
+    window.addEventListener('scroll', () => { scrollPos = window.scrollY; });
+
+    function animate(time) {
+      // Auto move + scroll influence
+      const scrollX = -(scrollPos * 0.4) - (time * 0.03 % (marqueeTrack.scrollWidth / 2));
+      marqueeTrack.style.transform = `translateX(${scrollX}px)`;
+
+      // Sine wave calculation
+      icons.forEach((icon, i) => {
+        const y = Math.sin(time * 0.0015 + i * 0.55) * 32;
+        icon.style.transform = `translateY(${y}px)`;
+      });
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>
