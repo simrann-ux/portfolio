@@ -962,6 +962,37 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `
     },
+    ezilang: {
+      title: 'EziLang — Responsive Language Learning Web Platform',
+      content: `
+        <div style="line-height: 1.7; color: var(--text-secondary);">
+          <div style="margin-bottom: 24px;">
+            <img src="assets/ezilang_mockup.jpg" style="border-radius: var(--radius-lg); width: 100%; max-height: 320px; object-fit: cover;" alt="EziLang App">
+          </div>
+          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Project Overview</h4>
+          <p style="margin-bottom: 16px;">
+            EziLang is a responsive language learning platform built to make daily vocabulary practice engaging, fast, and accessible. Deployed live with continuous deployment on Netlify.
+          </p>
+
+          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Key Capabilities</h4>
+          <ul style="padding-left: 20px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px;">
+            <li>3D CSS perspective card flips with phonetic guides and example sentences.</li>
+            <li>Browser Web Speech synthesis for native pronunciation playback.</li>
+            <li>Interactive UI components built with clean, semantic HTML5 and vanilla JavaScript.</li>
+            <li>Fully responsive layout engineered from scratch.</li>
+          </ul>
+
+          <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 8px;">Stack & Deployment</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;">
+            <span class="tech-pill">HTML5</span>
+            <span class="tech-pill">CSS3 Animations</span>
+            <span class="tech-pill">Modern JavaScript (ES6+)</span>
+            <span class="tech-pill">Web Speech API</span>
+            <span class="tech-pill">Netlify</span>
+          </div>
+        </div>
+      `
+    },
     iot: {
       title: 'Smart IoT Heartbeat Monitoring with Cloud Integration',
       content: `
