@@ -8,7 +8,7 @@
   <meta name="description"
     content="Shopify storefront development at Dagar.io — Figma designs to production Liquid themes, reusable sections and QA.">
   <link rel="icon" type="image/jpeg" href="assets/avatar.jpg">
-  <link rel="stylesheet" href="style.css?v=4.3">
+  <link rel="stylesheet" href="style.css?v=5.0">
   <script>
     (function () {
       var theme = 'dark';
@@ -40,7 +40,12 @@
         </svg>
         Back
       </a>
-      <div class="nav-links">
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links" id="navLinks">
         <a href="#overview" class="nav-link">Overview</a>
         <a href="#what-i-did" class="nav-link">What I Did</a>
         <a href="#customizer" class="nav-link">Customizer Demo</a>
@@ -238,7 +243,7 @@
     <img class="modal-content" id="modalImage" alt="Zoomed view">
   </div>
 
-  <script src="script.js?v=4.3"></script>
+  <script src="script.js?v=5.0"></script>
 </body>
 
 </html>

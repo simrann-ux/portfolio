@@ -8,7 +8,7 @@
   <meta name="description"
     content="AURELIS — a full-stack expense tracker that flags unusual spending with per-category z-score analysis, built in a team of 3.">
   <link rel="icon" type="image/jpeg" href="assets/avatar.jpg">
-  <link rel="stylesheet" href="style.css?v=4.3">
+  <link rel="stylesheet" href="style.css?v=5.0">
   <script>
     (function () {
       var theme = 'dark';
@@ -40,7 +40,12 @@
         </svg>
         Back
       </a>
-      <div class="nav-links">
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links" id="navLinks">
         <a href="#overview" class="nav-link">Overview</a>
         <a href="#how-it-works" class="nav-link">How It Works</a>
         <a href="#engineering" class="nav-link">Engineering</a>
@@ -221,7 +226,7 @@
     <img class="modal-content" id="modalImage" alt="Zoomed view">
   </div>
 
-  <script src="script.js?v=4.3"></script>
+  <script src="script.js?v=5.0"></script>
 </body>
 
 </html>
