@@ -4,11 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Get to know me | Simran Kapoor</title>
+  <title>About | Simran Kapoor</title>
   <meta name="description"
-    content="Get to know Simran Kapoor: skills, Microsoft certifications, leadership and education.">
+    content="About Simran Kapoor: skills, Microsoft certifications, internship, education, and an assistant that answers questions about her profile.">
   <link rel="icon" type="image/jpeg" href="assets/avatar.jpg">
-  <link rel="stylesheet" href="style.css?v=4.3">
+  <link rel="stylesheet" href="style.css?v=5.0">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
   <script>
     (function () {
       var theme = 'dark';
@@ -46,9 +47,10 @@
         <span></span>
       </button>
       <div class="nav-links" id="navLinks">
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#ask" class="nav-link">Ask AI</a>
         <a href="#skills" class="nav-link">Skills</a>
         <a href="#certifications" class="nav-link">Certifications</a>
-        <a href="#highlights" class="nav-link">Highlights</a>
         <a href="resume.html" target="_blank" rel="noopener noreferrer" class="nav-link nav-resume">Resume ↗</a>
       </div>
       <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
@@ -56,261 +58,269 @@
   </nav>
 
   <main>
-    <!-- HERO -->
-    <section class="cp-hero container animate-up">
-      <span class="cp-trophy-badge">Panipat, India · CS @ Chitkara University · Class of 2028</span>
-      <h1 class="huge-title typewriter cp-title">Get to know me.<span class="gradient-cursor"></span></h1>
-      <p class="subtitle gk-hero-sub">Leader • Builder • Forever Student</p>
+    <!-- HERO: editorial, left-aligned -->
+    <header class="gk-hero container">
+      <p class="gk-eyebrow animate-up">About me</p>
+      <h1 class="gk-headline typewriter">I build things that ship: storefronts, APIs and LLM tools.<span
+          class="gradient-cursor"></span></h1>
 
-      <div class="btn-group" style="margin-top: 2rem;">
+      <div class="gk-lede animate-up">
+        <p>I'm a Computer Science student at <strong>Chitkara University</strong> (expected 2028, CGPA 9.03), based in
+          Panipat, Haryana. Recently I've shipped Shopify storefronts as a frontend intern at Dagar.io, an NL-to-SQL
+          reporting assistant on a locally hosted LLM, a full-stack expense anomaly detector built in a team of three,
+          and an IoT heartbeat monitor that streams live vitals to the cloud.</p>
+        <p>Outside the editor I'm on the events team of my campus GeeksforGeeks Student Chapter, organizing coding
+          workshops and competitions. I hold five Microsoft certifications, from Azure Fundamentals to the Azure AI
+          Apps and Agents Developer Associate.</p>
+      </div>
+
+      <div class="gk-hero-actions animate-up">
+        <a href="resume.html" target="_blank" rel="noopener noreferrer" class="btn-solid">View my resume</a>
+        <a href="#ask" class="btn-outline">Chat with my assistant</a>
         <a href="https://linkedin.com/in/simran-kapoor-5996b737a" target="_blank" rel="noopener noreferrer"
-          class="btn-solid">LinkedIn</a>
-        <a href="https://github.com/simrann-kapoor" target="_blank" rel="noopener noreferrer"
-          class="btn-outline">GitHub</a>
-        <a href="mailto:simrannkapoor60@gmail.com" class="btn-outline">Email</a>
+          class="btn-outline">LinkedIn</a>
+      </div>
+    </header>
+
+    <!-- 01 · EXPERIENCE & EDUCATION -->
+    <section id="experience" class="container gk-section">
+      <div class="gk-section-head animate-up">
+        <p class="gk-index">01 · Experience &amp; education</p>
+        <h2 class="gk-title typewriter">Where I've worked and studied.<span class="gradient-cursor"></span></h2>
+        <p class="gk-desc">One remote internship shipping real storefronts, alongside a full-time degree.</p>
       </div>
 
-      <div class="gk-stats animate-up">
-        <div class="gk-stat">
-          <span class="gk-stat-num">9.03</span>
-          <span class="gk-stat-label">CGPA</span>
+      <div class="gk-highlight-grid">
+        <div class="gk-highlight-card animate-up">
+          <span class="project-badge gk-level">Internship</span>
+          <h3>Frontend Shopify Developer Intern · Dagar.io</h3>
+          <p>June to October 2026, remote. Developed and customized Shopify storefronts with Liquid, HTML, CSS,
+            JavaScript and JSON, converting Figma designs into pixel-perfect, responsive pages. Ran QA across layouts,
+            links and responsiveness while working with designers and developers to optimize storefront performance.
+          </p>
+          <a href="shopify.html" class="hackathon-link">See the project
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6" />
+            </svg></a>
         </div>
-        <div class="gk-stat">
-          <span class="gk-stat-num">5</span>
-          <span class="gk-stat-label">Microsoft certifications</span>
-        </div>
-        <div class="gk-stat">
-          <span class="gk-stat-num">4</span>
-          <span class="gk-stat-label">Shipped projects</span>
-        </div>
-        <div class="gk-stat">
-          <span class="gk-stat-num">5</span>
-          <span class="gk-stat-label">Month internship at Dagar.io</span>
+
+        <div class="gk-highlight-card animate-up">
+          <span class="project-badge gk-level">Education</span>
+          <h3>Bachelor in Computer Science · Chitkara University</h3>
+          <p>Expected 2028 · CGPA 9.03. Coursework: Data Structures &amp; Algorithms, Operating Systems, Computer
+            Networks, DBMS, OOPS, Machine Learning, Cloud Computing.</p>
+          <a href="resume.html" target="_blank" rel="noopener noreferrer" class="hackathon-link">Full resume
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6" />
+            </svg></a>
         </div>
       </div>
     </section>
 
-    <!-- SKILLS -->
-    <section id="skills" class="container section-padding">
-      <div class="gk-section-head animate-up">
-        <h2 class="section-heading typewriter">What I work with.<span class="gradient-cursor"></span></h2>
-        <p class="subtitle">The tools behind the projects, grouped the way I actually use them.</p>
-      </div>
-
-      <div class="gk-skill-grid">
-        <div class="gk-skill-group animate-up gk-skill-featured">
-          <h3>AI &amp; backend engineering</h3>
-          <p class="gk-skill-note">Where I spend most of my time lately.</p>
-          <div class="cp-tech-stack">
-            <span class="cp-tech-pill">Local LLMs (Ollama)</span>
-            <span class="cp-tech-pill">Schema-aware prompting</span>
-            <span class="cp-tech-pill">SQL validation (sqlglot)</span>
-            <span class="cp-tech-pill">Guardrails &amp; read-only execution</span>
-            <span class="cp-tech-pill">REST APIs &amp; MVC</span>
-            <span class="cp-tech-pill">JWT auth &amp; bcrypt</span>
-            <span class="cp-tech-pill">Anomaly detection (z-scores)</span>
-          </div>
+    <!-- 02 · ASK AI: split layout -->
+    <section id="ask" class="container gk-section">
+      <div class="gk-split">
+        <div class="gk-split-left">
+          <p class="gk-index animate-up">02 · Ask AI</p>
+          <h2 class="gk-title typewriter">Questions? Ask the page.<span class="gradient-cursor"></span></h2>
+          <p class="gk-desc animate-up">A small RAG assistant I built for this page: GPT-4o behind a FastAPI retrieval
+            layer, grounded in a profile written from my resume, so it answers only from that. If the API is asleep or
+            unreachable, the chat falls back to a browser-side version that answers from the same facts.</p>
+          <p class="gk-desc gk-desc-note animate-up">Ask about my stack, my projects, my certifications, or whether
+            I'm open to work. For anything that matters, <a href="mailto:simrannkapoor60@gmail.com">email me</a>.</p>
         </div>
 
-        <div class="gk-skill-group animate-up">
-          <h3>Languages</h3>
-          <div class="cp-tech-stack">
-            <span class="cp-tech-pill">C++</span>
-            <span class="cp-tech-pill">Python</span>
-            <span class="cp-tech-pill">Java</span>
-            <span class="cp-tech-pill">JavaScript</span>
-            <span class="cp-tech-pill">SQL</span>
-            <span class="cp-tech-pill">HTML5</span>
-            <span class="cp-tech-pill">CSS3</span>
-          </div>
-        </div>
+        <div class="gk-split-right">
+          <div class="chat-shell animate-up" id="chatShell" aria-live="polite">
+            <div class="chat-header">
+              <div class="chat-identity">
+                <span class="chat-avatar" aria-hidden="true"></span>
+                <div>
+                  <div class="chat-name">Portfolio assistant</div>
+                  <div class="chat-status" id="chatStatus" data-state="thinking"><span class="chat-dot"></span>Connecting…</div>
+                </div>
+              </div>
+              <span class="chat-model-tag" id="chatModelTag">GPT-4o · RAG</span>
+            </div>
 
-        <div class="gk-skill-group animate-up">
-          <h3>Frameworks &amp; technologies</h3>
-          <div class="cp-tech-stack">
-            <span class="cp-tech-pill">Node.js</span>
-            <span class="cp-tech-pill">Express.js</span>
-            <span class="cp-tech-pill">React</span>
-            <span class="cp-tech-pill">Django</span>
-            <span class="cp-tech-pill">Flask</span>
-            <span class="cp-tech-pill">FastAPI</span>
-            <span class="cp-tech-pill">Shopify Liquid</span>
-          </div>
-        </div>
+            <div class="chat-messages" id="chatMessages">
+              <div class="chat-msg bot">
+                <div class="chat-bubble">
+                  Hi, I'm the assistant for Simran's portfolio. Ask me about her skills, projects, certifications,
+                  internship, or what she's looking for next.
+                </div>
+              </div>
+            </div>
 
-        <div class="gk-skill-group animate-up">
-          <h3>Cloud &amp; DevOps</h3>
-          <div class="cp-tech-stack">
-            <span class="cp-tech-pill">Microsoft Azure</span>
-            <span class="cp-tech-pill">Docker</span>
-            <span class="cp-tech-pill">Power BI</span>
-            <span class="cp-tech-pill">Data analysis</span>
-          </div>
-        </div>
+            <p class="chat-chips-label">Try asking</p>
+            <div class="chat-chips" id="chatChips">
+              <button type="button" class="chat-chip" data-q="What is Simran's tech stack?">Tech stack</button>
+              <button type="button" class="chat-chip" data-q="What projects has Simran built?">Projects</button>
+              <button type="button" class="chat-chip" data-q="What certifications does Simran have?">Certifications</button>
+              <button type="button" class="chat-chip" data-q="Tell me about Simran's internship at Dagar.io.">Internship</button>
+              <button type="button" class="chat-chip" data-q="Is Simran open to work, and how do I contact her?">Open to work?</button>
+            </div>
 
-        <div class="gk-skill-group animate-up">
-          <h3>Databases</h3>
-          <div class="cp-tech-stack">
-            <span class="cp-tech-pill">SQL Server</span>
-            <span class="cp-tech-pill">MongoDB</span>
-            <span class="cp-tech-pill">MongoDB Atlas</span>
-            <span class="cp-tech-pill">SQL / T-SQL</span>
-          </div>
-        </div>
-
-        <div class="gk-skill-group animate-up">
-          <h3>Hardware &amp; IoT</h3>
-          <div class="cp-tech-stack">
-            <span class="cp-tech-pill">Arduino UNO</span>
-            <span class="cp-tech-pill">MAX30102 sensor</span>
-            <span class="cp-tech-pill">ESP01 WiFi</span>
-            <span class="cp-tech-pill">ThingSpeak Cloud</span>
-          </div>
-        </div>
-
-        <div class="gk-skill-group animate-up">
-          <h3>Tools</h3>
-          <div class="cp-tech-stack">
-            <span class="cp-tech-pill">Git &amp; GitHub</span>
-            <span class="cp-tech-pill">Shopify CLI</span>
-            <span class="cp-tech-pill">Postman</span>
-            <span class="cp-tech-pill">Jupyter Notebook</span>
-            <span class="cp-tech-pill">VS Code</span>
-            <span class="cp-tech-pill">Figma</span>
+            <form class="chat-form" id="chatForm" autocomplete="off">
+              <input id="chatInput" class="chat-input" type="text" name="message" maxlength="400"
+                placeholder="Ask about skills, projects, certifications…" aria-label="Your question" required>
+              <button type="submit" id="chatSend" class="chat-send" aria-label="Send">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 19V5M5 12l7-7 7 7" />
+                </svg>
+              </button>
+            </form>
+            <p class="chat-footnote">Answers are generated from a profile written from my resume and may be imperfect.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CERTIFICATIONS -->
-    <section id="certifications" class="container section-padding">
+    <!-- 03 · SKILLS: featured tools + ledger -->
+    <section id="skills" class="container gk-section">
       <div class="gk-section-head animate-up">
-        <h2 class="section-heading typewriter">Certifications.<span class="gradient-cursor"></span></h2>
-        <p class="subtitle">Five Microsoft certifications, from Fundamentals to Associate, earned alongside a full-time
-          degree.</p>
+        <p class="gk-index">03 · Skills</p>
+        <h2 class="gk-title typewriter">What I work with.<span class="gradient-cursor"></span></h2>
+        <p class="gk-desc">Four tools I lean on most, then the full stack grouped the way my resume groups it.</p>
       </div>
 
-      <div class="gk-cert-grid">
-        <article class="gk-cert-card animate-up">
-          <div class="gk-cert-tile">
+      <!-- Featured tools -->
+      <div class="gk-stack-grid">
+        <div class="gk-stack-card animate-up">
+          <i class="devicon-javascript-plain colored"></i>
+          <h4>JavaScript</h4>
+          <p>Across the stack: Shopify storefronts, the React UI for the NL-to-SQL assistant, the AURELIS API.</p>
+        </div>
+        <div class="gk-stack-card animate-up">
+          <i class="devicon-nodejs-plain colored"></i>
+          <h4>Node.js</h4>
+          <p>Runs the AURELIS REST API with Express, MongoDB Atlas and JWT authentication.</p>
+        </div>
+        <div class="gk-stack-card animate-up">
+          <i class="devicon-python-plain colored"></i>
+          <h4>Python</h4>
+          <p>For backends and data work: Django, Flask, FastAPI and the sqlglot validation layer.</p>
+        </div>
+        <div class="gk-stack-card animate-up">
+          <i class="devicon-azure-plain colored"></i>
+          <h4>Microsoft Azure</h4>
+          <p>Five Microsoft certifications, from AZ-900 to the AI-103 Associate.</p>
+        </div>
+      </div>
+
+      <!-- The full stack: horizontal category rows -->
+      <div class="gk-ledger">
+        <div class="gk-row animate-up">
+          <div class="gk-row-label"><h3>Languages</h3></div>
+          <p class="gk-row-list">C++ · Python · Java · JavaScript · HTML5 · CSS3 · SQL</p>
+        </div>
+
+        <div class="gk-row animate-up">
+          <div class="gk-row-label"><h3>Frameworks &amp; technologies</h3></div>
+          <p class="gk-row-list">Node.js · Express.js · Django · Flask · FastAPI · Shopify Liquid · React</p>
+        </div>
+
+        <div class="gk-row animate-up">
+          <div class="gk-row-label"><h3>Cloud &amp; data</h3></div>
+          <p class="gk-row-list">Microsoft Azure · SQL Server · Data analysis · Docker · MongoDB · MongoDB Atlas</p>
+        </div>
+
+        <div class="gk-row animate-up">
+          <div class="gk-row-label"><h3>Tools</h3></div>
+          <p class="gk-row-list">GitHub · Shopify CLI · Power BI · Postman · Jupyter Notebook · Figma</p>
+        </div>
+
+        <div class="gk-row animate-up">
+          <div class="gk-row-label"><h3>Hardware &amp; IoT</h3></div>
+          <p class="gk-row-list">Arduino UNO · MAX30102 sensor · ESP01 WiFi module · ThingSpeak</p>
+        </div>
+
+        <div class="gk-row animate-up">
+          <div class="gk-row-label"><h3>From the projects</h3></div>
+          <p class="gk-row-list">Locally hosted LLMs (Ollama) · Schema-aware prompting · sqlglot SQL validation · JWT
+            &amp; bcrypt · REST APIs with MVC · Per-category z-score anomaly detection</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 · CERTIFICATIONS: credential ledger -->
+    <section id="certifications" class="container gk-section">
+      <div class="gk-section-head animate-up">
+        <p class="gk-index">04 · Certifications</p>
+        <h2 class="gk-title typewriter">Five Microsoft certifications.<span class="gradient-cursor"></span></h2>
+        <p class="gk-desc">Two at Associate level and three Fundamentals, earned alongside a full-time degree.</p>
+      </div>
+
+      <!-- To add a credential link to a row: add class "has-verify" to the article and append
+           <a href="…" target="_blank" rel="noopener noreferrer" class="hackathon-link gk-cert-verify">Verify</a> -->
+      <div class="gk-certs">
+        <article class="gk-cert-row animate-up">
+          <div class="gk-cert-tile" aria-hidden="true">
             <small>Microsoft Certified</small>
             <strong class="gk-cert-code">AI-103</strong>
             <span>Associate</span>
           </div>
-          <div class="gk-cert-body">
-            <span class="project-badge gk-level gk-level-associate">Associate</span>
-            <h3 class="hackathon-title">Azure AI Apps and Agents Developer Associate</h3>
-            <p class="hackathon-meta">Exam AI-103</p>
+          <div class="gk-cert-info">
+            <h3>Azure AI Apps and Agents Developer Associate</h3>
+            <p class="gk-cert-meta"><span class="project-badge gk-level gk-level-associate">Associate</span> Exam
+              AI-103</p>
           </div>
         </article>
 
-        <article class="gk-cert-card animate-up">
-          <div class="gk-cert-tile">
+        <article class="gk-cert-row animate-up">
+          <div class="gk-cert-tile" aria-hidden="true">
             <small>Microsoft Certified</small>
             <strong class="gk-cert-code">PL-300</strong>
             <span>Associate</span>
           </div>
-          <div class="gk-cert-body">
-            <span class="project-badge gk-level gk-level-associate">Associate</span>
-            <h3 class="hackathon-title">Power BI Data Analyst Associate</h3>
-            <p class="hackathon-meta">Exam PL-300</p>
+          <div class="gk-cert-info">
+            <h3>Power BI Data Analyst Associate</h3>
+            <p class="gk-cert-meta"><span class="project-badge gk-level gk-level-associate">Associate</span> Exam
+              PL-300</p>
           </div>
         </article>
 
-        <article class="gk-cert-card animate-up">
-          <div class="gk-cert-tile is-fundamentals">
+        <article class="gk-cert-row animate-up">
+          <div class="gk-cert-tile is-fundamentals" aria-hidden="true">
             <small>Microsoft Certified</small>
             <strong class="gk-cert-code">AI-900</strong>
             <span>Fundamentals</span>
           </div>
-          <div class="gk-cert-body">
-            <span class="project-badge gk-level">Fundamentals</span>
-            <h3 class="hackathon-title">Azure AI Fundamentals</h3>
-            <p class="hackathon-meta">Exam AI-900</p>
+          <div class="gk-cert-info">
+            <h3>Azure AI Fundamentals</h3>
+            <p class="gk-cert-meta"><span class="project-badge gk-level">Fundamentals</span> Exam AI-900</p>
           </div>
         </article>
 
-        <article class="gk-cert-card animate-up">
-          <div class="gk-cert-tile is-fundamentals">
+        <article class="gk-cert-row animate-up">
+          <div class="gk-cert-tile is-fundamentals" aria-hidden="true">
             <small>Microsoft Certified</small>
             <strong class="gk-cert-code">AZ-900</strong>
             <span>Fundamentals</span>
           </div>
-          <div class="gk-cert-body">
-            <span class="project-badge gk-level">Fundamentals</span>
-            <h3 class="hackathon-title">Azure Fundamentals</h3>
-            <p class="hackathon-meta">Exam AZ-900</p>
+          <div class="gk-cert-info">
+            <h3>Azure Fundamentals</h3>
+            <p class="gk-cert-meta"><span class="project-badge gk-level">Fundamentals</span> Exam AZ-900</p>
           </div>
         </article>
 
-        <article class="gk-cert-card animate-up">
-          <div class="gk-cert-tile is-fundamentals">
+        <article class="gk-cert-row animate-up">
+          <div class="gk-cert-tile is-fundamentals" aria-hidden="true">
             <small>Microsoft Certified</small>
             <strong class="gk-cert-code">DP-900</strong>
             <span>Fundamentals</span>
           </div>
-          <div class="gk-cert-body">
-            <span class="project-badge gk-level">Fundamentals</span>
-            <h3 class="hackathon-title">Azure Data Fundamentals</h3>
-            <p class="hackathon-meta">Exam DP-900</p>
+          <div class="gk-cert-info">
+            <h3>Azure Data Fundamentals</h3>
+            <p class="gk-cert-meta"><span class="project-badge gk-level">Fundamentals</span> Exam DP-900</p>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- HIGHLIGHTS -->
-    <section id="highlights" class="container section-padding">
-      <div class="gk-section-head animate-up">
-        <h2 class="section-heading typewriter">Beyond the code.<span class="gradient-cursor"></span></h2>
-        <p class="subtitle">Work, leadership, and where I'm studying.</p>
-      </div>
-
-      <div class="cp-pillars-grid" style="margin-top: 3rem;">
-        <div class="cp-pillar-card animate-up">
-          <div class="cp-pillar-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="7" width="20" height="14" rx="2" />
-              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-            </svg>
-          </div>
-          <span class="project-badge gk-level">Internship</span>
-          <h3>Frontend Shopify Developer Intern, Dagar.io</h3>
-          <p>June – October 2026, remote. Turned Figma designs into pixel-perfect, responsive Shopify storefronts and
-            ran QA across layouts, links and breakpoints. <a href="shopify.html" class="hackathon-link">See the
-              project</a></p>
-        </div>
-
-        <div class="cp-pillar-card animate-up">
-          <div class="cp-pillar-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-          </div>
-          <span class="project-badge gk-level">Leadership</span>
-          <h3>Events Team Executive, GeeksforGeeks Student Chapter</h3>
-          <p>Coordinate technical and non-technical events, and organize coding workshops and competitions with student
-            teams to promote peer learning on campus.</p>
-        </div>
-
-        <div class="cp-pillar-card animate-up">
-          <div class="cp-pillar-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 10L12 5 2 10l10 5 10-5z" />
-              <path d="M6 12v5c3 3 9 3 12 0v-5" />
-            </svg>
-          </div>
-          <span class="project-badge gk-level">Education</span>
-          <h3>Bachelor in Computer Science</h3>
-          <p>Chitkara University, expected 2028 · CGPA 9.03. Coursework: Data Structures &amp; Algorithms, Operating
-            Systems, Computer Networks, DBMS, OOPS, Machine Learning, Cloud Computing.</p>
-        </div>
-      </div>
-    </section>
-
     <!-- CTA -->
-    <section class="dark-container-wrapper section-padding" style="padding-bottom: 8rem;">
+    <section class="dark-container-wrapper section-padding" style="padding-top: 10rem; padding-bottom: 10rem;">
       <div class="dark-container" style="min-height: 44vh;">
         <div class="dot-matrix"></div>
         <div style="position: relative; z-index: 2; text-align: center;">
@@ -324,18 +334,26 @@
         </div>
       </div>
     </section>
-  </main>
 
-  <footer class="site-footer">
-    <p>Designed &amp; built by Simran Kapoor © 2026</p>
-  </footer>
+    <!-- FOOTER -->
+    <footer class="container gk-footer">
+      <span class="gk-footer-name">© 2026 Simran Kapoor</span>
+      <div class="gk-footer-links">
+        <a href="https://github.com/simrann-kapoor" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://linkedin.com/in/simran-kapoor-5996b737a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="mailto:simrannkapoor60@gmail.com">Email</a>
+        <a href="tel:+917206089479">Call</a>
+      </div>
+    </footer>
+  </main>
 
   <div id="imageModal" class="image-modal">
     <button class="close-modal" aria-label="Close image">&times;</button>
     <img class="modal-content" id="modalImage" alt="Zoomed view">
   </div>
 
-  <script src="script.js?v=4.3"></script>
+  <script src="script.js?v=5.0"></script>
+  <script src="chat.js?v=5.0"></script>
 </body>
 
 </html>

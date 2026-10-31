@@ -8,7 +8,7 @@
   <meta name="description"
     content="Smart IoT Heartbeat Monitoring System — Arduino UNO, MAX30102 and ESP01 streaming real-time heart rate and SpO2 to ThingSpeak.">
   <link rel="icon" type="image/jpeg" href="assets/avatar.jpg">
-  <link rel="stylesheet" href="style.css?v=4.3">
+  <link rel="stylesheet" href="style.css?v=5.0">
   <script>
     (function () {
       var theme = 'dark';
@@ -40,7 +40,12 @@
         </svg>
         Back
       </a>
-      <div class="nav-links">
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links" id="navLinks">
         <a href="#overview" class="nav-link">Overview</a>
         <a href="#how-it-works" class="nav-link">How It Works</a>
         <a href="#live-demo" class="nav-link">Live Demo</a>
@@ -216,7 +221,7 @@
     <span id="toastMessage">Done</span>
   </div>
 
-  <script src="script.js?v=4.3"></script>
+  <script src="script.js?v=5.0"></script>
 </body>
 
 </html>

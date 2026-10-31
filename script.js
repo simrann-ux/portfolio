@@ -11,6 +11,7 @@
  * 8. Image lightbox
  * 9. Project-page timeline step highlighting
  * 10. Demos: Shopify customizer, ECG monitor, EziLang flashcards
+ * (The About-page assistant lives in chat.js.)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -196,31 +197,31 @@ document.addEventListener('DOMContentLoaded', () => {
      5. Wavy Skills Marquee
      ========================================================================= */
   const marqueeTrack = document.getElementById('marqueeTrack');
+  // Skills strictly from the resume (languages, frameworks, cloud & data, tools,
+  // plus the stack named in the experience and project bullets).
   const SKILLS_DATA = [
-    { class: 'devicon-python-plain colored', url: 'https://www.python.org/', name: 'Python' },
     { class: 'devicon-cplusplus-plain colored', url: 'https://isocpp.org/', name: 'C++' },
-    { class: 'devicon-javascript-plain colored', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript', name: 'JavaScript' },
+    { class: 'devicon-python-plain colored', url: 'https://www.python.org/', name: 'Python' },
     { class: 'devicon-java-plain colored', url: 'https://www.java.com/', name: 'Java' },
-    { class: 'devicon-react-original colored', url: 'https://react.dev/', name: 'React' },
+    { class: 'devicon-javascript-plain colored', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript', name: 'JavaScript' },
+    { class: 'devicon-html5-plain colored', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML', name: 'HTML5' },
+    { class: 'devicon-css3-plain colored', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS', name: 'CSS3' },
     { class: 'devicon-nodejs-plain colored', url: 'https://nodejs.org/', name: 'Node.js' },
     { class: 'devicon-express-original', url: 'https://expressjs.com/', name: 'Express.js' },
     { class: 'devicon-django-plain colored', url: 'https://www.djangoproject.com/', name: 'Django' },
+    { class: 'devicon-flask-original', url: 'https://flask.palletsprojects.com/', name: 'Flask' },
     { class: 'devicon-fastapi-plain colored', url: 'https://fastapi.tiangolo.com/', name: 'FastAPI' },
-    { class: 'devicon-html5-plain colored', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML', name: 'HTML5' },
-    { class: 'devicon-css3-plain colored', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS', name: 'CSS3' },
-    { class: 'devicon-mongodb-plain colored', url: 'https://www.mongodb.com/', name: 'MongoDB' },
+    { class: 'devicon-react-original colored', url: 'https://react.dev/', name: 'React' },
+    { class: 'devicon-azure-plain colored', url: 'https://azure.microsoft.com/', name: 'Microsoft Azure' },
     { class: 'devicon-microsoftsqlserver-plain colored', url: 'https://www.microsoft.com/sql-server', name: 'SQL Server' },
-    { class: 'devicon-mysql-plain colored', url: 'https://www.mysql.com/', name: 'MySQL' },
-    { class: 'devicon-azure-plain colored', url: 'https://azure.microsoft.com/', name: 'Azure' },
     { class: 'devicon-docker-plain colored', url: 'https://www.docker.com/', name: 'Docker' },
-    { class: 'devicon-git-plain colored', url: 'https://git-scm.com/', name: 'Git' },
+    { class: 'devicon-mongodb-plain colored', url: 'https://www.mongodb.com/', name: 'MongoDB' },
     { class: 'devicon-github-original colored', url: 'https://github.com/', name: 'GitHub' },
+    { class: 'devicon-git-plain colored', url: 'https://git-scm.com/', name: 'Git' },
     { class: 'devicon-postman-plain colored', url: 'https://www.postman.com/', name: 'Postman' },
-    { class: 'devicon-jupyter-plain colored', url: 'https://jupyter.org/', name: 'Jupyter' },
-    { class: 'devicon-vscode-plain colored', url: 'https://code.visualstudio.com/', name: 'VS Code' },
+    { class: 'devicon-jupyter-plain colored', url: 'https://jupyter.org/', name: 'Jupyter Notebook' },
     { class: 'devicon-figma-plain colored', url: 'https://www.figma.com/', name: 'Figma' },
-    { class: 'devicon-arduino-plain colored', url: 'https://www.arduino.cc/', name: 'Arduino' },
-    { class: 'devicon-firebase-plain colored', url: 'https://firebase.google.com/', name: 'Firebase' }
+    { class: 'devicon-arduino-plain colored', url: 'https://www.arduino.cc/', name: 'Arduino' }
   ];
 
   if (marqueeTrack) {

@@ -3,3 +3,10 @@
 
 # Design reference archive (not part of the site)
 portfolio .zip
+
+# Backend secrets, virtualenv and caches
+backend/.env
+backend/.venv/
+backend/__pycache__/
+backend/logs/
+backend/knowledge/.embeddings_cache.json
