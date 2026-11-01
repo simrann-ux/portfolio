@@ -1838,19 +1838,18 @@ img {
   grid-template-columns: 300px minmax(0, 1fr) auto;
 }
 
-/* Exam-code emblem used as the certificate thumbnail */
+/* Certificate thumbnail: the official badge on a tinted tile. Click to zoom. */
 .gk-cert-tile {
   width: 300px;
   aspect-ratio: 2 / 1;
   border-radius: 14px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
-  padding: 1.5rem;
-  text-align: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
   color: #fff;
+  cursor: zoom-in;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
   background:
     radial-gradient(120% 160% at 10% 0%, rgba(52, 211, 153, 0.35) 0%, rgba(5, 150, 105, 0) 55%),
@@ -1868,24 +1867,36 @@ img {
     linear-gradient(160deg, #1f2937 0%, #0b0f14 100%);
 }
 
-.gk-cert-tile small {
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  opacity: 0.65;
+.gk-cert-tile img {
+  height: 100%;
+  width: auto;
+  max-width: 45%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+  transition: transform 0.4s var(--ease);
+}
+
+.gk-cert-row:hover .gk-cert-tile img {
+  transform: scale(1.05);
 }
 
 .gk-cert-code {
   font-family: var(--font-mono);
-  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
   font-weight: 500;
   letter-spacing: 0.02em;
   line-height: 1.1;
+  text-align: center;
 }
 
-.gk-cert-tile > span {
-  font-size: 0.8rem;
-  opacity: 0.75;
+.gk-cert-code small {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-bottom: 0.3rem;
 }
 
 .gk-cert-info h3 {
