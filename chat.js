@@ -35,6 +35,16 @@
   const chipsEl = document.getElementById('chatChips');
   const modelTagEl = document.getElementById('chatModelTag');
 
+  const mobileQuery = window.matchMedia('(max-width: 768px)');
+  const isMobile = () => mobileQuery.matches;
+
+  // Shorter placeholder on phones so it isn't cut off mid-word.
+  const setPlaceholder = () => {
+    input.placeholder = isMobile() ? 'Ask about Simran…' : 'Ask about skills, projects, certifications…';
+  };
+  setPlaceholder();
+  mobileQuery.addEventListener('change', setPlaceholder);
+
   const EMAIL = 'simrannkapoor60@gmail.com';
   const LINKEDIN = 'https://linkedin.com/in/simran-kapoor-5996b737a';
   const GITHUB = 'https://github.com/simrann-kapoor';
@@ -500,6 +510,12 @@
 
     addMessage('user', question);
     input.value = '';
+    shell.classList.add('is-started');
+    if (isMobile()) {
+      // Keep the conversation in view while the answer streams in.
+      input.blur();
+      shell.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
     setPending(true);
     const typing = addTyping();
 
