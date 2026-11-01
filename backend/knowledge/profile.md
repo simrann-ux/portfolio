@@ -93,13 +93,13 @@ Coursework: Data Structures & Algorithms, Operating Systems, Computer Networks, 
 
 Five Microsoft certifications:
 
-- Microsoft Certified: Azure AI Apps and Agents Developer Associate (exam AI-103) — Associate level
-- Microsoft Certified: Power BI Data Analyst Associate (exam PL-300) — Associate level
-- Microsoft Certified: Azure AI Fundamentals (exam AI-900) — Fundamentals
-- Microsoft Certified: Azure Fundamentals (exam AZ-900) — Fundamentals
-- Microsoft Certified: Azure Data Fundamentals (exam DP-900) — Fundamentals
+- Microsoft Certified: Azure AI Apps and Agents Developer Associate (exam AI-103) — Associate level. Verify: https://learn.microsoft.com/api/credentials/share/en-us/Simrannkapoor-4064/C4B4C334D23ADF74?sharingId=E9C890C8FB23529A
+- Microsoft Certified: Power BI Data Analyst Associate (exam PL-300) — Associate level. Verify: https://learn.microsoft.com/en-us/users/Simrannkapoor-4064/credentials/D41E55F1BBB946CD
+- Microsoft Certified: Azure AI Fundamentals (exam AI-900) — Fundamentals. Verify: https://www.credly.com/badges/0cc52c25-48f2-4539-8278-908110adcd92
+- Microsoft Certified: Azure Fundamentals (exam AZ-900) — Fundamentals. Verify: https://www.credly.com/badges/1c4de686-591e-4ea7-ba52-1e5de0b9943f
+- Microsoft Certified: Azure Data Fundamentals (exam DP-900) — Fundamentals. Verify: https://www.credly.com/badges/a85d4676-b329-47ae-b69f-878f93e4c5e4
 
-Two are Associate level and three are Fundamentals. Issue dates are not listed in the profile, so do not state them.
+Two are Associate level and three are Fundamentals. Each has a public verification link above (share it when asked for proof). Issue dates are not listed in the profile, so do not state them. The Certifications section of about.html also has a "Verify" button per certificate.
 
 ## Leadership
 
